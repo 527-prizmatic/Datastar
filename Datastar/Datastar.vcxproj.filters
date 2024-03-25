@@ -120,6 +120,9 @@
     <ClCompile Include="models.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="va_text.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="models.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="va_text.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

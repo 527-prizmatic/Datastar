@@ -27,6 +27,7 @@ void en_New(EnType _type, sfVector2f _pos) {
 		new->spd = NULLVECTF;
 		new->hp_max = 5;
 		new->aabb = FloatRect(_pos.x - 67.5f, _pos.y - 67.5f, 135.F, 135.f);
+		new->clr = Color3(64);
 	}
 
 	new->hp = new->hp_max;
@@ -53,8 +54,8 @@ void en_Update() {
 			}
 
 			if (flagDestroy) {
-				PtcSystem* ptc = ptc_CreateSystem(-1.f, .25f, 5, 2.f, 5.f, 70.f - v_AngAbsD(itrB->spd), 110.f - v_AngAbsD(itrB->spd), PTC_GRAV_NONE, NULL);
-				ptc_SetType(ptc, PTC_SHARD, 2.f, 5.f, 3, 3, sfWhite, sfWhite);
+				PtcSystem* ptc = ptc_CreateSystem(-1.f, .5f, 10, 2.f, 8.f, 60.f - v_AngAbsD(itrB->spd), 120.f - v_AngAbsD(itrB->spd), PTC_GRAV_NONE, NULL);
+				ptc_SetType(ptc, PTC_SHARD, 2.f, 5.f, 3, 3, sfWhite, itr->clr);
 				ptc_SetShape(ptc, PTCS_POINT, itrB->pos);
 				itrB = plb_PopPtr(itrB);
 			}
@@ -62,9 +63,13 @@ void en_Update() {
 			if (itr->hp <= 0) break;
 		}
 
-		/// Nothing here for now since the only enemy type we got doesn't require updates
-
-		if (itr->hp <= 0) itr = en_PopPtr(itr);
+		if (itr->hp <= 0) {
+			PtcSystem* ptc = ptc_CreateSystem(-1.f, 1.f, 100, 2.f, 12.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+			ptc_SetType(ptc, PTC_SHARD, 2.f, 7.f, 3, 3, sfWhite, itr->clr);
+			ptc_SetShape(ptc, PTCS_POINT, itr->pos, 20.f);
+			itr = en_PopPtr(itr);
+		}
+		else if (itr->pos.x < game_GetScrollX() - 100.f) itr = en_PopPtr(itr);
 		else itr = itr->next;
 	}
 }
@@ -73,8 +78,8 @@ void en_Render() {
 	EnData* itr = en_Sentinel->next;
 	while (itr != NULL) {
 		if (itr->type == EN_WALL) {
-			va_DrawRectangle(VA_LINE, NULL, itr->aabb, Color3(64));
-			va_DrawRectangle(VA_LINE, NULL, floatRect_Contract(itr->aabb, 5.f), Color3(64));
+			va_DrawRectangle(VA_LINE, NULL, itr->aabb, itr->clr);
+			va_DrawRectangle(VA_LINE, NULL, floatRect_Contract(itr->aabb, 5.f), itr->clr);
 		}
 
 		itr = itr->next;

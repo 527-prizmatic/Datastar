@@ -20,6 +20,7 @@ typedef struct EnData {
 	struct EnData* prev;
 	struct EnData* next;
 	enum EnType type;
+	sfColor clr;
 	sfVector2f pos;
 	sfVector2f spd;
 	sfFloatRect aabb;

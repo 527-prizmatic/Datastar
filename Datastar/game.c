@@ -59,6 +59,8 @@ void game_Render() {
 		hpUiPos[3] = Vector2f(21.f + i * 50.f, 40.f);
 		va_DrawPolygon(VA_LINE, NULL, 4, hpUiPos, sfTrue, sfWhite);
 	}
+
+	vt_DrawText(Vector2f(25.f, 1030.f), "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789", 25, TXT_LEFT, sfWhite);
 }
 
 void game_Unload() {

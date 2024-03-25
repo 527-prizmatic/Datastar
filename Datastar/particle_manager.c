@@ -248,6 +248,7 @@ void ptc_Update() {
 			itrP->clr.a = min(255, itrP->lifetime * (512.f / itrP->lifetime_max));
 		}
 		itrP->spd.y += itrP->gravity * getDeltaTime();
+		itrP->spd = v_Mul(itrP->spd, pow(.1f, getDeltaTime()));
 
 		itrP->lifetime -= getDeltaTime();
 		if (itrP->lifetime <= 0.f) itrP = ptc_DestroyParticle(itrP);
