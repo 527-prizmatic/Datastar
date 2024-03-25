@@ -34,12 +34,27 @@
     <Filter Include="Fichiers de ressources\Shaders">
       <UniqueIdentifier>{82ff56ec-7840-49a2-abfe-8dcfdd584b5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Game">
+      <UniqueIdentifier>{6de503f4-e839-4ed7-b041-1a6cce6bc713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\State Machine">
+      <UniqueIdentifier>{3b5b205a-c681-45ca-b7bd-6073cbf882b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Entities">
+      <UniqueIdentifier>{98ef40b2-d619-486a-b8db-edf02366f8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game">
+      <UniqueIdentifier>{f4b26346-a83e-4331-8002-5704d5137d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\State Machine">
+      <UniqueIdentifier>{cf626fda-28ce-456a-a39c-9b7e2c809608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\Entities">
+      <UniqueIdentifier>{46cdc5f3-d438-46b6-bdec-bdb2f9168027}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="demo.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="gamepad.c">
@@ -84,11 +99,29 @@
     <ClCompile Include="va_tools.c">
       <Filter>Fichiers sources\Engine\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="game.c">
+      <Filter>Fichiers sources\Game\State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="demo.c">
+      <Filter>Fichiers sources\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="player.c">
+      <Filter>Fichiers sources\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.c">
+      <Filter>Fichiers sources\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="player_bullet.c">
+      <Filter>Fichiers sources\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="walls.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="models.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="demo.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="gamepad.h">
       <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
     </ClInclude>
@@ -130,6 +163,27 @@
     </ClInclude>
     <ClInclude Include="va_tools.h">
       <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="demo.h">
+      <Filter>Fichiers d%27en-tête\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="walls.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="player_bullet.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="models.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

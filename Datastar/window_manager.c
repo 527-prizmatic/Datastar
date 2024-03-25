@@ -53,6 +53,9 @@ void w_ToggleFS() {
 
 void w_TogglePause() { window.isPaused = !window.isPaused; }
 
+void w_SetView(sfView* _v) { sfRenderWindow_setView(window.rw, _v); }
+void w_ResetView() { sfRenderWindow_setView(window.rw, sfRenderWindow_getDefaultView(window.rw)); }
+
 void w_Update() {
 	restartClock();
 	while (sfRenderWindow_pollEvent(window.rw, &(window.e))) {

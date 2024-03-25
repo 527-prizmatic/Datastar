@@ -77,29 +77,6 @@ ULL rng64() {
 	return res;
 }
 
-/*
-UL rng32() {
-	static int ctr1 = 0;
-	static int ctr2 = 0;
-	ctr1 = (ctr1 += 1) % 120530929;
-	ctr2 = (ctr2 += 1) % 664326991;
-
-	UL x = seed_rng;
-	x += 1;
-	x %= UL_LIMIT;
-	x ^= UL_LIMIT;
-	x *= 0x10000001;
-	x *= (x - 1);
-	x += ctr1;
-	x %= UL_LIMIT;
-	x += ctr2;
-	x %= UL_LIMIT;
-
-	seed_rng = (UL)x;
-	return x;
-}
-*/
-
 double rand_unit(int _d) {
 	double x = rng32();
 	x /= (double)UL_LIMIT;
@@ -107,3 +84,9 @@ double rand_unit(int _d) {
 	x /= pow(10.f, _d);
 	return x;
 }
+
+
+/// === MISC === ///
+
+sfFloatRect floatRect_Contract(sfFloatRect _r, float _val) { return FloatRect(_r.left + _val, _r.top + _val, _r.width - 2.f * _val, _r.height - 2.f * _val); }
+sfFloatRect floatRect_Expand(sfFloatRect _r, float _val) { return FloatRect(_r.left - _val, _r.top - _val, _r.width + 2.f * _val, _r.height + 2.f * _val); }

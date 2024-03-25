@@ -181,7 +181,7 @@ void ptc_CreateParticle(PtcType _type, sfVector2f _pos, sfVector2f _spd, float _
 void ptc_Update() {
 	PtcSystem* itrS = ptc_SSentinel->next;
 	while (itrS != NULL) {
-		if (!FEQS(itrS->lifetime, -1.f)) itrS->spawn_timer += itrS->pps * getDeltaTime();
+		if (!FEQS(itrS->system_lifetime, -1.f)) itrS->spawn_timer += itrS->pps * getDeltaTime();
 		else itrS->spawn_timer += itrS->pps;
 
 		while (itrS->spawn_timer >= 1.f) {

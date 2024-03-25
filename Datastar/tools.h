@@ -106,3 +106,9 @@ ULL rng64();
 /// Generates a random decimal number between 0 and 1 with the specified amount of decimals.
 /// To circumvent the 16-bit limit of rand(), which would induce severe precision losses, a custom RNG is used.
 double rand_unit(int _d);
+
+
+/// === MISC === ///
+
+sfFloatRect floatRect_Contract(sfFloatRect _r, float _val);
+sfFloatRect floatRect_Expand(sfFloatRect _r, float _val);

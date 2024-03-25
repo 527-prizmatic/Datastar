@@ -16,6 +16,7 @@
 #include "va_tools.h"
 
 #include "demo.h"
+#include "game.h"
 
 typedef enum {
 	GS_ALL = -1,

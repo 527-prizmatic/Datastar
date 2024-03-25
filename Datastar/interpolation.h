@@ -39,6 +39,10 @@ float itp_Linear(float _x);
 /// \return x^2
 float itp_Square(float _x);
 
+/// Inverted square interpolation. Return values are clamped between 0 and 1.
+/// \return 1 - ((1 - x)^2)
+float itp_InvSquare(float _x);
+
 /// Cubic interpolation. Return values are clamped between 0 and 1.
 /// \return x^3
 float itp_Cube(float _x);

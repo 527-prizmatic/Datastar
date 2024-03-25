@@ -8,7 +8,7 @@
 int main(int argc, char** argv) {
 	initTools();
 	log_Init(LOG_INFO | LOG_WARN | LOG_ERROR | LOG_FATAL);
-	w_Init("Prizmanager", sfVideoMode_getDesktopMode(), 60);
+	w_Init("Datastar", sfVideoMode_getDesktopMode(), 60);
 
 	while (!w_IsClosed()) {
 		gs_Init();
@@ -23,5 +23,8 @@ int main(int argc, char** argv) {
 		w_RenderEnd();
 	}
 
+	tex_ClearBuffer();
+	snd_ClearBuffer();
+	ptc_Clear();
 	log_Conclude();
 }

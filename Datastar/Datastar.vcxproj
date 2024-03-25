@@ -140,13 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="demo.c" />
+    <ClCompile Include="enemy.c" />
+    <ClCompile Include="game.c" />
     <ClCompile Include="gamepad.c" />
     <ClCompile Include="interpolation.c" />
     <ClCompile Include="json_parser.c" />
     <ClCompile Include="keyboard.c" />
     <ClCompile Include="logger.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="models.c" />
     <ClCompile Include="particle_manager.c" />
+    <ClCompile Include="player.c" />
+    <ClCompile Include="player_bullet.c" />
     <ClCompile Include="shader_manager.c" />
     <ClCompile Include="sound_manager.c" />
     <ClCompile Include="state_manager.c" />
@@ -154,16 +159,22 @@
     <ClCompile Include="tools.c" />
     <ClCompile Include="va_tools.c" />
     <ClCompile Include="vectors.c" />
+    <ClCompile Include="walls.c" />
     <ClCompile Include="window_manager.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="demo.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="gamepad.h" />
     <ClInclude Include="interpolation.h" />
     <ClInclude Include="json_parser.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="logger.h" />
+    <ClInclude Include="models.h" />
     <ClInclude Include="particle_manager.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="player_bullet.h" />
     <ClInclude Include="shader_manager.h" />
     <ClInclude Include="sound_manager.h" />
     <ClInclude Include="state_manager.h" />
@@ -171,6 +182,7 @@
     <ClInclude Include="tools.h" />
     <ClInclude Include="va_tools.h" />
     <ClInclude Include="vectors.h" />
+    <ClInclude Include="walls.h" />
     <ClInclude Include="window_manager.h" />
   </ItemGroup>
   <ItemGroup>

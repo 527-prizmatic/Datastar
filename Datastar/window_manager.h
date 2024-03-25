@@ -48,6 +48,12 @@ void w_ToggleFS();
 /// Toggles pause.
 void w_TogglePause();
 
+/// Sets a new render view.
+void w_SetView(sfView* _v);
+
+/// Resets the window's render view.
+void w_ResetView();
+
 /// Computes tick updates for the render window.
 void w_Update();
 

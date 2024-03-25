@@ -38,6 +38,17 @@ void va_Unload() {
 
 /// === QUICK RENDERING === ///
 
+void va_DrawLine(char* _rstate_id, sfVector2f _a, sfVector2f _b, sfColor _clr) {
+	sfRenderStates* rs = shd_FetchState(_rstate_id);
+	va_Clear();
+	va_SetType(sfLineStrip);
+
+	va_AddPoint(_a, _clr);
+	va_AddPoint(_b, _clr);
+
+	va_Draw(rs);
+}
+
 void va_DrawRectangle(VaTypes _type, char* _rstate_id, sfFloatRect _r, sfColor _clr) {
 	sfRenderStates* rs = shd_FetchState(_rstate_id);
 	va_Clear();
@@ -87,12 +98,12 @@ void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfB
 /// === TRANSFORMATIONS === ///
 
 void va_Translate(sfVertexArray* _va, sfVector2f _vec) {
-	int v = sfVertexArray_getVertexCount(_va);
+	size_t v = sfVertexArray_getVertexCount(_va);
 	for (int i = 0; i < v; i++) sfVertexArray_getVertex(_va, i)->position = v_Add(sfVertexArray_getVertex(_va, i)->position, _vec);
 }
 
 void va_SetPosition(sfVertexArray* _va, sfVector2f _vec) {
-	int v = sfVertexArray_getVertexCount(_va);
+	size_t v = sfVertexArray_getVertexCount(_va);
 	sfFloatRect aabb = sfVertexArray_getBounds(_va);
 	sfVector2f center = Vector2f(aabb.left + aabb.width * .5f, aabb.top + aabb.height * .5f);
 	for (int i = 0; i < v; i++) {
@@ -103,7 +114,7 @@ void va_SetPosition(sfVertexArray* _va, sfVector2f _vec) {
 }
 
 void va_Rotate(sfVertexArray* _va, float _angle) {
-	int v = sfVertexArray_getVertexCount(_va);
+	size_t v = sfVertexArray_getVertexCount(_va);
 	sfFloatRect aabb = sfVertexArray_getBounds(_va);
 	sfVector2f center = Vector2f(aabb.left + aabb.width * .5f, aabb.top + aabb.height * .5f);
 	for (int i = 0; i < v; i++) {
