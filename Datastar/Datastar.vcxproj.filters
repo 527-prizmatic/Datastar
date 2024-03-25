@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine">
+      <UniqueIdentifier>{dfdd9c04-bdfb-482c-ab93-c8be4370b718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine">
+      <UniqueIdentifier>{9a28dde0-6b7b-467d-bbd3-7f8c28d38972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\Managers">
+      <UniqueIdentifier>{9d63f0ff-7a42-4851-9e68-0ed64021363d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\Tools">
+      <UniqueIdentifier>{19b0bd18-611a-44cd-b4a1-8bc756716237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\Tools">
+      <UniqueIdentifier>{c4ad40b4-e6ba-42f9-aa2f-90fc65a3c0e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\Managers">
+      <UniqueIdentifier>{5fb23705-ed99-4096-b093-aaa646bb1ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\Shaders">
+      <UniqueIdentifier>{82ff56ec-7840-49a2-abfe-8dcfdd584b5e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="demo.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gamepad.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="interpolation.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="json_parser.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="tools.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="vectors.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="particle_manager.c">
+      <Filter>Fichiers sources\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="shader_manager.c">
+      <Filter>Fichiers sources\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="sound_manager.c">
+      <Filter>Fichiers sources\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="state_manager.c">
+      <Filter>Fichiers sources\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_manager.c">
+      <Filter>Fichiers sources\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="window_manager.c">
+      <Filter>Fichiers sources\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="va_tools.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="demo.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="gamepad.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="interpolation.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="json_parser.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="tools.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="vectors.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_manager.h">
+      <Filter>Fichiers d%27en-tête\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_manager.h">
+      <Filter>Fichiers d%27en-tête\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="sound_manager.h">
+      <Filter>Fichiers d%27en-tête\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="state_manager.h">
+      <Filter>Fichiers d%27en-tête\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_manager.h">
+      <Filter>Fichiers d%27en-tête\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="window_manager.h">
+      <Filter>Fichiers d%27en-tête\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="va_tools.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\shaders\example.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
