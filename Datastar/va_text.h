@@ -53,3 +53,5 @@ void vt_DrawChar6(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawChar7(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawChar8(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawChar9(sfVector2f _pos, int _size, sfColor _clr);
+void vt_DrawCharDot(sfVector2f _pos, int _size, sfColor _clr);
+void vt_DrawCharComma(sfVector2f _pos, int _size, sfColor _clr);

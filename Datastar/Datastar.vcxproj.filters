@@ -120,8 +120,20 @@
     <ClCompile Include="models.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="init.c">
+      <Filter>Fichiers sources\Game\State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="intro.c">
+      <Filter>Fichiers sources\Game\State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="level_select.c">
+      <Filter>Fichiers sources\Game\State Machine</Filter>
+    </ClCompile>
     <ClCompile Include="va_text.c">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.c">
+      <Filter>Fichiers sources\Game\State Machine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +203,21 @@
     <ClInclude Include="va_text.h">
       <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="init.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="intro.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="level_select.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assets\shaders\example.frag">
+    <None Include="..\assets\shaders\text.frag">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
   </ItemGroup>

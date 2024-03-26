@@ -1,6 +1,6 @@
 #include "game.h"
 
-float timer;
+float timerStateInit;
 
 void game_Init() {
 	model_Init();
@@ -10,18 +10,18 @@ void game_Init() {
 	en_Init();
 	plb_Init();
 
-	timer = 5.f;
+	timerStateInit = 5.f;
 }
 
 void game_Update() {
-	timer += getDeltaTime();
+	timerStateInit += getDeltaTime();
 	sfView_move(game_View, Vector2f(100.f * getDeltaTime(), 0.f));
 	plr_Update();
 	en_Update();
 	plb_Update();
 
-	if (timer >= 5.f) {
-		timer = 0.f;
+	if (timerStateInit >= 5.f) {
+		timerStateInit = 0.f;
 		for (int i = 1; i < 7; i++) if (RAND_BOOL) en_New(EN_WALL, Vector2f(game_GetScrollX() + 2000.f, i * 135.f + 67.5f));
 	}
 }

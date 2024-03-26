@@ -11,7 +11,6 @@
 #include "state_manager.h"
 #include "shader_manager.h"
 #include "va_tools.h"
-#include "particle_manager.h"
 #include "va_text.h"
 
 #include "player.h"

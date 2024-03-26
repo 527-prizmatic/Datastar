@@ -10,6 +10,7 @@
 #include "tools.h"
 #include "window_manager.h"
 #include "shader_manager.h"
+#include "state_manager.h"
 
 typedef enum {
 	VA_POINT,
@@ -70,6 +71,12 @@ void va_DrawCircle(VaTypes _type, char* _rstate_id, sfVector2f _o, float _rds, s
 /// \param _closed - Whether the shape should be closed
 /// \param _clr - Color of the polygon to display
 void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfBool _closed, sfColor _clr);
+
+/// Draws a double frame constituted of two rectangles.
+/// \param _rstate_id - A string literal containing the ID of the render state to be applied. leave NULL for no shader.
+/// \param _r - Bounds of the innermost rectangle. The second one is rendered with a 3-pixel offset outwards in all directions.
+/// \param _clr - Color of the frame
+void va_DrawFrame(char* _rstate_id, sfFloatRect _r, sfColor _clr);
 
 
 /// === TRANSFORMATIONS === ///

@@ -143,11 +143,15 @@
     <ClCompile Include="enemy.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gamepad.c" />
+    <ClCompile Include="init.c" />
     <ClCompile Include="interpolation.c" />
+    <ClCompile Include="intro.c" />
     <ClCompile Include="json_parser.c" />
     <ClCompile Include="keyboard.c" />
+    <ClCompile Include="level_select.c" />
     <ClCompile Include="logger.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="menu.c" />
     <ClCompile Include="models.c" />
     <ClCompile Include="particle_manager.c" />
     <ClCompile Include="player.c" />
@@ -168,10 +172,14 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamepad.h" />
+    <ClInclude Include="init.h" />
     <ClInclude Include="interpolation.h" />
+    <ClInclude Include="intro.h" />
     <ClInclude Include="json_parser.h" />
     <ClInclude Include="keyboard.h" />
+    <ClInclude Include="level_select.h" />
     <ClInclude Include="logger.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="models.h" />
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="player.h" />
@@ -188,7 +196,7 @@
     <ClInclude Include="window_manager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assets\shaders\example.frag" />
+    <None Include="..\assets\shaders\text.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

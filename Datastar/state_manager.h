@@ -16,6 +16,10 @@
 #include "va_tools.h"
 
 #include "demo.h"
+#include "init.h"
+#include "intro.h"
+#include "menu.h"
+#include "level_select.h"
 #include "game.h"
 
 typedef enum {
@@ -27,6 +31,8 @@ typedef enum {
 	GS_GAME = 4
 } GameState;
 GameState gs_state;
+
+float gs_TimerGlobal;
 
 static sfBool gs_FirstInit = sfTrue; /// Used to request initialization of the resource engine
 static sfBool gs_InitPass = sfFalse; /// Used to fire a round of resource init

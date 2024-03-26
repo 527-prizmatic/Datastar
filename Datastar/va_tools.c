@@ -29,6 +29,8 @@ void va_Init() {
 		log_LogStr(LOG_FATAL, "Vertex array engine initialization error: insufficient memory", sfTrue, sfTrue);
 		return;
 	}
+
+	shd_Preload(NULL, "text.frag", "text");
 }
 
 void va_Unload() {
@@ -85,6 +87,10 @@ void va_DrawCircle(VaTypes _type, char* _rstate_id, sfVector2f _o, float _rds, s
 
 void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfBool _closed, sfColor _clr) {
 	sfRenderStates* rs = shd_FetchState(_rstate_id);
+	if (rs && !strcmp(_rstate_id, "text")) {
+		sfShader_setColorUniform(rs->shader, "clr", _clr);
+		sfShader_setFloatUniform(rs->shader, "time", gs_TimerGlobal);
+	}
 	va_Clear();
 	va_SetType(_type);
 
@@ -92,6 +98,11 @@ void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfB
 	if (_closed) va_AddPoint(_l[0], _clr);
 
 	va_Draw(rs);
+}
+
+void va_DrawFrame(char* _rstate_id, sfFloatRect _r, sfColor _clr) {
+	va_DrawRectangle(VA_LINE, _rstate_id, _r, _clr);
+	va_DrawRectangle(VA_LINE, _rstate_id, floatRect_Expand(_r, 3.f), _clr);
 }
 
 

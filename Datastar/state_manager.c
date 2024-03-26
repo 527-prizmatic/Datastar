@@ -7,7 +7,8 @@ void gs_Init() {
 	if (gs_FirstInit) {
 		gs_FirstInit = sfFalse;
 		gs_InitPass = sfTrue;
-		gs_state = GS_GAME;
+		gs_state = GS_INIT;
+		gs_TimerGlobal = 0.f;
 
 		tex_Init();
 		snd_Init();
@@ -24,10 +25,10 @@ void gs_Init() {
 		gs_InitPass = sfFalse;
 
 		switch (gs_state) {
-			case GS_INIT: break;
-			case GS_INTRO: break;
-			case GS_MENU: break;
-			case GS_SELECT: break;
+			case GS_INIT: init_Init(); break;
+			case GS_INTRO: intro_Init(); break;
+			case GS_MENU: menu_Init(); break;
+			case GS_SELECT: msel_Init(); break;
 			case GS_GAME: game_Init(); break;
 		}
 
@@ -38,13 +39,15 @@ void gs_Init() {
 }
 
 void gs_Update() {
+	gs_TimerGlobal += getDeltaTime();
+
 	snd_Update();
 	if (!w_IsPaused()) {
 		switch (gs_state) {
-			case GS_INIT: break;
-			case GS_INTRO: break;
-			case GS_MENU: break;
-			case GS_SELECT: break;
+			case GS_INIT: init_Update(); break;
+			case GS_INTRO: intro_Update(); break;
+			case GS_MENU: menu_Update(); break;
+			case GS_SELECT: msel_Update(); break;
 			case GS_GAME: game_Update(); break;
 		}
 
@@ -54,10 +57,10 @@ void gs_Update() {
 
 void gs_Render() {
 	switch (gs_state) {
-		case GS_INIT: break;
-		case GS_INTRO: break;
-		case GS_MENU: break;
-		case GS_SELECT: break;
+		case GS_INIT: init_Render(); break;
+		case GS_INTRO: intro_Render(); break;
+		case GS_MENU: menu_Render(); break;
+		case GS_SELECT: msel_Render(); break;
 		case GS_GAME: game_Render(); break;
 	}
 }
@@ -69,10 +72,10 @@ void gs_Unload() {
 	ptc_Clear();
 
 	switch (gs_state) {
-		case GS_INIT: break;
-		case GS_INTRO: break;
-		case GS_MENU: break;
-		case GS_SELECT: break;
+		case GS_INIT: init_Unload(); break;
+		case GS_INTRO: intro_Unload(); break;
+		case GS_MENU: menu_Unload(); break;
+		case GS_SELECT: msel_Unload(); break;
 		case GS_GAME: game_Unload(); break;
 	}
 
