@@ -75,6 +75,24 @@ void w_Update() {
 	if (kb_TestPress(sfKeyEscape)) w_TogglePause();
 }
 
+sfVector2f w_GetMousePos() {
+	if (!w_HasFocus()) return Vector2f(-65536.f, -65536.f);
+	sfVector2i m = sfMouse_getPositionRenderWindow(window.rw);
+	return Vector2f(m.x, m.y);
+}
+
+sfBool w_LeftClick() {
+	static sfBool click = sfFalse;
+	if (sfMouse_isButtonPressed(sfMouseLeft) && w_HasFocus()) {
+		if (!click) {
+			click = sfTrue;
+			return sfTrue;
+		}
+	}
+	else click = sfFalse;
+	return sfFalse;
+}
+
 
 /// === RENDERING QUERY MANAGER === ///
 

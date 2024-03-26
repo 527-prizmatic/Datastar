@@ -28,7 +28,8 @@ typedef enum {
 	GS_INTRO = 1,
 	GS_MENU = 2,
 	GS_SELECT = 3,
-	GS_GAME = 4
+	GS_GAME = 4,
+	GS_EXIT = 5
 } GameState;
 GameState gs_state;
 

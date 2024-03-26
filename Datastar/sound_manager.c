@@ -261,6 +261,12 @@ float vol_GetSnd() { return snd_VolSnd; }
 float vol_GetMus() { return snd_VolMus; }
 SndMusState snd_GetMusicState() { return snd_MusState; }
 
+void mus_SetPos(char* _id, float _time) {
+	SndWrapper* mus = snd_IsValidMusic(_id);
+	if (!mus) return;
+	sfMusic_setPlayingOffset(mus->mus, (sfTime) { _time * 1e6f });
+}
+
 SndWrapper* snd_IsValidMusic(char* _id) {
 	SndWrapper* itr = snd_Sentinel->next;
 	while (itr != NULL) {
@@ -287,8 +293,9 @@ void snd_Unload(char* _id) {
 	SndWrapper* itr = snd_Sentinel->next;
 	while (itr != NULL) {
 		if (!strcmp(itr->id, _id)) {
-			snd_PopPtr(itr);
-			log_LogStr(LOG_INFO, "Successfully unloaded sound: ", sfTrue, sfFalse);
+			if (snd_NowPlaying == itr) snd_NowPlaying = NULL;
+			itr = snd_PopPtr(itr);
+			log_LogStr(LOG_INFO, "Successfully unloaded sound:", sfTrue, sfFalse);
 			log_LogStr(LOG_INFO, _id, sfFalse, sfTrue);
 			return;
 		}

@@ -17,6 +17,7 @@ typedef struct {
 	int hp_max;
 	float rot;
 	float fireTimer;
+	float inv_frames;
 } PlrPlayer;
 PlrPlayer plr_Player;
 
@@ -29,3 +30,4 @@ void plr_Render();
 void plr_Unload();
 
 void plr_Control();
+sfBool plr_Collisions();

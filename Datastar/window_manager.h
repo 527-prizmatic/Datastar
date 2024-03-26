@@ -57,6 +57,14 @@ void w_ResetView();
 /// Computes tick updates for the render window.
 void w_Update();
 
+/// TODO MAKE AN ACTUAL MOUSE MANAGER FOR THOSE
+
+/// Gets mouse position. Returns (-65536.f, -65536.f) if the render window doesn't have focus.
+sfVector2f w_GetMousePos();
+
+/// Tests whether the left mouse button has been clicked.
+sfBool w_LeftClick();
+
 
 /// === RENDERING QUERY MANAGER === ///
 /// Function prefix: rq_

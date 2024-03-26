@@ -20,6 +20,11 @@ sfBool kb_TestPress(sfKeyCode _k) { return kb_KeyStates[_k] == 1; }
 sfBool kb_TestHold(sfKeyCode _k) { return kb_KeyStates[_k] == 2; }
 sfBool kb_TestRelease(sfKeyCode _k) { return kb_KeyStates[_k] == 3; }
 
+sfBool kb_TestPressAnyKey() {
+	for (int i = 0; i < sfKeyCount; i++) if (kb_KeyStates[i] == 1) return sfTrue;
+	return sfFalse;
+}
+
 void kb_Update() {
 	if (!w_HasFocus() || !kb_IsEnabled()) {
 		for (int i = 0; i < sfKeyCount; i++) kb_KeyStates[i] = 0;

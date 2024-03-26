@@ -30,5 +30,8 @@ sfBool kb_TestHold(sfKeyCode _k);
 /// Checks if a keyboard key was just released.
 sfBool kb_TestRelease(sfKeyCode _k);
 
+/// Checks if a key was just pressed.
+sfBool kb_TestPressAnyKey();
+
 /// Monitors the current state of the keyboard. Note that if the game window doesn't currently have focus, then no input will be recorded at all.
 void kb_Update();

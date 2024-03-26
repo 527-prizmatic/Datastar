@@ -92,6 +92,8 @@ void tex_Unload(char* _id) {
 	while (itr != NULL) {
 		if (!strcmp(itr->id, _id)) {
 			itr = tex_PopPtr(itr);
+			log_LogStr(LOG_INFO, "Successfully unloaded texture:", sfTrue, sfFalse);
+			log_LogStr(LOG_INFO, _id, sfFalse, sfTrue);
 			return;
 		}
 		itr = itr->next;

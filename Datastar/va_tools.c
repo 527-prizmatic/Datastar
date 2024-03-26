@@ -81,6 +81,25 @@ void va_DrawPolygonReg(VaTypes _type, char* _rstate_id, int _v, sfVector2f _o, f
 	va_Draw(rs);
 }
 
+void va_DrawPolygonStar(VaTypes _type, char* _rstate_id, int _v, sfVector2f _o, float _rds, float _angle, sfColor _clr) {
+	if (_v < 3) {
+		log_LogStr(LOG_ERROR, "Vertex array engine rendering error: attempting to render a star with too few vertices (", sfTrue, sfFalse);
+		log_LogInt(LOG_ERROR, _v, sfFalse, sfFalse);
+		log_LogStr(LOG_ERROR, ")", sfFalse, sfTrue);
+		return;
+	}
+	sfRenderStates* rs = shd_FetchState(_rstate_id);
+	va_Clear();
+	va_SetType(_type);
+
+	for (int i = 0; i <= _v; i++) {
+		va_AddPoint(v_Add(_o, v_RotateD(Vector2f(0.f, _rds), 180.f + _angle + (360.f / (float)_v) * i)), _clr);
+		va_AddPoint(v_Add(_o, v_RotateD(Vector2f(0.f, _rds * .4f), 180.f + _angle + (360.f / (float)_v) * (i + .5f))), _clr);
+	}
+
+	va_Draw(rs);
+}
+
 void va_DrawCircle(VaTypes _type, char* _rstate_id, sfVector2f _o, float _rds, sfColor _clr) {
 	va_DrawPolygonReg(_type, _rstate_id, 50, _o, _rds, 0.f, _clr);
 }
@@ -103,6 +122,13 @@ void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfB
 void va_DrawFrame(char* _rstate_id, sfFloatRect _r, sfColor _clr) {
 	va_DrawRectangle(VA_LINE, _rstate_id, _r, _clr);
 	va_DrawRectangle(VA_LINE, _rstate_id, floatRect_Expand(_r, 3.f), _clr);
+}
+
+void va_DrawScreenBorders() {
+	sfFloatRect screenBounds = FloatRect(0.f, 0.f, 1921.f, 1081.f);
+	for (int i = 0; i < 5; i++) {
+		va_DrawRectangle(VA_LINE, NULL, floatRect_Contract(screenBounds, 25.f * (i + 1)), ColorA(255, 255, 255, 135 - 30 * i));
+	}
 }
 
 
@@ -132,5 +158,13 @@ void va_Rotate(sfVertexArray* _va, float _angle) {
 		sfVertex* vp = sfVertexArray_getVertex(_va, i);
 		sfVector2f posRel = v_Sub(vp->position, center);
 		vp->position = v_Add(center, v_RotateD(posRel, _angle));
+	}
+}
+
+void va_SetColorOverride(sfVertexArray* _va, sfColor _clr) {
+	size_t v = sfVertexArray_getVertexCount(_va);
+	for (int i = 0; i < v; i++) {
+		sfVertex* vp = sfVertexArray_getVertex(_va, i);
+		vp->color = _clr;
 	}
 }

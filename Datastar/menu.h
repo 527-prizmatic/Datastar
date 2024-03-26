@@ -8,6 +8,7 @@
 #include "texture_manager.h"
 #include "sound_manager.h"
 #include "shader_manager.h"
+#include "window_manager.h"
 
 void menu_Init();
 void menu_Update();

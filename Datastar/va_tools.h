@@ -55,6 +55,16 @@ void va_DrawRectangle(VaTypes _type, char* _rstate_id, sfFloatRect _r, sfColor _
 /// \param _clr - Color of the polygon to display
 void va_DrawPolygonReg(VaTypes _type, char* _rstate_id, int _v, sfVector2f _o, float _rds, float _angle, sfColor _clr);
 
+/// Draws a star polygon.
+/// \param _type - Primitive type
+/// \param _rstate_id - A string literal containing the ID of the render state to be applied. leave NULL for no shader.
+/// \param _v - Number of vertices
+/// \param _o - Center position
+/// \param _rds - Polygon radius
+/// \param _angle - Angle in degrees. If given 0, the first vertex drawn will be facing straight up.
+/// \param _clr - Color of the polygon to display
+void va_DrawPolygonStar(VaTypes _type, char* _rstate_id, int _v, sfVector2f _o, float _rds, float _angle, sfColor _clr);
+
 /// Draws a circle. To keep things simple enough, the shape will simply be approximated as a 50-vertex regular polygon (a bit more than the SFML's default 30).
 /// \param _type - Primitive type
 /// \param _rstate_id - A string literal containing the ID of the render state to be applied. leave NULL for no shader.
@@ -78,6 +88,9 @@ void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfB
 /// \param _clr - Color of the frame
 void va_DrawFrame(char* _rstate_id, sfFloatRect _r, sfColor _clr);
 
+/// Draws a preset frame around the screen's edges.
+void va_DrawScreenBorders();
+
 
 /// === TRANSFORMATIONS === ///
 /// A set of functions allowing to perform various transformations (translation, rotation, etc.) on vertex arrays.
@@ -88,3 +101,5 @@ void va_Translate(sfVertexArray* _va, sfVector2f _vec);
 void va_SetPosition(sfVertexArray* _va, sfVector2f _vec);
 
 void va_Rotate(sfVertexArray* _va, float _angle);
+
+void va_SetColorOverride(sfVertexArray* _va, sfColor _clr);

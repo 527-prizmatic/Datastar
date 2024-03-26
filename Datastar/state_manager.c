@@ -7,7 +7,7 @@ void gs_Init() {
 	if (gs_FirstInit) {
 		gs_FirstInit = sfFalse;
 		gs_InitPass = sfTrue;
-		gs_state = GS_INIT;
+		gs_state = GS_MENU;
 		gs_TimerGlobal = 0.f;
 
 		tex_Init();
@@ -90,7 +90,12 @@ void gs_ChangeState(GameState _gs) {
 	log_LogStr(LOG_INFO, "to", sfFalse, sfFalse);
 	log_LogStr(LOG_INFO, gs_StateToString(_gs), sfFalse, sfTrue);
 
+	mus_Stop();
 	gs_Unload();
+	if (_gs == GS_EXIT) {
+		w_Destroy();
+		return;
+	}
 	gs_state = _gs;
 	gs_InitPass = sfTrue;
 	gs_Init();
@@ -104,6 +109,7 @@ char* gs_StateToString(GameState _gs) {
 		case GS_MENU: return "MENU";
 		case GS_SELECT: return "SELECT";
 		case GS_GAME: return "GAME";
+		case GS_EXIT: return "EXIT";
 		default: return "???";
 	}
 }

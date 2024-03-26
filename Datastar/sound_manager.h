@@ -84,6 +84,8 @@ float vol_GetSnd();
 float vol_GetMus();
 SndMusState snd_GetMusicState();
 
+void mus_SetPos(char* _id, float _time);
+
 /// Unloads the requested sound from memory.
 void snd_Unload(char* _id);
 
