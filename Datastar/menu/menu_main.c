@@ -27,7 +27,7 @@ void m_main_Update() {
 
 	if (kb_TestPress(sfKeySpace) || w_LeftClick()) {
 		switch (menu_MainSel) {
-		case 0: printf("credits\n"); break;
+		case 0: menu_SetSubstate(MENU_CREDITS); break;
 		case 1: printf("options\n"); break;
 		case 2: gs_ChangeState(GS_GAME); break;
 		case 3: printf("controls\n"); break;

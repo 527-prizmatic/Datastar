@@ -153,6 +153,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="menu\bg.c" />
+    <ClCompile Include="menu\menu_credits.c" />
     <ClCompile Include="menu\menu_main.c" />
     <ClCompile Include="models.c" />
     <ClCompile Include="particle_manager.c" />
@@ -186,6 +187,7 @@
     <ClInclude Include="logger.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="menu\bg.h" />
+    <ClInclude Include="menu\menu_credits.h" />
     <ClInclude Include="menu\menu_main.h" />
     <ClInclude Include="models.h" />
     <ClInclude Include="particle_manager.h" />

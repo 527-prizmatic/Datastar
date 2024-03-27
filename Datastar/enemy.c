@@ -127,8 +127,8 @@ void en_Update() {
 		}
 
 		if (itr->hp <= 0) {
-			PtcSystem* ptc = ptc_CreateSystem(-1.f, 1.f, 100, 2.f, 12.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
-			ptc_SetType(ptc, PTC_SHARD, 2.f, 7.f, 3, 3, sfWhite, itr->clr);
+			PtcSystem* ptc = ptc_CreateSystem(-1.f, 1.f, 75, 2.f, 8.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+			ptc_SetType(ptc, PTC_SHARD, 1.f, 6.f, 3, 3, sfWhite, itr->clr);
 			ptc_SetShape(ptc, PTCS_POINT, itr->pos, 20.f);
 			score_Add(en_GetValue(itr->type));
 			itr = en_PopPtr(itr);

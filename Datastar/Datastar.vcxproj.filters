@@ -162,6 +162,9 @@
     <ClCompile Include="score.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="menu\menu_credits.c">
+      <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="score.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\menu_credits.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

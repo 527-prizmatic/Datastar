@@ -55,3 +55,5 @@ void vt_DrawChar8(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawChar9(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawCharDot(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawCharComma(sfVector2f _pos, int _size, sfColor _clr);
+void vt_DrawCharHyphen(sfVector2f _pos, int _size, sfColor _clr);
+void vt_DrawCharApostrophe(sfVector2f _pos, int _size, sfColor _clr);
