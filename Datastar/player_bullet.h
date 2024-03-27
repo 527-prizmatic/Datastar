@@ -17,7 +17,6 @@ typedef struct PlayerBullet {
 	struct PlayerBullet* next;
 	enum PlbType type;
 	sfVector2f pos;
-	sfVector2f oldPos[3]; // FOR LATER, FOR COMPUTING AFTERIMAGES
 	sfVector2f spd;
 	float lifetime;
 } PlayerBullet;

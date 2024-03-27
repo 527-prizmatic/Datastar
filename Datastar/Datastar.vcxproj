@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="demo.c" />
     <ClCompile Include="enemy.c" />
+    <ClCompile Include="enemy_bullet.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gamepad.c" />
     <ClCompile Include="init.c" />
@@ -148,14 +149,16 @@
     <ClCompile Include="intro.c" />
     <ClCompile Include="json_parser.c" />
     <ClCompile Include="keyboard.c" />
-    <ClCompile Include="level_select.c" />
     <ClCompile Include="logger.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
+    <ClCompile Include="menu\bg.c" />
+    <ClCompile Include="menu\menu_main.c" />
     <ClCompile Include="models.c" />
     <ClCompile Include="particle_manager.c" />
     <ClCompile Include="player.c" />
     <ClCompile Include="player_bullet.c" />
+    <ClCompile Include="score.c" />
     <ClCompile Include="shader_manager.c" />
     <ClCompile Include="sound_manager.c" />
     <ClCompile Include="state_manager.c" />
@@ -165,11 +168,14 @@
     <ClCompile Include="va_tools.c" />
     <ClCompile Include="vectors.c" />
     <ClCompile Include="walls.c" />
+    <ClCompile Include="waves.c" />
+    <ClCompile Include="waves\level_1.c" />
     <ClCompile Include="window_manager.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="demo.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemy_bullet.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamepad.h" />
     <ClInclude Include="init.h" />
@@ -177,13 +183,15 @@
     <ClInclude Include="intro.h" />
     <ClInclude Include="json_parser.h" />
     <ClInclude Include="keyboard.h" />
-    <ClInclude Include="level_select.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="menu\bg.h" />
+    <ClInclude Include="menu\menu_main.h" />
     <ClInclude Include="models.h" />
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_bullet.h" />
+    <ClInclude Include="score.h" />
     <ClInclude Include="shader_manager.h" />
     <ClInclude Include="sound_manager.h" />
     <ClInclude Include="state_manager.h" />
@@ -193,9 +201,12 @@
     <ClInclude Include="va_tools.h" />
     <ClInclude Include="vectors.h" />
     <ClInclude Include="walls.h" />
+    <ClInclude Include="waves.h" />
+    <ClInclude Include="waves\level_1.h" />
     <ClInclude Include="window_manager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\assets\shaders\grid.frag" />
     <None Include="..\assets\shaders\text.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -31,46 +31,51 @@ void vt_DrawText(sfVector2f _pos, char* _msg, int _size, WTxtAlign _align, sfCol
 }
 
 void vt_DrawChar(sfVector2f _pos, char _char, int _size, sfColor _clr) {
-	switch (_char) {
-		case ' ': break;
-		case 'A':	vt_DrawCharA(_pos, _size, _clr); break;
-		case 'B':	vt_DrawCharB(_pos, _size, _clr); break;
-		case 'C':	vt_DrawCharC(_pos, _size, _clr); break;
-		case 'D':	vt_DrawCharD(_pos, _size, _clr); break;
-		case 'E':	vt_DrawCharE(_pos, _size, _clr); break;
-		case 'F':	vt_DrawCharF(_pos, _size, _clr); break;
-		case 'G':	vt_DrawCharG(_pos, _size, _clr); break;
-		case 'H':	vt_DrawCharH(_pos, _size, _clr); break;
-		case 'I':	vt_DrawCharI(_pos, _size, _clr); break;
-		case 'J':	vt_DrawCharJ(_pos, _size, _clr); break;
-		case 'K':	vt_DrawCharK(_pos, _size, _clr); break;
-		case 'L':	vt_DrawCharL(_pos, _size, _clr); break;
-		case 'M':	vt_DrawCharM(_pos, _size, _clr); break;
-		case 'N':	vt_DrawCharN(_pos, _size, _clr); break;
-		case 'O':	vt_DrawCharO(_pos, _size, _clr); break;
-		case 'P':	vt_DrawCharP(_pos, _size, _clr); break;
-		case 'Q':	vt_DrawCharQ(_pos, _size, _clr); break;
-		case 'R':	vt_DrawCharR(_pos, _size, _clr); break;
-		case 'S':	vt_DrawCharS(_pos, _size, _clr); break;
-		case 'T':	vt_DrawCharT(_pos, _size, _clr); break;
-		case 'U':	vt_DrawCharU(_pos, _size, _clr); break;
-		case 'V':	vt_DrawCharV(_pos, _size, _clr); break;
-		case 'W':	vt_DrawCharW(_pos, _size, _clr); break;
-		case 'X':	vt_DrawCharX(_pos, _size, _clr); break;
-		case 'Y':	vt_DrawCharY(_pos, _size, _clr); break;
-		case 'Z':	vt_DrawCharZ(_pos, _size, _clr); break;
-		case '0':	vt_DrawChar0(_pos, _size, _clr); break;
-		case '1':	vt_DrawChar1(_pos, _size, _clr); break;
-		case '2':	vt_DrawChar2(_pos, _size, _clr); break;
-		case '3':	vt_DrawChar3(_pos, _size, _clr); break;
-		case '4':	vt_DrawChar4(_pos, _size, _clr); break;
-		case '5':	vt_DrawChar5(_pos, _size, _clr); break;
-		case '6':	vt_DrawChar6(_pos, _size, _clr); break;
-		case '7':	vt_DrawChar7(_pos, _size, _clr); break;
-		case '8':	vt_DrawChar8(_pos, _size, _clr); break;
-		case '9':	vt_DrawChar9(_pos, _size, _clr); break;
-		case '.':	vt_DrawCharDot(_pos, _size, _clr); break;
-		case ',':	vt_DrawCharComma(_pos, _size, _clr); break;
+	sfColor clrBase = _clr;
+	for (int i = 0; i < 5; i++) {
+		switch (_char) {
+			case ' ': break;
+			case 'A':	vt_DrawCharA(_pos, _size, _clr); break;
+			case 'B':	vt_DrawCharB(_pos, _size, _clr); break;
+			case 'C':	vt_DrawCharC(_pos, _size, _clr); break;
+			case 'D':	vt_DrawCharD(_pos, _size, _clr); break;
+			case 'E':	vt_DrawCharE(_pos, _size, _clr); break;
+			case 'F':	vt_DrawCharF(_pos, _size, _clr); break;
+			case 'G':	vt_DrawCharG(_pos, _size, _clr); break;
+			case 'H':	vt_DrawCharH(_pos, _size, _clr); break;
+			case 'I':	vt_DrawCharI(_pos, _size, _clr); break;
+			case 'J':	vt_DrawCharJ(_pos, _size, _clr); break;
+			case 'K':	vt_DrawCharK(_pos, _size, _clr); break;
+			case 'L':	vt_DrawCharL(_pos, _size, _clr); break;
+			case 'M':	vt_DrawCharM(_pos, _size, _clr); break;
+			case 'N':	vt_DrawCharN(_pos, _size, _clr); break;
+			case 'O':	vt_DrawCharO(_pos, _size, _clr); break;
+			case 'P':	vt_DrawCharP(_pos, _size, _clr); break;
+			case 'Q':	vt_DrawCharQ(_pos, _size, _clr); break;
+			case 'R':	vt_DrawCharR(_pos, _size, _clr); break;
+			case 'S':	vt_DrawCharS(_pos, _size, _clr); break;
+			case 'T':	vt_DrawCharT(_pos, _size, _clr); break;
+			case 'U':	vt_DrawCharU(_pos, _size, _clr); break;
+			case 'V':	vt_DrawCharV(_pos, _size, _clr); break;
+			case 'W':	vt_DrawCharW(_pos, _size, _clr); break;
+			case 'X':	vt_DrawCharX(_pos, _size, _clr); break;
+			case 'Y':	vt_DrawCharY(_pos, _size, _clr); break;
+			case 'Z':	vt_DrawCharZ(_pos, _size, _clr); break;
+			case '0':	vt_DrawChar0(_pos, _size, _clr); break;
+			case '1':	vt_DrawChar1(_pos, _size, _clr); break;
+			case '2':	vt_DrawChar2(_pos, _size, _clr); break;
+			case '3':	vt_DrawChar3(_pos, _size, _clr); break;
+			case '4':	vt_DrawChar4(_pos, _size, _clr); break;
+			case '5':	vt_DrawChar5(_pos, _size, _clr); break;
+			case '6':	vt_DrawChar6(_pos, _size, _clr); break;
+			case '7':	vt_DrawChar7(_pos, _size, _clr); break;
+			case '8':	vt_DrawChar8(_pos, _size, _clr); break;
+			case '9':	vt_DrawChar9(_pos, _size, _clr); break;
+			case '.':	vt_DrawCharDot(_pos, _size, _clr); break;
+			case ',':	vt_DrawCharComma(_pos, _size, _clr); break;
+		}
+		_pos.y++;
+		_clr.a = clrBase.a * itp_Float(0.f, 1.f, (5.f - i) / 5.f, itp_Square);
 	}
 }
 

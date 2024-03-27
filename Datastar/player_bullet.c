@@ -12,10 +12,7 @@ void plb_New(PlbType _type, sfVector2f _pos) {
 
 	new->type = _type;
 	new->pos = _pos;
-	new->spd = Vector2f(500.f, 0.f);
-	new->oldPos[0] = _pos;
-	new->oldPos[1] = _pos;
-	new->oldPos[2] = _pos;
+	new->spd = Vector2f(1200.f, 0.f);
 	new->lifetime = 3.f;
 	
 	plb_Add(new);
@@ -33,6 +30,8 @@ void plb_Update() {
 	PlayerBullet* itr = plb_Sentinel->next;
 	while (itr != NULL) {
 		itr->pos = v_Add(itr->pos, v_Mul(itr->spd, getDeltaTime()));
+		itr->lifetime -= getDeltaTime();
+
 
 		if (itr->lifetime <= 0.f || !game_IsOnScreen(itr->pos)) itr = plb_PopPtr(itr);
 		else itr = itr->next;
@@ -42,7 +41,12 @@ void plb_Update() {
 void plb_Render() {
 	PlayerBullet* itr = plb_Sentinel->next;
 	while (itr != NULL) {
-		va_DrawPolygonReg(VA_LINE, NULL, 3, itr->pos, 5.f, 90.f - v_AngAbsD(itr->spd), sfWhite);
+		va_DrawPolygonReg(VA_LINE, NULL, 3, itr->pos, 7.f, 90.f - v_AngAbsD(itr->spd), sfWhite);
+		sfColor clr = sfWhite;
+		for (int i = 0; i < 25; i++) {
+			clr.a = itp_Float(0.f, 255.f, 1.f - i / 25.f, itp_Cube);
+			va_DrawPolygonReg(VA_LINE, NULL, 3, v_Sub(itr->pos, Vector2f(i * 3.f, 0.f)), 7.f, 90.f - v_AngAbsD(itr->spd), clr);
+		}
 		itr = itr->next;
 	}
 }

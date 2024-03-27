@@ -16,8 +16,10 @@
 #include "player.h"
 #include "walls.h"
 #include "enemy.h"
-
+#include "waves.h"
+#include "score.h"
 sfView* game_View;
+sfVector2f game_ViewPos;
 
 void game_Init();
 void game_Update();
@@ -27,3 +29,6 @@ void game_Unload();
 float game_GetScrollX();
 
 sfBool game_IsOnScreen(sfVector2f _pos);
+sfBool game_GetBeatFlag();
+void game_LoadLevel(int _lvl);
+int game_GetLevel();

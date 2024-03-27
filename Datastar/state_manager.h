@@ -19,7 +19,6 @@
 #include "init.h"
 #include "intro.h"
 #include "menu.h"
-#include "level_select.h"
 #include "game.h"
 
 typedef enum {
@@ -27,9 +26,8 @@ typedef enum {
 	GS_INIT = 0,
 	GS_INTRO = 1,
 	GS_MENU = 2,
-	GS_SELECT = 3,
-	GS_GAME = 4,
-	GS_EXIT = 5
+	GS_GAME = 3,
+	GS_EXIT = 4
 } GameState;
 GameState gs_state;
 

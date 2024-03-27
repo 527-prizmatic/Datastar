@@ -52,6 +52,18 @@
     <Filter Include="Fichiers d%27en-tête\Game\Entities">
       <UniqueIdentifier>{46cdc5f3-d438-46b6-bdec-bdb2f9168027}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Game\State Machine\Menu Substates">
+      <UniqueIdentifier>{20c8e9ff-114d-45c1-88c1-80b4852bcb12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\State Machine\Menu Substates">
+      <UniqueIdentifier>{c5f69b50-1600-49a0-a911-7623edc2b852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Waves">
+      <UniqueIdentifier>{5b394241-5236-480f-93c5-b89fa09862fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\Waves">
+      <UniqueIdentifier>{7eb72000-373e-4ee6-b72b-56c927db0948}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -126,14 +138,29 @@
     <ClCompile Include="intro.c">
       <Filter>Fichiers sources\Game\State Machine</Filter>
     </ClCompile>
-    <ClCompile Include="level_select.c">
-      <Filter>Fichiers sources\Game\State Machine</Filter>
-    </ClCompile>
     <ClCompile Include="va_text.c">
       <Filter>Fichiers sources\Engine\Tools</Filter>
     </ClCompile>
     <ClCompile Include="menu.c">
       <Filter>Fichiers sources\Game\State Machine</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\bg.c">
+      <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\menu_main.c">
+      <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy_bullet.c">
+      <Filter>Fichiers sources\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="waves\level_1.c">
+      <Filter>Fichiers sources\Game\Waves</Filter>
+    </ClCompile>
+    <ClCompile Include="waves.c">
+      <Filter>Fichiers sources\Game\Waves</Filter>
+    </ClCompile>
+    <ClCompile Include="score.c">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,12 +239,30 @@
     <ClInclude Include="menu.h">
       <Filter>Fichiers d%27en-tête\Game\State Machine</Filter>
     </ClInclude>
-    <ClInclude Include="level_select.h">
-      <Filter>Fichiers d%27en-tête\Game\State Machine</Filter>
+    <ClInclude Include="menu\bg.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\menu_main.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy_bullet.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="waves\level_1.h">
+      <Filter>Fichiers d%27en-tête\Game\Waves</Filter>
+    </ClInclude>
+    <ClInclude Include="waves.h">
+      <Filter>Fichiers d%27en-tête\Game\Waves</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\text.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="..\assets\shaders\grid.frag">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
   </ItemGroup>

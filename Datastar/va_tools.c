@@ -14,7 +14,7 @@ void va_Draw(sfRenderStates* _rstate) {
 void va_SetType(VaTypes _type) {
 	switch (_type) {
 		case VA_LINE: sfVertexArray_setPrimitiveType(va_va, sfLineStrip); break;
-		case VA_TRI: sfVertexArray_setPrimitiveType(va_va, sfTriangleStrip); break;
+		case VA_TRI: sfVertexArray_setPrimitiveType(va_va, sfTriangleFan); break;
 		default: log_LogStr(LOG_ERROR, "Vertex array engine rendering error: unknown primitive type", sfTrue, sfTrue);
 		case VA_POINT: sfVertexArray_setPrimitiveType(va_va, sfPoints); break;
 	}
@@ -43,7 +43,7 @@ void va_Unload() {
 void va_DrawLine(char* _rstate_id, sfVector2f _a, sfVector2f _b, sfColor _clr) {
 	sfRenderStates* rs = shd_FetchState(_rstate_id);
 	va_Clear();
-	va_SetType(sfLineStrip);
+	va_SetType(VA_LINE);
 
 	va_AddPoint(_a, _clr);
 	va_AddPoint(_b, _clr);
@@ -60,7 +60,7 @@ void va_DrawRectangle(VaTypes _type, char* _rstate_id, sfFloatRect _r, sfColor _
 	va_AddPoint(Vector2f(_r.left + _r.width, _r.top), _clr);
 	va_AddPoint(Vector2f(_r.left + _r.width, _r.top + _r.height), _clr);
 	va_AddPoint(Vector2f(_r.left, _r.top + _r.height), _clr);
-	va_AddPoint(Vector2f(_r.left, _r.top), _clr);
+	if (_type == VA_LINE) va_AddPoint(Vector2f(_r.left, _r.top), _clr);
 
 	va_Draw(rs);
 }

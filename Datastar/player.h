@@ -8,11 +8,13 @@
 #include "keyboard.h"
 #include "game.h"
 #include "player_bullet.h"
+#include "enemy_bullet.h"
 #include "models.h"
 
 typedef struct {
 	sfVector2f pos;
 	sfVector2f spd;
+	sfVector2f acc;
 	int hp;
 	int hp_max;
 	float rot;

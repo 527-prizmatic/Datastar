@@ -4,6 +4,7 @@
 char* gs_StateToString(GameState _gs);
 
 void gs_Init() {
+	/// This is done only once on startup
 	if (gs_FirstInit) {
 		gs_FirstInit = sfFalse;
 		gs_InitPass = sfTrue;
@@ -21,6 +22,7 @@ void gs_Init() {
 		log_LogStr(LOG_INFO, "Preinit complete", sfTrue, sfTrue);
 	}
 
+	/// This is done each time a new gamestate change is requested via the function gs_ChangeState()
 	if (gs_InitPass) {
 		gs_InitPass = sfFalse;
 
@@ -28,7 +30,6 @@ void gs_Init() {
 			case GS_INIT: init_Init(); break;
 			case GS_INTRO: intro_Init(); break;
 			case GS_MENU: menu_Init(); break;
-			case GS_SELECT: msel_Init(); break;
 			case GS_GAME: game_Init(); break;
 		}
 
@@ -47,7 +48,6 @@ void gs_Update() {
 			case GS_INIT: init_Update(); break;
 			case GS_INTRO: intro_Update(); break;
 			case GS_MENU: menu_Update(); break;
-			case GS_SELECT: msel_Update(); break;
 			case GS_GAME: game_Update(); break;
 		}
 
@@ -60,7 +60,6 @@ void gs_Render() {
 		case GS_INIT: init_Render(); break;
 		case GS_INTRO: intro_Render(); break;
 		case GS_MENU: menu_Render(); break;
-		case GS_SELECT: msel_Render(); break;
 		case GS_GAME: game_Render(); break;
 	}
 }
@@ -75,7 +74,6 @@ void gs_Unload() {
 		case GS_INIT: init_Unload(); break;
 		case GS_INTRO: intro_Unload(); break;
 		case GS_MENU: menu_Unload(); break;
-		case GS_SELECT: msel_Unload(); break;
 		case GS_GAME: game_Unload(); break;
 	}
 
@@ -107,7 +105,6 @@ char* gs_StateToString(GameState _gs) {
 		case GS_INIT: return "INIT";
 		case GS_INTRO: return "INTRO";
 		case GS_MENU: return "MENU";
-		case GS_SELECT: return "SELECT";
 		case GS_GAME: return "GAME";
 		case GS_EXIT: return "EXIT";
 		default: return "???";

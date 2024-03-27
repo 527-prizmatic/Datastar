@@ -1,38 +1,82 @@
 #include "game.h"
 
-float init_TimerGlobal;
+float game_TimerWaves = 6.f;
+float game_TimerBeats = 0.f;
+int game_Waves = 0;
+int game_Beats = 1;
+sfBool game_BeatFlag = sfFalse, game_WaveFlag = sfFalse;
+char* game_TxtBeats, *game_TxtWaves;
+int game_Level;
+float game_TimerBg = 0.f;
 
 void game_Init() {
+	snd_Preload(SND_MUS, "ode_to_the_future.ogg", "future");
+	shd_Preload(NULL, "grid.frag", "bg_grid");
+
 	model_Init();
 	game_View = sfView_createFromRect(FloatRect(0.f, 0.f, 1920.f, 1080.f));
+	game_ViewPos = sfView_getCenter(game_View);
 
 	plr_Init();
 	en_Init();
 	plb_Init();
+	enb_Init();
+	score_Init();
 
-	init_TimerGlobal = 5.f;
+	game_TxtBeats = calloc(4, sizeof(char));
+	game_TxtWaves = calloc(4, sizeof(char));
+	game_LoadLevel(1);
 }
 
 void game_Update() {
-	init_TimerGlobal += getDeltaTime();
-	sfView_move(game_View, Vector2f(100.f * getDeltaTime(), 0.f));
+	if (snd_GetMusicState() != sfPlaying) mus_Play("future");
+	game_TimerWaves += getDeltaTime();
+	game_TimerBeats += getDeltaTime();
+	game_TimerBg += getDeltaTime();
+	game_ViewPos = v_Add(game_ViewPos, Vector2f(300.f * getDeltaTime(), 0.f));
+	sfView_setCenter(game_View, game_ViewPos);
 	plr_Update();
 	if (plr_Player.hp == 0) return;
 	en_Update();
 	plb_Update();
+	enb_Update();
+	score_Update();
 
-	if (init_TimerGlobal >= 5.f) {
-		init_TimerGlobal = 0.f;
-		for (int i = 1; i < 7; i++) if (RAND_BOOL) en_New(EN_WALL, Vector2f(game_GetScrollX() + 2000.f, i * 135.f + 67.5f));
+	game_BeatFlag = sfFalse;
+	game_WaveFlag = sfFalse;
+	if (game_TimerBeats >= .75f) {
+		game_TimerBeats -= .75f;
+		game_BeatFlag = sfTrue;
+		if (game_Beats == 4) {
+			game_Beats = 0;
+			game_WaveFlag = sfTrue;
+		}
+		game_Beats++;
+		sprintf(game_TxtBeats, "%d", game_Beats);
+	}
+
+	if (game_WaveFlag) {
+		game_Waves++;
+		wave_Generate(game_Level, game_Waves);
+		sprintf(game_TxtWaves, "%d", game_Waves);
 	}
 }
 
 void game_Render() {
+	sfShader_setFloatUniform(shd_FetchShader("bg_grid"), "time", game_TimerBg);
+	for (int i = 0; i < 20; i++) va_DrawLine("bg_grid", Vector2f(i * 96.f, 0.f), Vector2f(i * 96.f, 1080.f), sfWhite);
+	for (int i = 0; i < 12; i++) va_DrawLine("bg_grid", Vector2f(0.f, i * 96.f + 24.f), Vector2f(1920.f, i * 96.f + 24.f), sfWhite);
+
+	if (plr_Player.inv_frames > 0.f) {
+		sfVector2f shake = v_Mul(Vector2f(RANDF(-20.f, 20.f), RANDF(-20.f, 20.f)), itp_Float(0.f, 1.f, clamp(plr_Player.inv_frames * .5f - 1.f, 0.f, 1.f), itp_Linear));
+		sfView_move(game_View, shake);
+	}
 	w_SetView(game_View);
 
 	plr_Render();
 	en_Render();
 	plb_Render();
+	enb_Render();
 	wall_Render();
 	ptc_Render();
 
@@ -61,13 +105,21 @@ void game_Render() {
 		va_DrawPolygon(VA_LINE, NULL, 4, hpUiPos, sfTrue, sfWhite);
 	}
 
-	vt_DrawText(Vector2f(25.f, 1030.f), "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789", 25, TXT_LEFT, sfWhite);
+//	vt_DrawText(Vector2f(25.f, 1030.f), "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789", 25, TXT_LEFT, sfWhite);
+	vt_DrawText(Vector2f(25.f, 1030.f), game_TxtBeats, 25, TXT_LEFT, sfWhite);
+	vt_DrawText(Vector2f(200.f, 1030.f), game_TxtWaves, 25, TXT_LEFT, sfWhite);
+	score_Render();
 }
 
 void game_Unload() {
 	plr_Unload();
 	en_Unload();
 	plb_Unload();
+	enb_Unload();
+	score_Unload();
+
+	snd_Unload("future");
+//	shd_Unload("bg_grid");
 }
 
 float game_GetScrollX() { return sfView_getCenter(game_View).x - 960.f; }
@@ -79,3 +131,8 @@ sfBool game_IsOnScreen(sfVector2f _pos) {
 	else if (_pos.y > 1105.f) return sfFalse;
 	return sfTrue;
 }
+
+sfBool game_GetBeatFlag() { return game_BeatFlag; }
+
+void game_LoadLevel(int _lvl) { game_Level = _lvl; }
+int game_GetLevel() { return game_Level; }

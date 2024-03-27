@@ -32,10 +32,9 @@ void va_Unload();
 /// A few functions allowing to render simple shapes. Do not use for more complex objects or if you would like to use transformation functions.
 
 /// Draws a line between two points.
-/// \param _type - Primitive type
 /// \param _rstate_id - A string literal containing the ID of the render state to be applied. leave NULL for no shader.
 /// \param _a, _b - Points
-/// \param _clr - Color of the rectangle to display
+/// \param _clr - Color of the line to display
 void va_DrawLine(char* _rstate_id, sfVector2f _a, sfVector2f _b, sfColor _clr);
 
 /// Draws an axis-aligned rectangle.

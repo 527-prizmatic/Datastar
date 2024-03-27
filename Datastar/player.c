@@ -2,6 +2,7 @@
 
 sfVertexArray* plr_ModelShipTemp;
 
+void plr_ParticlePropeller();
 void plr_ParticleFire();
 void plr_ParticleHit();
 
@@ -39,6 +40,7 @@ void plr_Render() {
 	va_Rotate(plr_ModelShipTemp, plr_Player.rot);
 	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
 	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
+	if (RANDF(0.f, 1.f) < .25f) plr_ParticlePropeller();
 }
 
 void plr_Unload() {
@@ -53,10 +55,10 @@ void plr_Control() {
 	else if (kb_TestHold(sfKeyRight)) plr_Player.spd.x = 1.f;
 	else plr_Player.spd.x = 0.f;
 
-	plr_Player.spd = v_SetMag(plr_Player.spd, 400.f);
+	plr_Player.spd = v_SetMag(plr_Player.spd, 500.f);
 	plr_Player.spd.x -= 2.f * max(0.f, plr_Player.pos.x - (game_GetScrollX() + 1720.f));
 	plr_Player.spd.x -= 2.f * min(0.f, plr_Player.pos.x - (game_GetScrollX() + 300.f));
-//	plr_Player.rot = 90.f + R2D(REC2POL(plr_Player.spd).y);
+	plr_Player.spd.x += 100.f;
 	plr_Player.rot = 90.f;
 
 	if (kb_TestHold(sfKeySpace) && plr_Player.fireTimer <= 0.f) {
@@ -77,7 +79,22 @@ sfBool plr_Collisions() {
 		en = en->next;
 	}
 
+	EnemyBullet* enb = enb_Sentinel->next;
+	while (enb != NULL) {
+		if (v_Mag2(v_Sub(plr_Player.pos, enb->pos)) < 625.f) {
+			enb->lifetime = 0.f;
+			return sfTrue;
+		}
+		enb = enb->next;
+	}
+
 	return sfFalse;
+}
+
+void plr_ParticlePropeller() {
+	PtcSystem* propellerPtc = ptc_CreateSystem(-1.f, .25f, 1, 1.f, 5.f, -100.f, -80.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(propellerPtc, PTC_SHARD, 1.f, 5.f, 3, 3, Color3(128), sfWhite);
+	ptc_SetShape(propellerPtc, PTCS_POINT, v_Add(plr_Player.pos, Vector2f(-15.f, 0.f)));
 }
 
 void plr_ParticleFire() {
@@ -87,7 +104,7 @@ void plr_ParticleFire() {
 }
 
 void plr_ParticleHit() {
-	PtcSystem* firePtc = ptc_CreateSystem(-1.f, 3.f, 500, 0.f, 15.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	PtcSystem* firePtc = ptc_CreateSystem(-1.f, 3.f, 250, 0.f, 15.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
 	ptc_SetType(firePtc, PTC_SHARD, .5f, 4.f, 3, 3, sfWhite, sfRed);
 	ptc_SetShape(firePtc, PTCS_POINT, plr_Player.pos);
 }
