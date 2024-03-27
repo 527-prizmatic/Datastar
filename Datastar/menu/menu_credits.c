@@ -29,7 +29,8 @@ void m_cred_Render() {
 			break;
 		case 2:
 			vt_DrawText(Vector2f(960.f, 690.f), "TESTERS", 35, TXT_CENTER, sfWhite);
-			vt_DrawText(Vector2f(960.f, 745.f), "STUFF", 25, TXT_CENTER, sfWhite);
+			vt_DrawText(Vector2f(960.f, 745.f), "MORENO RAPHAEL", 25, TXT_CENTER, sfWhite);
+			vt_DrawText(Vector2f(960.f, 780.f), "E", 25, TXT_CENTER, sfWhite);
 			break;
 		case 3:
 			vt_DrawText(Vector2f(960.f, 690.f), "SPECIAL THANKS", 35, TXT_CENTER, sfWhite);
