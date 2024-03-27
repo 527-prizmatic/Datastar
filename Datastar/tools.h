@@ -31,6 +31,8 @@ typedef unsigned long long int ULL;
 #define PATH_CONFIG			"..\\config\\"
 #define PATH_LOGS			"..\\logs\\"
 
+#define RENDER_HITBOXES		0
+
 
 /// === TIME UTILITIES === ///
 

@@ -155,6 +155,7 @@ void en_Render() {
 		else if (itr->type == EN_DART) {
 			sfColor clr = itr->clr;
 
+			float j = itp_Float(0.f, 1920.f, itr->lifetime / (4.f * (60.f / wave_GetTempo(game_GetLevel()))), itp_Square);
 			if (itr->dataD.beatCounter >= 4) {
 				for (int i = 0; i < 5; i++) {
 					va_DrawPolygonReg(VA_LINE, NULL, 3, itr->dataD.posOld[i], 30.f, 30.f, clr);
@@ -162,17 +163,17 @@ void en_Render() {
 				}
 			}
 			else {
-				float i = itp_Float(0.f, 20.f, itr->lifetime / (4.f * (60.f / wave_GetTempo(game_GetLevel()))), itp_Square);
-				sfFloatRect rFill = FloatRect(game_GetScrollX(), itr->pos.y - i, 1920.f, 2.f * i);
-				clr.a = 16;
+				float i = itp_Float(0.f, 15.f, itr->lifetime / (4.f * (60.f / wave_GetTempo(game_GetLevel()))), itp_Square);
+				sfFloatRect rFill = FloatRect(game_GetScrollX() + 1920.f - j, itr->pos.y - i, j, 2.f * i);
+				clr.a = 8;
 				va_DrawRectangle(VA_TRI, NULL, rFill, clr);
 			}
-			clr.a = itp_Float(128, 0, clamp(itr->lifetime - 3.f, 0.f, 1.f), itp_Linear);
-			va_DrawRectangle(VA_LINE, NULL, FloatRect(game_GetScrollX(), itr->pos.y - 20.f, 1920.f, 40.f), clr);
+			clr.a = itp_Float(32, 0, clamp(itr->lifetime - 3.f, 0.f, 1.f), itp_Linear);
+			va_DrawRectangle(VA_LINE, NULL, FloatRect(game_GetScrollX() + 1920.f - j, itr->pos.y - 15.f, j, 30.f), clr);
 		}
 
 
-		va_DrawFrame(NULL, itr->aabb, sfGreen);
+		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfGreen);
 		itr = itr->next;
 	}
 }

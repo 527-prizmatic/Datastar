@@ -3,6 +3,7 @@
 void wave_Level_1(int _wave_num) {
 	switch (_wave_num) {
 	case 1:
+		en_New(EN_DART, Vector2f(game_GetScrollX() + 2000.f, 540.f));
 		wave_CreateWall(1);
 		wave_CreateWall(6);
 		break;
