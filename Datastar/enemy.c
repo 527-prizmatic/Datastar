@@ -58,6 +58,7 @@ void en_New(EnType _type, sfVector2f _pos) {
 		new->dataGm.posOrigin = _pos;
 		new->dataGm.phase = 1;
 		new->dataGm.beatCounter = -2;
+		new->dataGm.timer_shots = 0.f;
 	}
 
 	/// Initialization of generic data
@@ -137,11 +138,12 @@ void en_Update() {
 		else if (itr->type == EN_BOSS_GAMMA) {
 			itr->pos.x = itp_Float(itr->dataGm.posOrigin.x, 1820.f, clamp(itr->lifetime, 0.f, 5.f) * .2f, itp_Smoother) + game_GetScrollX();
 			itr->dataGm.rot += 90.f * getDeltaTime();
-			itr->aabb = FloatRect_FromCenter(itr->pos, 480.f, 480.f);
+			itr->aabb = FloatRect_FromCenter(itr->pos, 440.f, 440.f);
+			if (itr->dataGm.timer_shots > 0.f) itr->dataGm.timer_shots -= getDeltaTime();
 
-			if (itr->hp > itr->hp_max * .75f) itr->dataGm.phase = 1;
-			else if (itr->hp > itr->hp_max * .5f) itr->dataGm.phase = 2;
-			else if (itr->hp > itr->hp_max * .25f) itr->dataGm.phase = 3;
+			if (itr->hp > itr->hp_max / 4 * 3) itr->dataGm.phase = 1;
+			else if (itr->hp > itr->hp_max / 2) itr->dataGm.phase = 2;
+			else if (itr->hp > itr->hp_max / 4) itr->dataGm.phase = 3;
 			else itr->dataGm.phase = 4;
 
 			if (game_GetBeatFlag()) itr->dataGm.beatCounter++;
@@ -150,18 +152,50 @@ void en_Update() {
 				switch (itr->dataGm.phase) {
 					case 1:
 						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(itr->lifetime) * 30.f), itr->clr);
-					//	enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
 						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(itr->lifetime) * 30.f), itr->clr);
 						break;
 					case 2:
-						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-400.f, 0.f), -sinf(itr->lifetime = 2.f) * 40.f), itr->clr);
-						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-450.f, 0.f), -sinf(itr->lifetime) * 20.f), itr->clr);
-						enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
-						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-450.f, 0.f), sinf(itr->lifetime) * 20.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-400.f, 0.f), -sinf(itr->lifetime + 2.f) * 40.f), itr->clr);
 						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-400.f, 0.f), sinf(itr->lifetime + 2.f) * 40.f), itr->clr);
+						break;
+					case 3:
+						enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(itr->lifetime) * 20.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(itr->lifetime) * 20.f), itr->clr);
+						break;
+					case 4:
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -60.f), itr->clr);
+				//		enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(itr->lifetime) * 40.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -20.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), 20.f), itr->clr);
+				//		enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(itr->lifetime) * 40.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), 60.f), itr->clr);
 						break;
 				}
 				sfx_EnemyFire(itr->pos, Vector2f(-500.f, 0.f), itr->clr);
+			}
+
+			if (itr->dataGm.timer_shots <= 0.f) {
+				switch (itr->dataGm.phase) {
+					case 1: break;
+					case 2:
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-450.f, 0.f), -sinf(itr->lifetime) * 20.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-450.f, 0.f), sinf(itr->lifetime) * 20.f), itr->clr);
+						itr->dataGm.timer_shots = .667f;
+						break;
+					case 3:
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), v_AngAbsD(v_Sub(itr->pos, plr_Player.pos))), itr->clr);
+						itr->dataGm.timer_shots = .5f;
+						break;
+					case 4:
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-300.f, 0.f), v_AngAbsD(v_Sub(itr->pos, plr_Player.pos)) - 30.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-300.f, 0.f), v_AngAbsD(v_Sub(itr->pos, plr_Player.pos)) + 30.f), itr->clr);
+						itr->dataGm.timer_shots = .333f;
+						break;
+
+				}
 			}
 		}
 
@@ -273,11 +307,12 @@ void en_Unload() {
 }
 
 int en_GetValue(EnType _type) {
-                    	switch (_type) {
+    switch (_type) {
 		case EN_WALL: return 100;
 		case EN_SPARK: return 200;
 		case EN_DART: return 750;
 		case EN_STREAK: return 500;
+		case EN_BOSS_GAMMA: return 10000;
 		default: return 100;
 	}
 }

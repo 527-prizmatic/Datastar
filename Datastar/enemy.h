@@ -45,6 +45,7 @@ typedef struct {
 	float rot;
 	char phase;
 	char beatCounter;
+	float timer_shots;
 } EnDataGamma;
 
 typedef struct EnData {
