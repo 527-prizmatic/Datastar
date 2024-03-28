@@ -77,6 +77,8 @@ void vt_DrawChar(sfVector2f _pos, char _char, int _size, sfColor _clr) {
 			case '\'':	vt_DrawCharApostrophe(_pos, _size, _clr); break;
 			case '&':	vt_DrawCharAmpersand(_pos, _size, _clr); break;
 			case '!':	vt_DrawCharBang(_pos, _size, _clr); break;
+			case '(':	vt_DrawCharLBracket(_pos, _size, _clr); break;
+			case ')':	vt_DrawCharRBracket(_pos, _size, _clr); break;
 		}
 		_pos.y++;
 		_clr.a = clrBase.a * itp_Float(0.f, 1.f, (5.f - i) / 5.f, itp_Square);
@@ -497,6 +499,24 @@ void vt_DrawCharBang(sfVector2f _pos, int _size, sfColor _clr) {
 	v2[0] = vt_GetVertex(1, _pos, _size);
 	v2[1] = vt_GetVertex(4, _pos, _size);
 	va_DrawPolygon(VA_LINE, "text", 2, v2, sfTrue, _clr);
+}
+
+void vt_DrawCharLBracket(sfVector2f _pos, int _size, sfColor _clr) {
+	sfVector2f v[4];
+	v[0] = vt_GetVertex(2, _pos, _size);
+	v[1] = vt_GetVertex(1, _pos, _size);
+	v[2] = vt_GetVertex(7, _pos, _size);
+	v[3] = vt_GetVertex(8, _pos, _size);
+	va_DrawPolygon(VA_LINE, "text", 4, v, sfFalse, _clr);
+}
+
+void vt_DrawCharRBracket(sfVector2f _pos, int _size, sfColor _clr) {
+	sfVector2f v[4];
+	v[0] = vt_GetVertex(0, _pos, _size);
+	v[1] = vt_GetVertex(1, _pos, _size);
+	v[2] = vt_GetVertex(7, _pos, _size);
+	v[3] = vt_GetVertex(6, _pos, _size);
+	va_DrawPolygon(VA_LINE, "text", 4, v, sfFalse, _clr);
 }
 
 sfVector2f vt_GetVertex(char _id, sfVector2f _pos, int _size) {

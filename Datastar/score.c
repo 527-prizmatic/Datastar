@@ -5,11 +5,11 @@ char* txt_Score;
 
 void score_Init() {
 	score = 0;
-	txt_Score = calloc(12, sizeof(char));
+	txt_Score = calloc(18, sizeof(char));
 }
 
 void score_Update() {
-	sprintf(txt_Score, "%7d", score);
+	sprintf(txt_Score, "SCORE %7d", score);
 }
 
 void score_Render() {

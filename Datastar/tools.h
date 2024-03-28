@@ -60,6 +60,8 @@ sfColor Color3(int _c);
 sfColor ColorA(int _r, int _g, int _b, int _a);
 
 sfVertex Vertex(sfVector2f _pos, sfColor _clr);
+sfTime Time(float _s);
+sfTimeSpan TimeSpan(float _start, float _duration);
 
 
 /// === QUICK MATH === ///

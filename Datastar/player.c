@@ -50,11 +50,11 @@ void plr_Unload() {
 
 void plr_Control() {
 	/// Moving when pressing arrow keys
-	if (kb_TestHold(sfKeyUp)) plr_Player.spd.y = -1.f;
-	else if (kb_TestHold(sfKeyDown)) plr_Player.spd.y = 1.f;
+	if (kb_TestHold(sfKeyUp) || kb_TestHold(sfKeyW)) plr_Player.spd.y = -1.f;
+	else if (kb_TestHold(sfKeyDown) || kb_TestHold(sfKeyS)) plr_Player.spd.y = 1.f;
 	else plr_Player.spd.y = 0.f;
-	if (kb_TestHold(sfKeyLeft)) plr_Player.spd.x = -1.f;
-	else if (kb_TestHold(sfKeyRight)) plr_Player.spd.x = 1.f;
+	if (kb_TestHold(sfKeyLeft) || kb_TestHold(sfKeyA)) plr_Player.spd.x = -1.f;
+	else if (kb_TestHold(sfKeyRight) || kb_TestHold(sfKeyD)) plr_Player.spd.x = 1.f;
 	else plr_Player.spd.x = 0.f;
 
 	plr_Player.spd = v_SetMag(plr_Player.spd, 500.f);

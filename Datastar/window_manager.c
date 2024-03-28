@@ -72,7 +72,7 @@ void w_Update() {
 		}
 	}
 	if (kb_TestPress(sfKeyF11)) w_ToggleFS();
-	if (kb_TestPress(sfKeyEscape)) w_TogglePause();
+//	if (kb_TestPress(sfKeyEscape)) w_TogglePause();
 }
 
 sfVector2f w_GetMousePos() {

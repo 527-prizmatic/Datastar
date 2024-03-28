@@ -3,6 +3,7 @@
 float init_TimerGlobal = 0.f;
 
 void init_Init() {
+	tex_Preload("ga.png", "ga");
 }
 
 void init_Update() {
@@ -23,7 +24,8 @@ void init_Render() {
 	}
 	else if (init_TimerGlobal <= 20.f) {
 		for (int i = 0; i < 3; i++) {
-			vt_DrawText(Vector2f(960.f, 528.5f + i), "GAME ACADEMY LOGO", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((4.f - fabs(init_TimerGlobal - 16.f)) * 64.f, 0.f, 255.f)));
+			//vt_DrawText(Vector2f(960.f, 528.5f + i), "GAME ACADEMY LOGO", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((4.f - fabs(init_TimerGlobal - 16.f)) * 64.f, 0.f, 255.f)));
+			rq_Draw(RQ_SPRITE, NULL, Vector2f(960.f, 540.f), "ga", RQ_TEX_NORECT, Vector2f(193.f, 230.f), 0.f, RQ_SCALE(.75f), ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((4.f - fabs(init_TimerGlobal - 16.f)) * 64.f, 0.f, 255.f)));
 		}
 		if (kb_TestPress(sfKeySpace)) init_TimerGlobal = 20.f;
 	}
@@ -40,5 +42,5 @@ void init_Render() {
 }
 
 void init_Unload() {
-
+	tex_Unload("ga");
 }

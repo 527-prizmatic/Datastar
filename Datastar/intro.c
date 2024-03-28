@@ -20,13 +20,11 @@ void intro_Update() {
 	if (snd_GetMusicState() != sfPlaying) mus_Play("origin");
 	intro_TimerGlobal += getDeltaTime();
 
-	if (kb_TestPressAnyKey() && intro_TimerGlobal >= 25.5f) gs_ChangeState(GS_MENU);
-
-	/// DEBUG KEYBIND, DELETE ME LATER
-	if (kb_TestPress(sfKeyE)) {
-		intro_TimerGlobal = 21.f;
-		mus_SetPos("origin", 21.f);
+	if (kb_TestPress(sfKeySpace) && intro_TimerGlobal < 24.f) {
+		intro_TimerGlobal = 24.f;
+		mus_SetPos("origin", 24.f);
 	}
+	if (kb_TestPressAnyKey() && intro_TimerGlobal >= 25.5f) gs_ChangeState(GS_MENU);
 }
 
 void intro_Render() {

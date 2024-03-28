@@ -137,7 +137,7 @@ void en_Update() {
 
 		else if (itr->type == EN_BOSS_GAMMA) {
 			itr->pos.x = itp_Float(itr->dataGm.posOrigin.x, 1820.f, clamp(itr->lifetime, 0.f, 5.f) * .2f, itp_Smoother) + game_GetScrollX();
-			itr->dataGm.rot += 90.f * getDeltaTime();
+			itr->dataGm.rot += 75.f * getDeltaTime();
 			itr->aabb = FloatRect_FromCenter(itr->pos, 440.f, 440.f);
 			if (itr->dataGm.timer_shots > 0.f) itr->dataGm.timer_shots -= getDeltaTime();
 
@@ -273,9 +273,9 @@ void en_Render() {
 			va_DrawPolygonReg(VA_LINE, NULL, 4, itr->pos, 30.f, 0.f, colorBase);
 		}
 		else if (itr->type == EN_BOSS_GAMMA) {
-			if (itr->dataGm.phase <= 1) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 210.f, itr->dataGm.rot * .28f, colorBase);
-			if (itr->dataGm.phase <= 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 180.f, itr->dataGm.rot * .45f, colorBase);
-			if (itr->dataGm.phase <= 3) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 150.f, itr->dataGm.rot * .65f, colorBase);
+			if (itr->dataGm.phase <= 1) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 190.f, itr->dataGm.rot, colorBase);
+			if (itr->dataGm.phase <= 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 140.f, itr->dataGm.rot, colorBase);
+			if (itr->dataGm.phase <= 3) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 90.f, itr->dataGm.rot, colorBase);
 			va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 240.f, itr->dataGm.rot, sfWhite);
 		}
 

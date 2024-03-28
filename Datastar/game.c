@@ -9,6 +9,9 @@ char* game_TxtBeats, *game_TxtWaves;
 int game_Level;
 float game_TimerBg = 0.f;
 
+float Beats(int _i) { return game_BeatTime * _i; }
+float Bars(int _i) { return game_BeatTime * _i * 4.f; }
+
 void game_Init() {
 	snd_Preload(SND_MUS, "ode_to_the_future.ogg", "future");
 	shd_Preload(NULL, "grid.frag", "bg_grid");
@@ -47,8 +50,8 @@ void game_Update() {
 
 	game_BeatFlag = sfFalse;
 	game_WaveFlag = sfFalse;
-	if (game_TimerBeats >= game_BeatTime) {
-		game_TimerBeats -= game_BeatTime;
+	if (game_TimerBeats >= Beats(1)) {
+		game_TimerBeats -= Beats(1);
 		game_BeatFlag = sfTrue;
 		if (game_Beats == 4) {
 			game_Beats = 0;
@@ -63,6 +66,8 @@ void game_Update() {
 		wave_Generate(game_Level, game_Waves);
 		sprintf(game_TxtWaves, "%d", game_Waves);
 	}
+
+	if (kb_TestPress(sfKeyEscape)) gs_ChangeState(GS_MENU);
 }
 
 void game_Render() {
@@ -108,7 +113,6 @@ void game_Render() {
 		va_DrawPolygon(VA_LINE, NULL, 4, hpUiPos, sfTrue, sfWhite);
 	}
 
-//	vt_DrawText(Vector2f(25.f, 1030.f), "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789", 25, TXT_LEFT, sfWhite);
 	vt_DrawText(Vector2f(25.f, 1030.f), game_TxtBeats, 25, TXT_LEFT, sfWhite);
 	vt_DrawText(Vector2f(200.f, 1030.f), game_TxtWaves, 25, TXT_LEFT, sfWhite);
 	score_Render();

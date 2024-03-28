@@ -35,6 +35,8 @@ sfColor Color3(int _c) { return (sfColor) { _c, _c, _c, 255 }; }
 sfColor ColorA(int _r, int _g, int _b, int _a) { return (sfColor) { _r, _g, _b, _a }; }
 
 sfVertex Vertex(sfVector2f _pos, sfColor _clr) { return (sfVertex) { _pos, _clr, NULLVECTF }; }
+sfTime Time(float _s) { return (sfTime) { _s * 1e6f }; }
+sfTimeSpan TimeSpan(float _start, float _duration) { return (sfTimeSpan) { Time(_start), Time(_duration) }; }
 
 
 /// === QUICK MATH === ///

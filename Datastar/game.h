@@ -32,3 +32,5 @@ sfBool game_IsOnScreen(sfVector2f _pos);
 sfBool game_GetBeatFlag();
 void game_LoadLevel(int _lvl);
 int game_GetLevel();
+float Beats(int _i);
+float Bars(int _i);
