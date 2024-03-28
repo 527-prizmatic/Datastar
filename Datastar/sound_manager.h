@@ -83,6 +83,7 @@ float vol_GetMaster();
 float vol_GetSnd();
 float vol_GetMus();
 SndMusState snd_GetMusicState();
+sfMusic* mus_GetCurrentlyPlaying();
 
 void mus_SetPos(char* _id, float _time);
 

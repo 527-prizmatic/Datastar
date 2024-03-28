@@ -12,7 +12,6 @@ SndMusState snd_MusState;
 
 float snd_VolMusFade;
 
-/// Technical function to verify if the given ID corresponds to a valid music object.
 SndWrapper* snd_IsValidMusic(char* _id);
 
 void snd_Init() {
@@ -287,6 +286,10 @@ SndWrapper* snd_IsValidMusic(char* _id) {
 	}
 
 	return itr;
+}
+
+sfMusic* mus_GetCurrentlyPlaying() {
+	return snd_NowPlaying->mus;
 }
 
 void snd_Unload(char* _id) {

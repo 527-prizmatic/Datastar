@@ -14,7 +14,10 @@ typedef enum EnType {
 	EN_WALL,
 	EN_SPARK,
 	EN_DART,
-	EN_STREAK
+	EN_STREAK,
+
+
+	EN_BOSS_GAMMA
 } EnType;
 
 typedef struct {
@@ -37,6 +40,13 @@ typedef struct {
 	char dir;
 } EnDataStreak;
 
+typedef struct {
+	sfVector2f posOrigin;
+	float rot;
+	char phase;
+	char beatCounter;
+} EnDataGamma;
+
 typedef struct EnData {
 	struct EnData* prev;
 	struct EnData* next;
@@ -46,6 +56,7 @@ typedef struct EnData {
 	sfVector2f spd;
 	sfFloatRect aabb;
 	float lifetime;
+	float timer_blink;
 
 	int hp;
 	int hp_max;
@@ -55,6 +66,9 @@ typedef struct EnData {
 		EnDataSpark dataSp;
 		EnDataDart dataDt;
 		EnDataStreak dataSt;
+
+
+		EnDataGamma dataGm;
 	};
 } EnData;
 EnData* en_Sentinel;

@@ -44,16 +44,27 @@ void en_New(EnType _type, sfVector2f _pos) {
 		for (int i = 0; i < 5; i++) new->dataDt.posOld[i] = _pos;
 		new->dataDt.timerTrail = 0.f;
 	}
-	if (_type == EN_STREAK) {
+	else if (_type == EN_STREAK) {
 		new->spd = NULLVECTF;
 		new->hp_max = 3;
 		new->clr = Color(128, 224, 255);
+	}
+
+	else if (_type == EN_BOSS_GAMMA) {
+		new->spd = NULLVECTF;
+		new->hp_max = 200;
+		new->clr = Color(255, 128, 64);
+		new->dataGm.rot = 0.f;
+		new->dataGm.posOrigin = _pos;
+		new->dataGm.phase = 1;
+		new->dataGm.beatCounter = -2;
 	}
 
 	/// Initialization of generic data
 	new->type = _type;
 	new->pos = _pos;
 	new->lifetime = 0.f;
+	new->timer_blink = 0.f;
 
 	new->hp = new->hp_max;
 	en_Add(new);
@@ -71,16 +82,18 @@ void en_Update() {
 	EnData* itr = en_Sentinel->next;
 	while (itr != NULL) {
 		itr->lifetime += getDeltaTime();
+		if (itr->timer_blink > 0.f) itr->timer_blink -= getDeltaTime();
+		else itr->timer_blink = 0.f;
 
 		if (itr->type == EN_SPARK) {
 			if (itr->hp == 2) {
 				itr->pos.x = itp_Float(itr->dataSp.posOrigin.x, 1770.f, clamp(itr->lifetime, 0.f, 1.f), itp_Smoother) + game_GetScrollX();
 				if (game_GetBeatFlag()) itr->dataSp.beatCounter++;
 				if (itr->dataSp.beatCounter == 2 && itr->hp == 2) {
-					itr->dataSp.beatCounter = -1;
-					//				enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -20.f));
+					itr->dataSp.beatCounter = 0;
+					enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -30.f), itr->clr);
 					enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
-					//				enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), 20.f));
+					enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), 30.f), itr->clr);
 					sfx_EnemyFire(itr->pos, Vector2f(-500.f, 0.f), itr->clr);
 				}
 				itr->dataSp.rot += 360.f * getDeltaTime();
@@ -121,12 +134,44 @@ void en_Update() {
 			itr->aabb = FloatRect_FromCenter(itr->pos, 60.f, 60.f);
 		}
 
+		else if (itr->type == EN_BOSS_GAMMA) {
+			itr->pos.x = itp_Float(itr->dataGm.posOrigin.x, 1820.f, clamp(itr->lifetime, 0.f, 5.f) * .2f, itp_Smoother) + game_GetScrollX();
+			itr->dataGm.rot += 90.f * getDeltaTime();
+			itr->aabb = FloatRect_FromCenter(itr->pos, 480.f, 480.f);
+
+			if (itr->hp > itr->hp_max * .75f) itr->dataGm.phase = 1;
+			else if (itr->hp > itr->hp_max * .5f) itr->dataGm.phase = 2;
+			else if (itr->hp > itr->hp_max * .25f) itr->dataGm.phase = 3;
+			else itr->dataGm.phase = 4;
+
+			if (game_GetBeatFlag()) itr->dataGm.beatCounter++;
+			if (itr->dataGm.beatCounter == 1) {
+				itr->dataGm.beatCounter = 0;
+				switch (itr->dataGm.phase) {
+					case 1:
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(itr->lifetime) * 30.f), itr->clr);
+					//	enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(itr->lifetime) * 30.f), itr->clr);
+						break;
+					case 2:
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-400.f, 0.f), -sinf(itr->lifetime = 2.f) * 40.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-450.f, 0.f), -sinf(itr->lifetime) * 20.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-450.f, 0.f), sinf(itr->lifetime) * 20.f), itr->clr);
+						enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-400.f, 0.f), sinf(itr->lifetime + 2.f) * 40.f), itr->clr);
+						break;
+				}
+				sfx_EnemyFire(itr->pos, Vector2f(-500.f, 0.f), itr->clr);
+			}
+		}
+
 		PlayerBullet* itrB = plb_Sentinel->next;
 		while (itrB != NULL) {
 			sfBool flagDestroy = sfFalse;
 			if (col_RectRect(itrB->aabb, itr->aabb)) {
 				flagDestroy = sfTrue;
 				itr->hp--;
+				itr->timer_blink = .4f;
 				if (itr->type == EN_SPARK && itr->hp == 1) score_Add(en_GetValue(itr->type));
 			}
 
@@ -158,19 +203,21 @@ void en_Update() {
 void en_Render() {
 	EnData* itr = en_Sentinel->next;
 	while (itr != NULL) {
+		sfColor colorBase = (fmod(itr->timer_blink, .1f) > .05f) ? sfWhite : itr->clr;
+
 		if (itr->type == EN_WALL) {
 			va_DrawRectangle(VA_LINE, NULL, itr->aabb, itr->clr);
-			va_DrawRectangle(VA_LINE, NULL, floatRect_Contract(itr->aabb, 5.f), itr->clr);
+			va_DrawRectangle(VA_LINE, NULL, floatRect_Contract(itr->aabb, 5.f), colorBase);
 
-			if (itr->hp <= 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 35, 45.f, itr->clr);
-			if (itr->hp <= 1) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 70, 45.f, itr->clr);
+			if (itr->hp <= 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 35, 45.f, colorBase);
+			if (itr->hp <= 1) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 70, 45.f, colorBase);
 		}
 		else if (itr->type == EN_SPARK) {
 			va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 40.f, itr->dataSp.rot, sfWhite);
-			if (itr->hp == 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 40.f, itr->dataSp.rot * .667f, itr->clr);
+			if (itr->hp == 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 40.f, itr->dataSp.rot * .667f, colorBase);
 		}
 		else if (itr->type == EN_DART) {
-			sfColor clr = itr->clr;
+			sfColor clr = colorBase;
 
 			float j = itp_Float(0.f, 1920.f, itr->lifetime / (4.f * (60.f / wave_GetTempo(game_GetLevel()))), itp_Square);
 			if (itr->dataDt.beatCounter >= 4) {
@@ -189,7 +236,13 @@ void en_Render() {
 			va_DrawRectangle(VA_LINE, NULL, FloatRect(game_GetScrollX() + 1920.f - j, itr->pos.y - 15.f, j, 30.f), clr);
 		}
 		else if (itr->type == EN_STREAK) {
-			va_DrawPolygonReg(VA_LINE, NULL, 4, itr->pos, 30.f, 0.f, itr->clr);
+			va_DrawPolygonReg(VA_LINE, NULL, 4, itr->pos, 30.f, 0.f, colorBase);
+		}
+		else if (itr->type == EN_BOSS_GAMMA) {
+			if (itr->dataGm.phase <= 1) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 210.f, itr->dataGm.rot * .28f, colorBase);
+			if (itr->dataGm.phase <= 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 180.f, itr->dataGm.rot * .45f, colorBase);
+			if (itr->dataGm.phase <= 3) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 150.f, itr->dataGm.rot * .65f, colorBase);
+			va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 240.f, itr->dataGm.rot, sfWhite);
 		}
 
 
@@ -220,7 +273,7 @@ void en_Unload() {
 }
 
 int en_GetValue(EnType _type) {
-	switch (_type) {
+                    	switch (_type) {
 		case EN_WALL: return 100;
 		case EN_SPARK: return 200;
 		case EN_DART: return 750;

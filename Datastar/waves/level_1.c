@@ -1,6 +1,8 @@
 #include "level_1.h"
 
 void wave_Level_1(int _wave_num) {
+	float beatTime = 60.f / wave_GetTempo(1);
+
 	switch (_wave_num) {
 	case 1:
 		wave_CreateWall(1);
@@ -130,20 +132,26 @@ void wave_Level_1(int _wave_num) {
 		en_New(EN_STREAK, Vector2f(game_GetScrollX() + 2240.f, 650.f));
 		en_New(EN_STREAK, Vector2f(game_GetScrollX() + 2360.f, 780.f));
 		en_New(EN_STREAK, Vector2f(game_GetScrollX() + 2480.f, 910.f));
-		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 180.f));
+//		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 180.f));
 		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 280.f));
 		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 380.f));
 		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 700.f));
 		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 800.f));
-		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 900.f));
+//		en_New(EN_SPARK, Vector2f(game_GetScrollX() + 2000.f, 900.f));
 		break;
 
 	case 28: case 29: case 30: case 31:
 		wave_CreateWallBarrier();
 		break;
 
+	case 32:
+		sfMusic_setLoopPoints(mus_GetCurrentlyPlaying(), (sfTimeSpan) { (sfTime) { beatTime * 160000000.f }, (sfTime) { beatTime * 32000000.f } });
+		en_New(EN_BOSS_GAMMA, Vector2f(game_GetScrollX() + 2500.f, 540.f));
+
 		// Wave 32 - Boss of level 1 (giant spark)
 		// Loop music around bars 41-48
+
+		break;
 
 	default: break;
 	}
