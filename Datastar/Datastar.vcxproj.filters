@@ -165,6 +165,15 @@
     <ClCompile Include="menu\menu_credits.c">
       <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
     </ClCompile>
+    <ClCompile Include="collisions.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\menu_options.c">
+      <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -261,6 +270,15 @@
       <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
     <ClInclude Include="menu\menu_credits.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
+    </ClInclude>
+    <ClInclude Include="collisions.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\menu_options.h">
       <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
     </ClInclude>
   </ItemGroup>

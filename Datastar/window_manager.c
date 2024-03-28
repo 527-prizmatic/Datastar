@@ -121,13 +121,13 @@ void rq_Draw(RQType _type, sfRenderStates* _rs, ...) {
 
 	va_start(args, _rs);
 	if (_type == RQ_SPRITE) {
-		rq.dataS.pos = va_arg(args, sfVector2f);
-		rq.dataS.tex = tex_Fetch(va_arg(args, char*));
-		rq.dataS.texRect = va_arg(args, sfIntRect);
-		rq.dataS.origin = va_arg(args, sfVector2f);
-		rq.dataS.rot = va_arg(args, double);
-		rq.dataS.scale = va_arg(args, sfVector2f);
-		rq.dataS.clr = va_arg(args, sfColor);
+		rq.dataSp.pos = va_arg(args, sfVector2f);
+		rq.dataSp.tex = tex_Fetch(va_arg(args, char*));
+		rq.dataSp.texRect = va_arg(args, sfIntRect);
+		rq.dataSp.origin = va_arg(args, sfVector2f);
+		rq.dataSp.rot = va_arg(args, double);
+		rq.dataSp.scale = va_arg(args, sfVector2f);
+		rq.dataSp.clr = va_arg(args, sfColor);
 	}
 	else if (_type == RQ_CIRCLE) {
 		rq.dataC.pos = va_arg(args, sfVector2f);
@@ -168,14 +168,14 @@ void rq_Draw(RQType _type, sfRenderStates* _rs, ...) {
 
 void rq_RenderQuery(RQuery _query) {
 	if (_query.type == RQ_SPRITE) {
-		sfSprite_setPosition(rq_S, _query.dataS.pos);
-		sfSprite_setTexture(rq_S, _query.dataS.tex, sfTrue);
-		if (!(_query.dataS.texRect.top == -1 && _query.dataS.texRect.left == -1 && _query.dataS.texRect.width == -1 && _query.dataS.texRect.height == -1))
-			sfSprite_setTextureRect(rq_S, _query.dataS.texRect);
-		sfSprite_setOrigin(rq_S, _query.dataS.origin);
-		sfSprite_setScale(rq_S, _query.dataS.scale);
-		sfSprite_setRotation(rq_S, _query.dataS.rot);
-		sfSprite_setColor(rq_S, _query.dataS.clr);
+		sfSprite_setPosition(rq_S, _query.dataSp.pos);
+		sfSprite_setTexture(rq_S, _query.dataSp.tex, sfTrue);
+		if (!(_query.dataSp.texRect.top == -1 && _query.dataSp.texRect.left == -1 && _query.dataSp.texRect.width == -1 && _query.dataSp.texRect.height == -1))
+			sfSprite_setTextureRect(rq_S, _query.dataSp.texRect);
+		sfSprite_setOrigin(rq_S, _query.dataSp.origin);
+		sfSprite_setScale(rq_S, _query.dataSp.scale);
+		sfSprite_setRotation(rq_S, _query.dataSp.rot);
+		sfSprite_setColor(rq_S, _query.dataSp.clr);
 		sfRenderWindow_drawSprite(window.rw, rq_S, _query.rState);
 	}
 	else if (_query.type == RQ_CIRCLE) {

@@ -141,7 +141,7 @@ typedef struct {
 	sfRenderStates* rState;
 	union {
 		RQType type;
-		RQDataSpr dataS;
+		RQDataSpr dataSp;
 		RQDataCrc dataC;
 		RQDataRct dataR;
 		RQDataTxt dataT;

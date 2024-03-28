@@ -8,11 +8,13 @@
 
 #include "player_bullet.h"
 #include "score.h"
+#include "sfx.h"
 
 typedef enum EnType {
 	EN_WALL,
 	EN_SPARK,
-	EN_DART
+	EN_DART,
+	EN_STREAK
 } EnType;
 
 typedef struct {
@@ -31,6 +33,10 @@ typedef struct {
 	float timerTrail;
 } EnDataDart;
 
+typedef struct {
+	char dir;
+} EnDataStreak;
+
 typedef struct EnData {
 	struct EnData* prev;
 	struct EnData* next;
@@ -45,9 +51,10 @@ typedef struct EnData {
 	int hp_max;
 
 	union {
-		EnDataWall dataW;
-		EnDataSpark dataS;
-		EnDataDart dataD;
+		EnDataWall dataWl;
+		EnDataSpark dataSp;
+		EnDataDart dataDt;
+		EnDataStreak dataSt;
 	};
 } EnData;
 EnData* en_Sentinel;

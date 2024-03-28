@@ -2,27 +2,26 @@
 
 sfVertexArray* plr_ModelShipTemp;
 
-void plr_ParticlePropeller();
-void plr_ParticleFire();
-void plr_ParticleHit();
-
 void plr_Init() {
 	plr_Player.pos = Vector2f(960.f, 540.f);
 	plr_Player.spd = NULLVECTF;
 	plr_Player.hp = 3;
 	plr_Player.hp_max = 3;
 	plr_Player.rot = 0.f;
-	plr_Player.fireTimer = 0.f;
+	plr_Player.fire_timer = 0.f;
 	plr_Player.inv_frames = 0.f;
+	plr_Player.bullet_count = 1;
+	plr_Player.fire_mode = PLB_NORMAL;
+	plr_Player.rof = 5.f;
 }
 
 void plr_Update() {
-	if (plr_Player.fireTimer > 0.f) plr_Player.fireTimer -= getDeltaTime();
+	if (plr_Player.fire_timer > 0.f) plr_Player.fire_timer -= getDeltaTime();
 	plr_Control();
 	if (plr_Collisions()) {
 		plr_Player.hp--;
 		plr_Player.inv_frames = 3.f;
-		plr_ParticleHit();
+		sfx_PlayerHit();
 	}
 	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= getDeltaTime();
 	
@@ -31,6 +30,7 @@ void plr_Update() {
 		return;
 	}
 	plr_Player.pos = v_Add(plr_Player.pos, v_Mul(plr_Player.spd, getDeltaTime()));
+	plr_Player.aabb = FloatRect_FromCenter(plr_Player.pos, 40.f, 40.f);
 }
 
 void plr_Render() {
@@ -40,7 +40,8 @@ void plr_Render() {
 	va_Rotate(plr_ModelShipTemp, plr_Player.rot);
 	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
 	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
-	if (RANDF(0.f, 1.f) < .25f) plr_ParticlePropeller();
+	if (RANDF(0.f, 1.f) < .25f) sfx_PlayerPropeller();
+	if (RENDER_HITBOXES) va_DrawFrame(NULL, plr_Player.aabb, sfGreen);
 }
 
 void plr_Unload() {
@@ -48,6 +49,7 @@ void plr_Unload() {
 }
 
 void plr_Control() {
+	/// Moving when pressing arrow keys
 	if (kb_TestHold(sfKeyUp)) plr_Player.spd.y = -1.f;
 	else if (kb_TestHold(sfKeyDown)) plr_Player.spd.y = 1.f;
 	else plr_Player.spd.y = 0.f;
@@ -59,12 +61,27 @@ void plr_Control() {
 	plr_Player.spd.x -= 2.f * max(0.f, plr_Player.pos.x - (game_GetScrollX() + 1720.f));
 	plr_Player.spd.x -= 2.f * min(0.f, plr_Player.pos.x - (game_GetScrollX() + 300.f));
 	plr_Player.spd.x += 100.f;
+	if (plr_Player.pos.y <= 90.f) plr_Player.spd.y = max(0.f, plr_Player.spd.y);
+	if (plr_Player.pos.y >= 990.f) plr_Player.spd.y = min(0.f, plr_Player.spd.y);
 	plr_Player.rot = 90.f;
 
-	if (kb_TestHold(sfKeySpace) && plr_Player.fireTimer <= 0.f) {
-		plr_Player.fireTimer = .2f;
-		plb_New(PLB_NORMAL, v_Add(plr_Player.pos, v_RotateD(Vector2f(20.f, 0.f), plr_Player.rot - 90.f)));
-		plr_ParticleFire();
+	/// Firing while space is kept pressed
+	if (kb_TestHold(sfKeySpace) && plr_Player.fire_timer <= 0.f) {
+		plr_Player.fire_timer = 1.f / plr_Player.rof;
+		for (int i = 0; i < plr_Player.bullet_count; i++) plb_New(plr_Player.fire_mode, v_Add(plr_Player.pos, v_RotateD(Vector2f(20.f, 0.f), plr_Player.rot - 90.f)), 4.f * i - 2.f * (plr_Player.bullet_count - 1.f));
+		sfx_PlayerFire();
+	}
+
+	/// Changing fire modes upon hitting tab
+	if (kb_TestPress(sfKeyTab)) {
+		if (plr_Player.fire_mode == PLB_NORMAL) {
+			plr_Player.fire_mode = PLB_HOMING;
+			plr_Player.rof = 3.f;
+		}
+		else if (plr_Player.fire_mode == PLB_HOMING) {
+			plr_Player.fire_mode = PLB_NORMAL;
+			plr_Player.rof = 5.f;
+		}
 	}
 }
 
@@ -75,13 +92,13 @@ sfBool plr_Collisions() {
 
 	EnData* en = en_Sentinel->next;
 	while (en != NULL) {
-		if (sfFloatRect_contains(&(en->aabb), plr_Player.pos.x, plr_Player.pos.y)) return sfTrue;
+		if (col_RectRect(en->aabb, plr_Player.aabb)) return sfTrue;
 		en = en->next;
 	}
 
 	EnemyBullet* enb = enb_Sentinel->next;
 	while (enb != NULL) {
-		if (v_Mag2(v_Sub(plr_Player.pos, enb->pos)) < 625.f) {
+		if (col_RectRect(enb->aabb, plr_Player.aabb)) {
 			enb->lifetime = 0.f;
 			return sfTrue;
 		}
@@ -91,20 +108,4 @@ sfBool plr_Collisions() {
 	return sfFalse;
 }
 
-void plr_ParticlePropeller() {
-	PtcSystem* propellerPtc = ptc_CreateSystem(-1.f, .25f, 1, 1.f, 5.f, -100.f, -80.f, PTC_GRAV_NONE, NULL);
-	ptc_SetType(propellerPtc, PTC_SHARD, 1.f, 5.f, 3, 3, Color3(128), sfWhite);
-	ptc_SetShape(propellerPtc, PTCS_POINT, v_Add(plr_Player.pos, Vector2f(-15.f, 0.f)));
-}
-
-void plr_ParticleFire() {
-	PtcSystem* firePtc = ptc_CreateSystem(-1.f, .5f, 5, 5.f, 15.f, plr_Player.rot - 20.f, plr_Player.rot + 20.f, PTC_GRAV_NONE, NULL);
-	ptc_SetType(firePtc, PTC_SHARD, 2.f, 5.f, 3, 3, sfWhite, sfWhite);
-	ptc_SetShape(firePtc, PTCS_POINT, v_Add(plr_Player.pos, v_RotateD(Vector2f(20.f, 0.f), plr_Player.rot - 90.f)));
-}
-
-void plr_ParticleHit() {
-	PtcSystem* firePtc = ptc_CreateSystem(-1.f, 3.f, 250, 0.f, 15.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
-	ptc_SetType(firePtc, PTC_SHARD, .5f, 4.f, 3, 3, sfWhite, sfRed);
-	ptc_SetShape(firePtc, PTCS_POINT, plr_Player.pos);
-}
+void plr_IncreaseBullets(int _i) { plr_Player.bullet_count += _i; }

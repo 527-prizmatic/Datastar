@@ -13,6 +13,7 @@
 #include "menu\bg.h"
 #include "menu\menu_main.h"
 #include "menu\menu_credits.h"
+#include "menu\menu_options.h"
 
 typedef enum {
 	MENU_MAIN = 0,

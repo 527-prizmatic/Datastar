@@ -75,6 +75,8 @@ void vt_DrawChar(sfVector2f _pos, char _char, int _size, sfColor _clr) {
 			case ',':	vt_DrawCharComma(_pos, _size, _clr); break;
 			case '-':	vt_DrawCharHyphen(_pos, _size, _clr); break;
 			case '\'':	vt_DrawCharApostrophe(_pos, _size, _clr); break;
+			case '&':	vt_DrawCharAmpersand(_pos, _size, _clr); break;
+			case '!':	vt_DrawCharBang(_pos, _size, _clr); break;
 		}
 		_pos.y++;
 		_clr.a = clrBase.a * itp_Float(0.f, 1.f, (5.f - i) / 5.f, itp_Square);
@@ -468,6 +470,33 @@ void vt_DrawCharApostrophe(sfVector2f _pos, int _size, sfColor _clr) {
 	v[0] = vt_GetVertex(1, _pos, _size);
 	v[1] = vt_GetVertex(4, _pos, _size);
 	va_DrawPolygon(VA_LINE, "text", 2, v, sfFalse, _clr);
+}
+
+void vt_DrawCharAmpersand(sfVector2f _pos, int _size, sfColor _clr) {
+	sfVector2f v[8];
+	v[0] = vt_GetVertex(7, _pos, _size);
+	v[1] = vt_GetVertex(1, _pos, _size);
+	v[2] = vt_GetVertex(0, _pos, _size);
+	v[3] = vt_GetVertex(3, _pos, _size);
+	v[4] = vt_GetVertex(5, _pos, _size);
+	v[5] = vt_GetVertex(3, _pos, _size);
+	v[6] = vt_GetVertex(6, _pos, _size);
+	v[7] = vt_GetVertex(8, _pos, _size);
+	va_DrawPolygon(VA_LINE, "text", 8, v, sfFalse, _clr);
+}
+
+void vt_DrawCharBang(sfVector2f _pos, int _size, sfColor _clr) {
+	sfVector2f v[4];
+	v[0] = v_Add(_pos, Vector2f(_size * .375f, _size));
+	v[1] = v_Add(_pos, Vector2f(_size * .375f, _size * .75f));
+	v[2] = v_Add(_pos, Vector2f(_size * .625f, _size * .75f));
+	v[3] = v_Add(_pos, Vector2f(_size * .625f, _size));
+	va_DrawPolygon(VA_LINE, "text", 4, v, sfTrue, _clr);
+
+	sfVector2f v2[2];
+	v2[0] = vt_GetVertex(1, _pos, _size);
+	v2[1] = vt_GetVertex(4, _pos, _size);
+	va_DrawPolygon(VA_LINE, "text", 2, v2, sfTrue, _clr);
 }
 
 sfVector2f vt_GetVertex(char _id, sfVector2f _pos, int _size) {

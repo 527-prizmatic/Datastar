@@ -22,16 +22,16 @@ void en_New(EnType _type, sfVector2f _pos) {
 	if (_type == EN_WALL) {
 		new->spd = NULLVECTF;
 		new->hp_max = 3;
-		new->aabb = FloatRect(_pos.x - 67.5f, _pos.y - 67.5f, 135.f, 135.f);
+		new->aabb = FloatRect_FromCenter(_pos, 135.f, 135.f);
 		new->clr = Color3(64);
 	}
 	else if (_type == EN_SPARK) {
 		new->spd = NULLVECTF;
 		new->hp_max = 2;
-		new->dataS.beatCounter = 0;
-		new->dataS.rot = 0.f;
-		new->dataS.posOrigin = _pos;
-		new->dataS.posOrigin.x -= game_GetScrollX();
+		new->dataSp.beatCounter = 0;
+		new->dataSp.rot = 0.f;
+		new->dataSp.posOrigin = _pos;
+		new->dataSp.posOrigin.x -= game_GetScrollX();
 //		new->clr = itp_Color(Color(0, 128, 255), Color(255, 0, 128), rand_unit(2), itp_Linear);
 		new->clr = itp_Color(Color(128, 0, 255), Color(255, 0, 128), rand_unit(2), itp_Linear);
 //		new->clr = Color(255, 0, 128);
@@ -39,11 +39,15 @@ void en_New(EnType _type, sfVector2f _pos) {
 	else if (_type == EN_DART) {
 		new->spd = Vector2f(300.f, 0.f);
 		new->hp_max = 1;
-		new->aabb = FloatRect(_pos.x - 67.5f, _pos.y - 67.5f, 135.f, 135.f);
 		new->clr = Color(255, 192, 0);
-		new->dataD.beatCounter = -1;
-		for (int i = 0; i < 5; i++) new->dataD.posOld[i] = _pos;
-		new->dataD.timerTrail = 0.f;
+		new->dataDt.beatCounter = -1;
+		for (int i = 0; i < 5; i++) new->dataDt.posOld[i] = _pos;
+		new->dataDt.timerTrail = 0.f;
+	}
+	if (_type == EN_STREAK) {
+		new->spd = NULLVECTF;
+		new->hp_max = 3;
+		new->clr = Color(128, 224, 255);
 	}
 
 	/// Initialization of generic data
@@ -70,56 +74,64 @@ void en_Update() {
 
 		if (itr->type == EN_SPARK) {
 			if (itr->hp == 2) {
-				itr->pos.x = itp_Float(itr->dataS.posOrigin.x, 1770.f, clamp(itr->lifetime, 0.f, 1.f), itp_Smoother) + game_GetScrollX();
-				if (game_GetBeatFlag()) itr->dataS.beatCounter++;
-				if (itr->dataS.beatCounter == 2 && itr->hp == 2) {
-					itr->dataS.beatCounter = -1;
+				itr->pos.x = itp_Float(itr->dataSp.posOrigin.x, 1770.f, clamp(itr->lifetime, 0.f, 1.f), itp_Smoother) + game_GetScrollX();
+				if (game_GetBeatFlag()) itr->dataSp.beatCounter++;
+				if (itr->dataSp.beatCounter == 2 && itr->hp == 2) {
+					itr->dataSp.beatCounter = -1;
 					//				enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), -20.f));
 					enb_New(ENB_NORMAL, itr->pos, Vector2f(-500.f, 0.f), itr->clr);
 					//				enb_New(ENB_NORMAL, itr->pos, v_RotateD(Vector2f(-500.f, 0.f), 20.f));
+					sfx_EnemyFire(itr->pos, Vector2f(-500.f, 0.f), itr->clr);
 				}
-				itr->dataS.rot += 360.f * getDeltaTime();
+				itr->dataSp.rot += 360.f * getDeltaTime();
 			}
 			else {
 				itr->pos.x += 400.f * getDeltaTime();
-				itr->dataS.rot += 180.f * getDeltaTime();
+				itr->dataSp.rot += 180.f * getDeltaTime();
 			}
 
-			itr->aabb = FloatRect(itr->pos.x - 40.f, itr->pos.y - 40.f, 80.f, 80.f);
+			itr->aabb = FloatRect_FromCenter(itr->pos, 80.f, 80.f);
 		}
 
 		else if (itr->type == EN_DART) {
 			itr->pos = v_Add(itr->pos, v_Mul(itr->spd, getDeltaTime()));
 			if (game_GetBeatFlag())
-				itr->dataD.beatCounter++;
-			if (itr->dataD.beatCounter >= 4) {
+				itr->dataDt.beatCounter++;
+			if (itr->dataDt.beatCounter >= 4) {
 				itr->spd.x -= 1200.f * getDeltaTime();
 
-				itr->dataD.timerTrail += getDeltaTime();
-				if (itr->dataD.timerTrail >= .035f) {
-					itr->dataD.timerTrail -= .035f;
-					for (int i = 4; i > 0; i--) itr->dataD.posOld[i] = itr->dataD.posOld[i - 1];
-					itr->dataD.posOld[0] = itr->pos;
+				itr->dataDt.timerTrail += getDeltaTime();
+				if (itr->dataDt.timerTrail >= .035f) {
+					itr->dataDt.timerTrail -= .035f;
+					for (int i = 4; i > 0; i--) itr->dataDt.posOld[i] = itr->dataDt.posOld[i - 1];
+					itr->dataDt.posOld[0] = itr->pos;
 				}
 			}
-			else for (int i = 0; i < 5; i++) itr->dataD.posOld[i] = itr->pos;
+			else for (int i = 0; i < 5; i++) itr->dataDt.posOld[i] = itr->pos;
 
-			itr->aabb = FloatRect(itr->pos.x - 30.f, itr->pos.y - 40.f, 60.f, 80.f);
+			itr->aabb = FloatRect_FromCenter(itr->pos, 60.f, 80.f);
+		}
+
+		else if (itr->type == EN_STREAK) {
+			if (itr->dataSt.dir == 1) itr->spd = Vector2f(0.f, 500.f);
+			else itr->spd = Vector2f(0.f, -500.f);
+			itr->pos = v_Add(itr->pos, v_Mul(itr->spd, getDeltaTime()));
+			if (itr->pos.y <= 130.f) itr->dataSt.dir = 1;
+			if (itr->pos.y >= 950.f) itr->dataSt.dir = 0;
+			itr->aabb = FloatRect_FromCenter(itr->pos, 60.f, 60.f);
 		}
 
 		PlayerBullet* itrB = plb_Sentinel->next;
 		while (itrB != NULL) {
 			sfBool flagDestroy = sfFalse;
-			if (sfFloatRect_contains(&(itr->aabb), itrB->pos.x, itrB->pos.y)) {
+			if (col_RectRect(itrB->aabb, itr->aabb)) {
 				flagDestroy = sfTrue;
 				itr->hp--;
 				if (itr->type == EN_SPARK && itr->hp == 1) score_Add(en_GetValue(itr->type));
 			}
 
 			if (flagDestroy) {
-				PtcSystem* ptc = ptc_CreateSystem(-1.f, .5f, 10, 5.f, 15.f, 60.f - v_AngAbsD(itrB->spd), 120.f - v_AngAbsD(itrB->spd), PTC_GRAV_NONE, NULL);
-				ptc_SetType(ptc, PTC_SHARD, 2.f, 5.f, 3, 3, sfWhite, itr->clr);
-				ptc_SetShape(ptc, PTCS_POINT, itrB->pos);
+				sfx_ProjectileImpact(itr->pos, itrB->spd, itr->clr);
 				itrB = plb_PopPtr(itrB);
 			}
 			else itrB = itrB->next;
@@ -127,10 +139,15 @@ void en_Update() {
 		}
 
 		if (itr->hp <= 0) {
-			PtcSystem* ptc = ptc_CreateSystem(-1.f, 1.f, 75, 2.f, 8.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
-			ptc_SetType(ptc, PTC_SHARD, 1.f, 6.f, 3, 3, sfWhite, itr->clr);
-			ptc_SetShape(ptc, PTCS_POINT, itr->pos, 20.f);
+			sfx_EnemyDeath(itr->pos, itr->clr);
 			score_Add(en_GetValue(itr->type));
+
+			PlayerBullet* itrB = plb_Sentinel->next;
+			while (itrB != NULL) {
+				if (itrB->type == PLB_HOMING && itrB->dataH.target == itr) itrB->dataH.target = NULL;
+				itrB = itrB->next;
+			}
+
 			itr = en_PopPtr(itr);
 		}
 		else if (itr->pos.x < game_GetScrollX() - 100.f) itr = en_PopPtr(itr);
@@ -149,27 +166,30 @@ void en_Render() {
 			if (itr->hp <= 1) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 70, 45.f, itr->clr);
 		}
 		else if (itr->type == EN_SPARK) {
-			va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 40.f, itr->dataS.rot, sfWhite);
-			if (itr->hp == 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 40.f, itr->dataS.rot * .667f, itr->clr);
+			va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 40.f, itr->dataSp.rot, sfWhite);
+			if (itr->hp == 2) va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 40.f, itr->dataSp.rot * .667f, itr->clr);
 		}
 		else if (itr->type == EN_DART) {
 			sfColor clr = itr->clr;
 
 			float j = itp_Float(0.f, 1920.f, itr->lifetime / (4.f * (60.f / wave_GetTempo(game_GetLevel()))), itp_Square);
-			if (itr->dataD.beatCounter >= 4) {
+			if (itr->dataDt.beatCounter >= 4) {
 				for (int i = 0; i < 5; i++) {
-					va_DrawPolygonReg(VA_LINE, NULL, 3, itr->dataD.posOld[i], 30.f, 30.f, clr);
+					va_DrawPolygonReg(VA_LINE, NULL, 3, itr->dataDt.posOld[i], 30.f, 30.f, clr);
 					clr.a -= 50;
 				}
 			}
 			else {
 				float i = itp_Float(0.f, 15.f, itr->lifetime / (4.f * (60.f / wave_GetTempo(game_GetLevel()))), itp_Square);
 				sfFloatRect rFill = FloatRect(game_GetScrollX() + 1920.f - j, itr->pos.y - i, j, 2.f * i);
-				clr.a = 8;
+				clr.a = 12;
 				va_DrawRectangle(VA_TRI, NULL, rFill, clr);
 			}
-			clr.a = itp_Float(32, 0, clamp(itr->lifetime - 3.f, 0.f, 1.f), itp_Linear);
+			clr.a = itp_Float(48, 0, clamp(itr->lifetime - 3.f, 0.f, 1.f), itp_Linear);
 			va_DrawRectangle(VA_LINE, NULL, FloatRect(game_GetScrollX() + 1920.f - j, itr->pos.y - 15.f, j, 30.f), clr);
+		}
+		else if (itr->type == EN_STREAK) {
+			va_DrawPolygonReg(VA_LINE, NULL, 4, itr->pos, 30.f, 0.f, itr->clr);
 		}
 
 
@@ -204,6 +224,7 @@ int en_GetValue(EnType _type) {
 		case EN_WALL: return 100;
 		case EN_SPARK: return 200;
 		case EN_DART: return 750;
+		case EN_STREAK: return 500;
 		default: return 100;
 	}
 }

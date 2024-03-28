@@ -18,7 +18,7 @@ void m_cred_Render() {
 	vt_DrawText(Vector2f(960.f, 575.f), "DATASTAR", 50, TXT_CENTER, sfWhite);
 	switch (menu_CreditsState) {
 		case 0:
-			vt_DrawText(Vector2f(960.f, 690.f), "PROGRAMMING, GRAPHICS, GAME DESIGN", 35, TXT_CENTER, sfWhite);
+			vt_DrawText(Vector2f(960.f, 690.f), "PROGRAMMING, GRAPHICS & GAME DESIGN", 35, TXT_CENTER, sfWhite);
 			vt_DrawText(Vector2f(960.f, 745.f), "TOUSSAINT JEAN-SEBASTIEN", 25, TXT_CENTER, sfWhite);
 			break;
 		case 1:

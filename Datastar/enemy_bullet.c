@@ -19,6 +19,7 @@ void enb_New(EnbType _type, sfVector2f _pos, sfVector2f _spd, sfColor _clr) {
 	new->lifetime = 3.f;
 	new->angle = RANDF(0.f, 360.f);
 	new->clr = _clr;
+	new->aabb = FloatRect_FromCenter(new->pos, 10.f, 10.f);
 	
 	enb_Add(new);
 }
@@ -35,6 +36,7 @@ void enb_Update() {
 	EnemyBullet* itr = enb_Sentinel->next;
 	while (itr != NULL) {
 		itr->pos = v_Add(itr->pos, v_Mul(itr->spd, getDeltaTime()));
+		itr->aabb = FloatRect_FromCenter(itr->pos, 10.f, 10.f);
 		itr->angle -= 720.f * getDeltaTime();
 		itr->lifetime -= getDeltaTime();
 
@@ -47,6 +49,7 @@ void enb_Render() {
 	EnemyBullet* itr = enb_Sentinel->next;
 	while (itr != NULL) {
 		va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 15.f, itr->angle, (fmod(itr->lifetime, .1f) < .05f) ? sfWhite : itr->clr);
+		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfCyan);
 		itr = itr->next;
 	}
 }

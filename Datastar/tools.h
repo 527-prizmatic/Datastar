@@ -114,3 +114,4 @@ double rand_unit(int _d);
 
 sfFloatRect floatRect_Contract(sfFloatRect _r, float _val);
 sfFloatRect floatRect_Expand(sfFloatRect _r, float _val);
+sfFloatRect FloatRect_FromCenter(sfVector2f _c, float _w, float _h);

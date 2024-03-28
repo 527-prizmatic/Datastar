@@ -10,6 +10,7 @@
 #include "player_bullet.h"
 #include "enemy_bullet.h"
 #include "models.h"
+#include "collisions.h"
 
 typedef struct {
 	sfVector2f pos;
@@ -18,8 +19,12 @@ typedef struct {
 	int hp;
 	int hp_max;
 	float rot;
-	float fireTimer;
+	float fire_timer;
+	float rof;
+	enum PlbType fire_mode;
+	float bullet_count;
 	float inv_frames;
+	sfFloatRect aabb;
 } PlrPlayer;
 PlrPlayer plr_Player;
 
@@ -32,4 +37,7 @@ void plr_Render();
 void plr_Unload();
 
 void plr_Control();
+
 sfBool plr_Collisions();
+
+void plr_IncreaseBullets(int _i);

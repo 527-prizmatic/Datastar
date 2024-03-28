@@ -7,6 +7,7 @@
 #include "va_tools.h"
 #include "player.h"
 #include "enemy.h"
+#include "sfx.h"
 
 typedef enum EnbType {
 	ENB_NORMAL
@@ -23,6 +24,7 @@ typedef struct EnemyBullet {
 	float lifetime;
 	float angle;
 	sfColor clr;
+	sfFloatRect aabb;
 } EnemyBullet;
 EnemyBullet* enb_Sentinel;
 

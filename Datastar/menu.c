@@ -7,6 +7,7 @@ void menu_Init() {
 	tex_Preload("logo_datastar.png", "logo");
 	m_bg_Init();
 	m_main_Init();
+	m_options_Init();
 	m_cred_Init();
 	menu_SetSubstate(MENU_MAIN);
 }
@@ -19,7 +20,7 @@ void menu_Update() {
 	switch (menu_Substate) {
 		case MENU_MAIN: m_main_Update(); break;
 		case MENU_SELECT: break;
-		case MENU_OPTIONS: break;
+		case MENU_OPTIONS: m_options_Update(); break;
 		case MENU_CONTROLS: break;
 		case MENU_CREDITS: m_cred_Update();  break;
 	}
@@ -33,7 +34,7 @@ void menu_Render() {
 	switch (menu_Substate) {
 		case MENU_MAIN: m_main_Render(); break;
 		case MENU_SELECT: break;
-		case MENU_OPTIONS: break;
+		case MENU_OPTIONS: m_options_Render(); break;
 		case MENU_CONTROLS: break;
 		case MENU_CREDITS: m_cred_Render(); break;
 	}
@@ -44,6 +45,7 @@ void menu_Unload() {
 	tex_Unload("logo");
 	m_bg_Unload();
 	m_main_Unload();
+	m_options_Unload();
 	m_cred_Update();
 }
 

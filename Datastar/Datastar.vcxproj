@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collisions.c" />
     <ClCompile Include="demo.c" />
     <ClCompile Include="enemy.c" />
     <ClCompile Include="enemy_bullet.c" />
@@ -155,11 +156,13 @@
     <ClCompile Include="menu\bg.c" />
     <ClCompile Include="menu\menu_credits.c" />
     <ClCompile Include="menu\menu_main.c" />
+    <ClCompile Include="menu\menu_options.c" />
     <ClCompile Include="models.c" />
     <ClCompile Include="particle_manager.c" />
     <ClCompile Include="player.c" />
     <ClCompile Include="player_bullet.c" />
     <ClCompile Include="score.c" />
+    <ClCompile Include="sfx.c" />
     <ClCompile Include="shader_manager.c" />
     <ClCompile Include="sound_manager.c" />
     <ClCompile Include="state_manager.c" />
@@ -174,6 +177,7 @@
     <ClCompile Include="window_manager.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collisions.h" />
     <ClInclude Include="demo.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy_bullet.h" />
@@ -189,11 +193,13 @@
     <ClInclude Include="menu\bg.h" />
     <ClInclude Include="menu\menu_credits.h" />
     <ClInclude Include="menu\menu_main.h" />
+    <ClInclude Include="menu\menu_options.h" />
     <ClInclude Include="models.h" />
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_bullet.h" />
     <ClInclude Include="score.h" />
+    <ClInclude Include="sfx.h" />
     <ClInclude Include="shader_manager.h" />
     <ClInclude Include="sound_manager.h" />
     <ClInclude Include="state_manager.h" />

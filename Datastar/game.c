@@ -1,7 +1,7 @@
 #include "game.h"
 
-float game_TimerWaves = 6.f;
 float game_TimerBeats = 0.f;
+float game_BeatTime;
 int game_Waves = 0;
 int game_Beats = 1;
 sfBool game_BeatFlag = sfFalse, game_WaveFlag = sfFalse;
@@ -26,11 +26,14 @@ void game_Init() {
 	game_TxtBeats = calloc(4, sizeof(char));
 	game_TxtWaves = calloc(4, sizeof(char));
 	game_LoadLevel(1);
+	game_TimerBeats = 0.f;
+	game_BeatTime = 60.f / wave_GetTempo(game_GetLevel());
+	game_Waves = 0;
+	game_Beats = 1;
 }
 
 void game_Update() {
 	if (snd_GetMusicState() != sfPlaying) mus_Play("future");
-	game_TimerWaves += getDeltaTime();
 	game_TimerBeats += getDeltaTime();
 	game_TimerBg += getDeltaTime();
 	game_ViewPos = v_Add(game_ViewPos, Vector2f(300.f * getDeltaTime(), 0.f));
@@ -44,8 +47,8 @@ void game_Update() {
 
 	game_BeatFlag = sfFalse;
 	game_WaveFlag = sfFalse;
-	if (game_TimerBeats >= .75f) {
-		game_TimerBeats -= .75f;
+	if (game_TimerBeats >= game_BeatTime) {
+		game_TimerBeats -= game_BeatTime;
 		game_BeatFlag = sfTrue;
 		if (game_Beats == 4) {
 			game_Beats = 0;
@@ -125,10 +128,10 @@ void game_Unload() {
 float game_GetScrollX() { return sfView_getCenter(game_View).x - 960.f; }
 
 sfBool game_IsOnScreen(sfVector2f _pos) {
-	if (_pos.x < game_GetScrollX() - 25.f) return sfFalse;
-	else if (_pos.x > game_GetScrollX() + 1945.f) return sfFalse;
-	if (_pos.y < -25.f) return sfFalse;
-	else if (_pos.y > 1105.f) return sfFalse;
+	if (_pos.x < game_GetScrollX() - 50.f) return sfFalse;
+	else if (_pos.x > game_GetScrollX() + 1970.f) return sfFalse;
+	if (_pos.y < -50.f) return sfFalse;
+	else if (_pos.y > 1130.f) return sfFalse;
 	return sfTrue;
 }
 

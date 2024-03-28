@@ -90,3 +90,4 @@ double rand_unit(int _d) {
 
 sfFloatRect floatRect_Contract(sfFloatRect _r, float _val) { return FloatRect(_r.left + _val, _r.top + _val, _r.width - 2.f * _val, _r.height - 2.f * _val); }
 sfFloatRect floatRect_Expand(sfFloatRect _r, float _val) { return FloatRect(_r.left - _val, _r.top - _val, _r.width + 2.f * _val, _r.height + 2.f * _val); }
+sfFloatRect FloatRect_FromCenter(sfVector2f _c, float _w, float _h) { return FloatRect(_c.x - _w * .5f, _c.y - _h * .5f, _w, _h); }

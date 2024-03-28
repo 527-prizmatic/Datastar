@@ -29,7 +29,10 @@ void init_Render() {
 	}
 	else if (init_TimerGlobal <= 30.f) {
 		for (int i = 0; i < 3; i++) {
-			vt_DrawText(Vector2f(960.f, 528.5f + i), "EPILEPSY YADDI YADDA WRITE THIS OUT SOMEDAY", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
+			vt_DrawText(Vector2f(960.f, 493.5f + i), "THIS VIDEO GAME CONTAINS BRIGHT COLORS", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
+			vt_DrawText(Vector2f(960.f, 528.5f + i), "AND FLASHING LIGHTS WHICH MAY CAUSE DISCOMFORT", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
+			vt_DrawText(Vector2f(960.f, 563.5f + i), "OR TRIGGER SEIZURES FOR SENSITIVE PEOPLE.", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
+			vt_DrawText(Vector2f(960.f, 598.5f + i), "REMEMBER TO TAKE FREQUENT BREAKS!", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
 		}
 		if (kb_TestPress(sfKeySpace)) init_TimerGlobal = 30.f;
 	}
