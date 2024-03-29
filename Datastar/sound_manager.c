@@ -38,9 +38,9 @@ void snd_Init() {
 	snd_StrSentinel->next = NULL;
 	snd_StrSentinel->snd = NULL;
 
-	snd_VolMaster = 100.f;
-	snd_VolSnd = 100.f;
-	snd_VolMus = 100.f;
+//	snd_VolMaster = 100.f;
+//	snd_VolSnd = 100.f;
+//	snd_VolMus = 100.f;
 
 	snd_MusState = SND_STOPPED;
 	snd_VolMusFade = 100.f;

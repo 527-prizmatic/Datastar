@@ -51,6 +51,10 @@ void w_ToggleFS() {
 	w_Create();
 }
 
+void w_SetFS(sfBool _fs) {
+	if (window.isFullscreen != _fs) w_ToggleFS();
+}
+
 void w_TogglePause() { window.isPaused = !window.isPaused; }
 
 void w_SetView(sfView* _v) { sfRenderWindow_setView(window.rw, _v); }

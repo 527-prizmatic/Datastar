@@ -8,7 +8,7 @@ void gs_Init() {
 	if (gs_FirstInit) {
 		gs_FirstInit = sfFalse;
 		gs_InitPass = sfTrue;
-		gs_state = GS_INIT;
+		gs_state = GS_MENU;
 		gs_TimerGlobal = 0.f;
 
 		tex_Init();
@@ -19,6 +19,7 @@ void gs_Init() {
 		kb_Enable();
 		gp_Enable();
 		restartClock();
+		sav_Load();
 		log_LogStr(LOG_INFO, "Preinit complete", sfTrue, sfTrue);
 	}
 

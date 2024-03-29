@@ -2,7 +2,7 @@
 
 sfFloatRect menu_UiRectsMain[5];
 char* menu_UiTexts[5];
-int menu_MainSel = 0;
+int menu_MainSel = 2;
 
 void m_main_Init() {
 	menu_UiRectsMain[0] = FloatRect(300.f, 687.5f, 200.f, 75.f);
@@ -30,7 +30,7 @@ void m_main_Update() {
 			case 0: menu_SetSubstate(MENU_CREDITS); break;
 			case 1: menu_SetSubstate(MENU_OPTIONS); break;
 			case 2: gs_ChangeState(GS_GAME); break;
-			case 3: printf("controls\n"); break;
+			case 3: menu_SetSubstate(MENU_CONTROLS); break;
 			case 4: gs_ChangeState(GS_EXIT); break;
 		}
 	}
@@ -49,7 +49,6 @@ void m_main_Render() {
 			sfVector2f textPos = Vector2f(frame.left + frame.width * .5f, frame.top + frame.height * .5f - 10.f + j);
 			clr.a = 255 - j * 82;
 			vt_DrawText(textPos, menu_UiTexts[i], 20 + 4 * (i % 2) + 8 * (i == 2), TXT_CENTER, clr);
-			if (i == 3) vt_DrawText(v_Add(textPos, Vector2f(0.f, 35.f)), "(UNDER CONSTRUCTION)", 10, TXT_CENTER, clr);
 		}
 	}
 }

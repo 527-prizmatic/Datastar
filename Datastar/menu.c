@@ -9,6 +9,7 @@ void menu_Init() {
 	m_main_Init();
 	m_options_Init();
 	m_cred_Init();
+	m_ctrl_Init();
 	menu_SetSubstate(MENU_MAIN);
 }
 
@@ -21,7 +22,7 @@ void menu_Update() {
 		case MENU_MAIN: m_main_Update(); break;
 		case MENU_SELECT: break;
 		case MENU_OPTIONS: m_options_Update(); break;
-		case MENU_CONTROLS: break;
+		case MENU_CONTROLS: m_ctrl_Update(); break;
 		case MENU_CREDITS: m_cred_Update();  break;
 	}
 }
@@ -35,7 +36,7 @@ void menu_Render() {
 		case MENU_MAIN: m_main_Render(); break;
 		case MENU_SELECT: break;
 		case MENU_OPTIONS: m_options_Render(); break;
-		case MENU_CONTROLS: break;
+		case MENU_CONTROLS: m_ctrl_Render(); break;
 		case MENU_CREDITS: m_cred_Render(); break;
 	}
 }
@@ -45,8 +46,9 @@ void menu_Unload() {
 	tex_Unload("logo");
 	m_bg_Unload();
 	m_main_Unload();
+	m_cred_Unload();
+	m_ctrl_Unload();
 	m_options_Unload();
-	m_cred_Update();
 }
 
 void menu_SetSubstate(MenuSubstate _s) { menu_Substate = _s; }

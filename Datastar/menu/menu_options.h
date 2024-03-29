@@ -6,6 +6,7 @@
 #include "..\vectors.h"
 #include "..\va_tools.h"
 #include "..\state_manager.h"
+#include "..\savefile.h"
 
 void m_options_Init();
 void m_options_Update();

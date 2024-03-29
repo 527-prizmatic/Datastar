@@ -30,8 +30,12 @@ typedef unsigned long long int ULL;
 #define PATH_SHADERS		PATH_ASSETS"shaders\\"
 #define PATH_CONFIG			"..\\config\\"
 #define PATH_LOGS			"..\\logs\\"
+#define PATH_SAVES			""
+#define PATH_SAVEFILE		PATH_SAVES"savefile.bin"
 
 #define RENDER_HITBOXES		0
+
+sfColor clrDGray;
 
 
 /// === TIME UTILITIES === ///

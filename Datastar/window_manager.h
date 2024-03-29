@@ -45,6 +45,9 @@ void w_RenderEnd();
 /// Toggles fullscreen.
 void w_ToggleFS();
 
+/// Sets fullscreen to the given value.
+void w_SetFS(sfBool _fs);
+
 /// Toggles pause.
 void w_TogglePause();
 

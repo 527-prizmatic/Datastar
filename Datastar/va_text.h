@@ -61,3 +61,4 @@ void vt_DrawCharAmpersand(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawCharBang(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawCharLBracket(sfVector2f _pos, int _size, sfColor _clr);
 void vt_DrawCharRBracket(sfVector2f _pos, int _size, sfColor _clr);
+void vt_DrawCharSlash(sfVector2f _pos, int _size, sfColor _clr);

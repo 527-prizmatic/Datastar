@@ -50,11 +50,11 @@ void plr_Unload() {
 
 void plr_Control() {
 	/// Moving when pressing arrow keys
-	if (kb_TestHold(sfKeyUp) || kb_TestHold(sfKeyW)) plr_Player.spd.y = -1.f;
-	else if (kb_TestHold(sfKeyDown) || kb_TestHold(sfKeyS)) plr_Player.spd.y = 1.f;
+	if (kb_TestHold(ctrl_GetKey(KEY_UP))) plr_Player.spd.y = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN))) plr_Player.spd.y = 1.f;
 	else plr_Player.spd.y = 0.f;
-	if (kb_TestHold(sfKeyLeft) || kb_TestHold(sfKeyA)) plr_Player.spd.x = -1.f;
-	else if (kb_TestHold(sfKeyRight) || kb_TestHold(sfKeyD)) plr_Player.spd.x = 1.f;
+	if (kb_TestHold(ctrl_GetKey(KEY_LEFT))) plr_Player.spd.x = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_RIGHT))) plr_Player.spd.x = 1.f;
 	else plr_Player.spd.x = 0.f;
 
 	plr_Player.spd = v_SetMag(plr_Player.spd, 500.f);
@@ -66,14 +66,14 @@ void plr_Control() {
 	plr_Player.rot = 90.f;
 
 	/// Firing while space is kept pressed
-	if (kb_TestHold(sfKeySpace) && plr_Player.fire_timer <= 0.f) {
+	if (kb_TestHold(ctrl_GetKey(KEY_FIRE)) && plr_Player.fire_timer <= 0.f) {
 		plr_Player.fire_timer = 1.f / plr_Player.rof;
 		for (int i = 0; i < plr_Player.bullet_count; i++) plb_New(plr_Player.fire_mode, v_Add(plr_Player.pos, v_RotateD(Vector2f(20.f, 0.f), plr_Player.rot - 90.f)), 4.f * i - 2.f * (plr_Player.bullet_count - 1.f));
 		sfx_PlayerFire();
 	}
 
 	/// Changing fire modes upon hitting tab
-	if (kb_TestPress(sfKeyTab)) {
+	if (kb_TestPress(ctrl_GetKey(KEY_CHANGE))) {
 		if (plr_Player.fire_mode == PLB_NORMAL) {
 			plr_Player.fire_mode = PLB_HOMING;
 			plr_Player.rof = 3.f;

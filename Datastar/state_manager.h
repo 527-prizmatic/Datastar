@@ -14,6 +14,7 @@
 #include "keyboard.h"
 #include "gamepad.h"
 #include "va_tools.h"
+#include "savefile.h"
 
 #include "demo.h"
 #include "init.h"

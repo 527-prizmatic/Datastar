@@ -10,6 +10,7 @@ void initTools() {
 	srand((unsigned int)time(NULL));
 	seedRNGs((UL)time(NULL));
 	clockGame = sfClock_create();
+	clrDGray = Color3(96);
 }
 
 void restartClock() {

@@ -159,9 +159,6 @@
     <ClCompile Include="waves.c">
       <Filter>Fichiers sources\Game\Waves</Filter>
     </ClCompile>
-    <ClCompile Include="score.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="menu\menu_credits.c">
       <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
     </ClCompile>
@@ -173,6 +170,18 @@
     </ClCompile>
     <ClCompile Include="menu\menu_options.c">
       <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\menu_controls.c">
+      <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
+    </ClCompile>
+    <ClCompile Include="controls.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="savefile.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="score.c">
+      <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="menu\menu_options.h">
       <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
+    </ClInclude>
+    <ClInclude Include="savefile.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\menu_controls.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
+    </ClInclude>
+    <ClInclude Include="controls.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
