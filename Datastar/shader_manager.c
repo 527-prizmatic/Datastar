@@ -98,7 +98,7 @@ sfRenderStates* shd_FetchState(char* _id) {
 	return NULL;
 }
 
-const sfShader* shd_FetchShader(char* _id) { return _id ? shd_FetchState(_id)->shader : NULL; }
+sfShader* shd_FetchShader(char* _id) { return _id ? shd_FetchState(_id)->shader : NULL; }
 
 ShdWrapper* shd_PopPtr(ShdWrapper* _shd) {
 	sfShader_destroy(_shd->rs.shader);

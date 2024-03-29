@@ -143,6 +143,11 @@
     <ClCompile Include="controls.c" />
     <ClCompile Include="demo.c" />
     <ClCompile Include="enemy.c" />
+    <ClCompile Include="enemy\boss_gamma.c" />
+    <ClCompile Include="enemy\dart.c" />
+    <ClCompile Include="enemy\spark.c" />
+    <ClCompile Include="enemy\streak.c" />
+    <ClCompile Include="enemy\wall.c" />
     <ClCompile Include="enemy_bullet.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gamepad.c" />
@@ -184,6 +189,11 @@
     <ClInclude Include="controls.h" />
     <ClInclude Include="demo.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemy\boss_gamma.h" />
+    <ClInclude Include="enemy\dart.h" />
+    <ClInclude Include="enemy\spark.h" />
+    <ClInclude Include="enemy\streak.h" />
+    <ClInclude Include="enemy\wall.h" />
     <ClInclude Include="enemy_bullet.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamepad.h" />

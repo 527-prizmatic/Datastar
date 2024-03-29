@@ -64,6 +64,12 @@
     <Filter Include="Fichiers d%27en-tête\Game\Waves">
       <UniqueIdentifier>{7eb72000-373e-4ee6-b72b-56c927db0948}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Game\Entities\Enemy Types">
+      <UniqueIdentifier>{6c4a68c6-7027-40e7-8f20-884368d4e632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\Entities\Enemy Types">
+      <UniqueIdentifier>{9e2399c3-aace-4358-8b73-358d24137268}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -183,6 +189,21 @@
     <ClCompile Include="score.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="enemy\wall.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\spark.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\dart.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\streak.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\boss_gamma.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -298,6 +319,21 @@
     </ClInclude>
     <ClInclude Include="controls.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\wall.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\spark.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\dart.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\streak.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\boss_gamma.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

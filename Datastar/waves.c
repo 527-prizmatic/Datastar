@@ -15,7 +15,7 @@ float wave_GetTempo(int _lvl) {
 }
 
 void wave_CreateWall(int _slot) {
-	en_New(EN_WALL, Vector2f(game_GetScrollX() + 2000.f, _slot * 135.f + 67.5f));
+	en_Wall(Vector2f(game_GetScrollX() + 2000.f, _slot * 135.f + 67.5f), 3);
 }
 
 void wave_CreateWallBarrier() {

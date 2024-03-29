@@ -82,6 +82,8 @@ void plb_Update() {
 					else if (posDiff.y >= 0.f && fabs(posDiff.x) <= fabs(posDiff.y)) itr->spd = Vector2f(0.f, 1200.f);
 				}
 			}
+
+			if (itr->dataH.target) if (itr->dataH.target->pos.x < plr_Player.pos.x) itr->dataH.target = NULL;
 		}
 
 		if (itr->lifetime <= 0.f || !game_IsOnScreen(itr->pos)) itr = plb_PopPtr(itr);

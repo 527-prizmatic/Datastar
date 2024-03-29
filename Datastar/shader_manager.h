@@ -31,7 +31,7 @@ sfRenderStates* shd_FetchState(char* _id);
 
 /// Searches and returns a preloaded shader by ID.
 /// Returns NULL if passed NULL.
-const sfShader* shd_FetchShader(char* _id);
+sfShader* shd_FetchShader(char* _id);
 
 /// Removes a shader wrapper object from the buffer via pointer.
 ShdWrapper* shd_PopPtr(ShdWrapper* _shd);

@@ -60,6 +60,7 @@ sfKeyCode ctrl_GetKey(CtrlKeyId _id) {
 		case KEY_EXTRA: return ctrl.extra;
 		case KEY_CHANGE: return ctrl.change;
 		case KEY_PAUSE: return ctrl.pause;
+		default: return sfKeyUnknown;
 	}
 }
 
@@ -73,6 +74,7 @@ sfKeyCode* ctrl_GetKeyPtr(CtrlKeyId _id) {
 	case KEY_EXTRA: return &ctrl.extra;
 	case KEY_CHANGE: return &ctrl.change;
 	case KEY_PAUSE: return &ctrl.pause;
+	default: return NULL;
 	}
 }
 

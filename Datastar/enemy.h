@@ -10,41 +10,45 @@
 #include "score.h"
 #include "sfx.h"
 
+#include "enemy/wall.h"
+#include "enemy/spark.h"
+#include "enemy/dart.h"
+#include "enemy/streak.h"
+#include "enemy/boss_gamma.h"
+
 typedef enum EnType {
 	EN_WALL,
 	EN_SPARK,
 	EN_DART,
 	EN_STREAK,
 
-
 	EN_BOSS_GAMMA
 } EnType;
 
-typedef struct {
+typedef struct EnDataWall {
 	float dummy;
 } EnDataWall;
 
-typedef struct {
+typedef struct EnDataSpark{
 	sfVector2f posOrigin;
 	float rot;
 	char beatCounter;
 } EnDataSpark;
 
-typedef struct {
-	char beatCounter;
+typedef struct EnDataDart {
 	sfVector2f posOld[5];
 	float timerTrail;
 } EnDataDart;
 
-typedef struct {
+typedef struct EnDataStreak {
 	char dir;
+	float spd_mul;
 } EnDataStreak;
 
-typedef struct {
+typedef struct EnDataGamma {
 	sfVector2f posOrigin;
 	float rot;
 	char phase;
-	char beatCounter;
 	float timer_shots;
 } EnDataGamma;
 
@@ -58,25 +62,22 @@ typedef struct EnData {
 	sfFloatRect aabb;
 	float lifetime;
 	float timer_blink;
-
 	int hp;
 	int hp_max;
 
 	union {
-		EnDataWall dataWl;
-		EnDataSpark dataSp;
-		EnDataDart dataDt;
-		EnDataStreak dataSt;
+		struct EnDataWall dataWl;
+		struct EnDataSpark dataSp;
+		struct EnDataDart dataDt;
+		struct EnDataStreak dataSt;
 
 
-		EnDataGamma dataGm;
+		struct EnDataGamma dataGm;
 	};
 } EnData;
 EnData* en_Sentinel;
 
 void en_Init();
-
-void en_New(EnType _type, sfVector2f _pos);
 
 void en_Add(EnData* _en);
 
