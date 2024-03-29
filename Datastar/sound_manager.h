@@ -86,6 +86,8 @@ SndMusState snd_GetMusicState();
 sfMusic* mus_GetCurrentlyPlaying();
 
 void mus_SetPos(char* _id, float _time);
+void mus_SetLoop(char* _id, sfTimeSpan _time);
+void mus_StopLoop(char* _id);
 
 /// Unloads the requested sound from memory.
 void snd_Unload(char* _id);

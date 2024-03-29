@@ -60,7 +60,7 @@ void plr_Control() {
 	plr_Player.spd = v_SetMag(plr_Player.spd, 500.f);
 	plr_Player.spd.x -= 2.f * max(0.f, plr_Player.pos.x - (game_GetScrollX() + 1720.f));
 	plr_Player.spd.x -= 2.f * min(0.f, plr_Player.pos.x - (game_GetScrollX() + 300.f));
-	plr_Player.spd.x += 100.f;
+	plr_Player.spd.x += game_GetScrollSpeed() * .75f;
 	if (plr_Player.pos.y <= 90.f) plr_Player.spd.y = max(0.f, plr_Player.spd.y);
 	if (plr_Player.pos.y >= 990.f) plr_Player.spd.y = min(0.f, plr_Player.spd.y);
 	plr_Player.rot = 90.f;

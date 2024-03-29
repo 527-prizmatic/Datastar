@@ -24,6 +24,7 @@ void en_Spark(sfVector2f _pos) {
 }
 
 struct EnData* en_spark_Update(struct EnData* _en) {
+	/// Healthy: fire
 	if (_en->hp == 2) {
 		/// Lifetime under 4 bars: enter field of vision
 		if (_en->lifetime < Bars(4)) _en->pos.x = itp_Float(_en->dataSp.posOrigin.x, 1770.f, clamp(_en->lifetime, 0.f, Beats(1)), itp_Smoother) + game_GetScrollX();
@@ -48,9 +49,12 @@ struct EnData* en_spark_Update(struct EnData* _en) {
 		}
 		_en->dataSp.rot += 360.f * getDeltaTime();
 	}
+
+	/// Damaged: retreat
 	else {
 		_en->pos.x += 400.f * getDeltaTime();
 		_en->dataSp.rot += 180.f * getDeltaTime();
+		if (_en->pos.x > game_GetScrollX() + 2200.f) return en_PopPtr(_en);
 	}
 
 	_en->aabb = FloatRect_FromCenter(_en->pos, 80.f, 80.f);

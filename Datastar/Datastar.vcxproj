@@ -151,6 +151,7 @@
     <ClCompile Include="enemy_bullet.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gamepad.c" />
+    <ClCompile Include="hud.c" />
     <ClCompile Include="init.c" />
     <ClCompile Include="interpolation.c" />
     <ClCompile Include="intro.c" />
@@ -197,6 +198,7 @@
     <ClInclude Include="enemy_bullet.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamepad.h" />
+    <ClInclude Include="hud.h" />
     <ClInclude Include="init.h" />
     <ClInclude Include="interpolation.h" />
     <ClInclude Include="intro.h" />

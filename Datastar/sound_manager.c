@@ -9,6 +9,7 @@ float snd_VolMus;
 SndWrapper* snd_NowPlaying;
 sfSound* snd_Sound;
 SndMusState snd_MusState;
+sfTimeSpan mus_DefaultLoop;
 
 float snd_VolMusFade;
 
@@ -37,10 +38,6 @@ void snd_Init() {
 	snd_StrSentinel->prev = NULL;
 	snd_StrSentinel->next = NULL;
 	snd_StrSentinel->snd = NULL;
-
-//	snd_VolMaster = 100.f;
-//	snd_VolSnd = 100.f;
-//	snd_VolMus = 100.f;
 
 	snd_MusState = SND_STOPPED;
 	snd_VolMusFade = 100.f;
@@ -88,7 +85,10 @@ void snd_Preload(SndType _type, char* _path, char* _id) {
 	strcat(fullpath, _path);
 	
 	if (_type == SND_SND) new->snd = sfSoundBuffer_createFromFile(fullpath);
-	else new->mus = sfMusic_createFromFile(fullpath);
+	else {
+		new->mus = sfMusic_createFromFile(fullpath);
+		sfMusic_setLoop(new->mus, sfTrue);
+	}
 	
 	free(fullpath);
 
@@ -129,6 +129,10 @@ SndWrapper* snd_PopPtr(SndWrapper* _snd) {
 
 void snd_Update() {
 	if (snd_NowPlaying != NULL) sfMusic_setVolume(snd_NowPlaying->mus, snd_VolMaster * snd_VolMus * snd_VolMusFade * .0001f);
+	sfSoundStatus a;
+	if (snd_NowPlaying) {
+		a = sfMusic_getStatus(snd_NowPlaying->mus);
+	}
 
 	SndStream* itr2 = snd_StrSentinel->next;
 	while (itr2 != NULL) {
@@ -172,6 +176,7 @@ void mus_Play(char* _id) {
 	sfMusic_play(itr->mus);
 	snd_NowPlaying = itr;
 	snd_MusState = SND_PLAYING;
+	mus_DefaultLoop = sfMusic_getLoopPoints(snd_NowPlaying->mus);
 }
 
 void mus_FadeIn(char* _id) {
@@ -181,6 +186,7 @@ void mus_FadeIn(char* _id) {
 	sfMusic_play(itr->mus);
 	snd_NowPlaying = itr;
 	snd_MusState = SND_FADEIN;
+	mus_DefaultLoop = sfMusic_getLoopPoints(snd_NowPlaying->mus);
 }
 
 void mus_FadeOut() { snd_MusState = SND_FADEOUT; }
@@ -261,9 +267,22 @@ float vol_GetMus() { return snd_VolMus; }
 SndMusState snd_GetMusicState() { return snd_MusState; }
 
 void mus_SetPos(char* _id, float _time) {
-	SndWrapper* mus = snd_IsValidMusic(_id);
-	if (!mus) return;
-	sfMusic_setPlayingOffset(mus->mus, (sfTime) { _time * 1e6f });
+//	SndWrapper* mus = snd_IsValidMusic(_id);
+//	if (!mus) return;
+	sfMusic_setPlayingOffset(snd_NowPlaying->mus, Time(_time));
+}
+
+void mus_SetLoop(char* _id, sfTimeSpan _time) {
+//	SndWrapper* mus = snd_IsValidMusic(_id);
+//	if (!mus) return;
+	sfMusic_setLoopPoints(snd_NowPlaying->mus, _time);
+}
+
+void mus_StopLoop(char* _id) {
+//	SndWrapper* mus = snd_IsValidMusic(_id);
+//	if (!mus) return;
+	sfMusic_setPlayingOffset(snd_NowPlaying->mus, Time(sfTime_asSeconds(sfMusic_getLoopPoints(snd_NowPlaying->mus).offset) - .01f));
+	sfMusic_setLoopPoints(snd_NowPlaying->mus, mus_DefaultLoop);
 }
 
 SndWrapper* snd_IsValidMusic(char* _id) {

@@ -1,19 +1,21 @@
 #include "game.h"
 
 float game_TimerBeats = 0.f;
+float game_TimerGlobal = 0.f;
 float game_BeatTime;
 int game_Waves = 0;
 int game_Beats = 1;
 sfBool game_BeatFlag = sfFalse, game_WaveFlag = sfFalse;
-char* game_TxtBeats, *game_TxtWaves;
 int game_Level;
-float game_TimerBg = 0.f;
+
+float game_ScrollSpeed, game_ScrollSpeedOld, game_ScrollSpeedTarget;
+float game_TimeCallSetSpeed, game_SpeedChangeTime;
 
 float Beats(int _i) { return game_BeatTime * _i; }
 float Bars(int _i) { return game_BeatTime * _i * 4.f; }
 
 void game_Init() {
-	snd_Preload(SND_MUS, "ode_to_the_future.ogg", "future");
+	snd_Preload(SND_MUS, "ode_to_the_future.wav", "future");
 	shd_Preload(NULL, "grid.frag", "bg_grid");
 
 	model_Init();
@@ -25,22 +27,32 @@ void game_Init() {
 	plb_Init();
 	enb_Init();
 	score_Init();
+	hud_Init();
 
-	game_TxtBeats = calloc(4, sizeof(char));
-	game_TxtWaves = calloc(4, sizeof(char));
+	game_TimerGlobal = 0.f;
 	game_LoadLevel(1);
 	game_TimerBeats = 0.f;
 	game_BeatTime = 60.f / wave_GetTempo(game_GetLevel());
-	game_Waves = 30;
+	game_Waves = 0;
 	game_Beats = 1;
+	game_ScrollSpeed = 3000.f;
+	game_ScrollSpeedOld = 3000.f;
+	game_ScrollSpeedTarget = 300.f;
+	game_TimeCallSetSpeed = 0.f;
+	game_SpeedChangeTime = Beats(2);
 }
 
 void game_Update() {
 	if (snd_GetMusicState() != sfPlaying) mus_Play("future");
 	game_TimerBeats += getDeltaTime();
-	game_TimerBg += getDeltaTime();
-	game_ViewPos = v_Add(game_ViewPos, Vector2f(300.f * getDeltaTime(), 0.f));
+	game_TimerGlobal += getDeltaTime();
+
+	if (game_TimeCallSetSpeed + game_SpeedChangeTime > game_TimerGlobal) {
+		game_ScrollSpeed = itp_Float(game_ScrollSpeedOld, game_ScrollSpeedTarget, (game_TimerGlobal - game_TimeCallSetSpeed) / game_SpeedChangeTime, itp_Linear);
+	}
+	game_ViewPos = v_Add(game_ViewPos, Vector2f(game_ScrollSpeed * getDeltaTime(), 0.f));
 	sfView_setCenter(game_View, game_ViewPos);
+
 	plr_Update();
 	if (plr_Player.hp == 0) return;
 	en_Update();
@@ -58,20 +70,18 @@ void game_Update() {
 			game_WaveFlag = sfTrue;
 		}
 		game_Beats++;
-		sprintf(game_TxtBeats, "%d", game_Beats);
 	}
 
 	if (game_WaveFlag) {
 		game_Waves++;
 		wave_Generate(game_Level, game_Waves);
-		sprintf(game_TxtWaves, "%d", game_Waves);
 	}
 
 	if (kb_TestPress(sfKeyEscape)) gs_ChangeState(GS_MENU);
 }
 
 void game_Render() {
-	sfShader_setFloatUniform(shd_FetchShader("bg_grid"), "time", game_TimerBg);
+	sfShader_setFloatUniform(shd_FetchShader("bg_grid"), "time", game_TimerGlobal);
 	for (int i = 0; i < 20; i++) va_DrawLine("bg_grid", Vector2f(i * 96.f, 0.f), Vector2f(i * 96.f, 1080.f), sfWhite);
 	for (int i = 0; i < 12; i++) va_DrawLine("bg_grid", Vector2f(0.f, i * 96.f + 24.f), Vector2f(1920.f, i * 96.f + 24.f), sfWhite);
 
@@ -89,32 +99,9 @@ void game_Render() {
 	ptc_Render();
 
 	w_ResetView();
-
-	for (int i = 0; i < plr_Player.hp; i++) {
-		sfVector2f hpUiPos[4];
-		hpUiPos[0] = Vector2f(40.f + i * 50.f, 20.f);
-		hpUiPos[1] = Vector2f(85.f + i * 50.f, 20.f);
-		hpUiPos[2] = Vector2f(65.f + i * 50.f, 40.f);
-		hpUiPos[3] = Vector2f(20.f + i * 50.f, 40.f);
-		va_DrawPolygon(VA_TRI, NULL, 4, hpUiPos, sfTrue, Color(0, 128, 64));
-	}
-
-	for (int i = 0; i < plr_Player.hp_max; i++) {
-		sfVector2f hpUiPos[4];
-		hpUiPos[0] = Vector2f(40.f + i * 50.f, 20.f);
-		hpUiPos[1] = Vector2f(85.f + i * 50.f, 20.f);
-		hpUiPos[2] = Vector2f(65.f + i * 50.f, 40.f);
-		hpUiPos[3] = Vector2f(20.f + i * 50.f, 40.f);
-		va_DrawPolygon(VA_LINE, NULL, 4, hpUiPos, sfTrue, sfWhite);
-		hpUiPos[0] = Vector2f(41.f + i * 50.f, 20.f);
-		hpUiPos[1] = Vector2f(84.f + i * 50.f, 20.f);
-		hpUiPos[2] = Vector2f(64.f + i * 50.f, 40.f);
-		hpUiPos[3] = Vector2f(21.f + i * 50.f, 40.f);
-		va_DrawPolygon(VA_LINE, NULL, 4, hpUiPos, sfTrue, sfWhite);
-	}
-
-	vt_DrawText(Vector2f(25.f, 1030.f), game_TxtBeats, 25, TXT_LEFT, sfWhite);
-	vt_DrawText(Vector2f(200.f, 1030.f), game_TxtWaves, 25, TXT_LEFT, sfWhite);
+	hud_DrawHealth(plr_Player.hp);
+	hud_DrawMaxHealth(plr_Player.hp_max);
+	hud_DrawInfoTime(game_Beats, game_Waves);
 	score_Render();
 }
 
@@ -124,6 +111,7 @@ void game_Unload() {
 	plb_Unload();
 	enb_Unload();
 	score_Unload();
+	hud_Unload();
 
 	snd_Unload("future");
 //	shd_Unload("bg_grid");
@@ -141,5 +129,17 @@ sfBool game_IsOnScreen(sfVector2f _pos) {
 
 sfBool game_GetBeatFlag() { return game_BeatFlag; }
 
-void game_LoadLevel(int _lvl) { game_Level = _lvl; }
+void game_LoadLevel(int _lvl) {
+	game_Level = _lvl;
+}
+
 int game_GetLevel() { return game_Level; }
+
+void game_SetScrollSpeed(float _target, float _time) {
+	game_TimeCallSetSpeed = game_TimerGlobal;
+	game_SpeedChangeTime = _time;
+	game_ScrollSpeedOld = game_ScrollSpeed;
+	game_ScrollSpeedTarget = _target;
+}
+
+float game_GetScrollSpeed() { return game_ScrollSpeed; }

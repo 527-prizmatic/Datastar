@@ -18,6 +18,8 @@
 #include "enemy.h"
 #include "waves.h"
 #include "score.h"
+#include "hud.h"
+
 sfView* game_View;
 sfVector2f game_ViewPos;
 
@@ -34,3 +36,6 @@ void game_LoadLevel(int _lvl);
 int game_GetLevel();
 float Beats(int _i);
 float Bars(int _i);
+
+void game_SetScrollSpeed(float _target, float _time);
+float game_GetScrollSpeed();

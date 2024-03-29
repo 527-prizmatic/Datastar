@@ -33,47 +33,45 @@ struct EnData* en_gamma_Update(struct EnData* _en) {
 	if (game_GetBeatFlag() && _en->lifetime >= Beats(1) + .1f) {
 		switch (_en->dataGm.phase) {
 		case 1:
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(_en->lifetime) * 30.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(_en->lifetime) * 30.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), -sinf(_en->lifetime) * 30.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), sinf(_en->lifetime) * 30.f), _en->clr);
 			break;
 		case 2:
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), -sinf(_en->lifetime + 2.f) * 40.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), sinf(_en->lifetime + 2.f) * 40.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(_en->lifetime + 2.f) * 40.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(_en->lifetime + 2.f) * 40.f), _en->clr);
 			break;
 		case 3:
-			enb_New(ENB_NORMAL, _en->pos, Vector2f(-500.f, 0.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(_en->lifetime) * 20.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(_en->lifetime) * 20.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, Vector2f(-400.f, 0.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), -sinf(_en->lifetime) * 20.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), sinf(_en->lifetime) * 20.f), _en->clr);
 			break;
 		case 4:
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), -60.f), _en->clr);
-			//		enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), -sinf(_en->lifetime) * 40.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), -20.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, Vector2f(-500.f, 0.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), 20.f), _en->clr);
-			//		enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), sinf(_en->lifetime) * 40.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), 60.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), -40.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), -20.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, Vector2f(-400.f, 0.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), 20.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), 40.f), _en->clr);
 			break;
 		}
-		sfx_EnemyFire(_en->pos, Vector2f(-500.f, 0.f), _en->clr);
+		sfx_EnemyFire(_en->pos, Vector2f(-400.f, 0.f), _en->clr);
 	}
 
 	if (_en->dataGm.timer_shots <= 0.f) {
 		switch (_en->dataGm.phase) {
 		case 1: break;
 		case 2:
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-450.f, 0.f), -sinf(_en->lifetime) * 20.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, Vector2f(-500.f, 0.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-450.f, 0.f), sinf(_en->lifetime) * 20.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-350.f, 0.f), -sinf(_en->lifetime) * 20.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, Vector2f(-400.f, 0.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-350.f, 0.f), sinf(_en->lifetime) * 20.f), _en->clr);
 			_en->dataGm.timer_shots = .667f;
 			break;
 		case 3:
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-500.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos))), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos))), _en->clr);
 			_en->dataGm.timer_shots = .5f;
 			break;
 		case 4:
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-300.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos)) - 30.f), _en->clr);
-			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-300.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos)) + 30.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-200.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos)) - 30.f), _en->clr);
+			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-200.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos)) + 30.f), _en->clr);
 			_en->dataGm.timer_shots = .333f;
 			break;
 
@@ -92,7 +90,7 @@ void en_gamma_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
 }
 
 void en_gamma_OnKill(struct EnData* _en) {
-
+	game_SetScrollSpeed(5000.f, Bars(2));
 }
 
 void en_gamma_Render(struct EnData* _en) {

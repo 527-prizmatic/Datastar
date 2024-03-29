@@ -204,6 +204,9 @@
     <ClCompile Include="enemy\boss_gamma.c">
       <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
     </ClCompile>
+    <ClCompile Include="hud.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="enemy\boss_gamma.h">
       <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="hud.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

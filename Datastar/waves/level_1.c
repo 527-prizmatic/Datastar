@@ -3,11 +3,14 @@
 void wave_Level_1(int _wave_num) {
 	switch (_wave_num) {
 	case 1:
+		mus_SetLoop("future", TimeSpan(Bars(1), Beats(1)));
 		wave_CreateWall(1);
 		wave_CreateWall(6);
 		break;
 
 	case 2:
+		mus_StopLoop("future");
+		mus_SetPos("future", Bars(2));
 		wave_CreateWall(2);
 		wave_CreateWall(5);
 		break;
@@ -128,14 +131,10 @@ void wave_Level_1(int _wave_num) {
 		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 390.f), 1);
 		en_Streak(Vector2f(game_GetScrollX() + 2120.f, 520.f), 0);
 		en_Streak(Vector2f(game_GetScrollX() + 2240.f, 650.f), 1);
-//		en_Streak(Vector2f(game_GetScrollX() + 2360.f, 780.f), 1);
-//		en_Streak(Vector2f(game_GetScrollX() + 2480.f, 910.f), 1);
-//		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 180.f));
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 280.f));
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 430.f));
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 650.f));
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 800.f));
-//		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 900.f));
 		break;
 
 	case 28: case 29: case 30: case 31:
@@ -143,12 +142,9 @@ void wave_Level_1(int _wave_num) {
 		break;
 
 	case 32:
-//		sfMusic_setLoopPoints(mus_GetCurrentlyPlaying(), TimeSpan(Bars(40), Bars(8)));
+		mus_SetLoop("future", TimeSpan(Bars(40), Bars(8)));
 		en_Gamma(Vector2f(game_GetScrollX() + 2500.f, 540.f));
-
-		// Wave 32 - Boss of level 1 (giant spark)
-		// Loop music around bars 41-48
-
+		game_SetScrollSpeed(400.f, Bars(2));
 		break;
 
 	default: break;

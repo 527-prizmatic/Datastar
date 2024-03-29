@@ -27,6 +27,7 @@ void en_Update() {
 		else itr->timer_blink = 0.f;
 
 		/// AI updates
+		EnData* enp = itr;
 		switch (itr->type) {
 			case EN_WALL: itr = en_wall_Update(itr); break;
 			case EN_SPARK: itr = en_spark_Update(itr); break;
@@ -34,6 +35,7 @@ void en_Update() {
 			case EN_STREAK: itr = en_streak_Update(itr); break;
 			case EN_BOSS_GAMMA: itr = en_gamma_Update(itr); break;
 		}
+		if (itr != enp) continue;
 
 
 		/// On-hit functions
