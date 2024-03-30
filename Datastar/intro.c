@@ -24,7 +24,10 @@ void intro_Update() {
 		intro_TimerGlobal = 24.f;
 		mus_SetPos("origin", 24.f);
 	}
-	if (kb_TestPressAnyKey() && intro_TimerGlobal >= 25.5f) gs_ChangeState(GS_MENU);
+	if (kb_TestPressAnyKey() && intro_TimerGlobal >= 25.5f) {
+		menu_SetSubstate(MENU_MAIN);
+		gs_ChangeState(GS_MENU);
+	}
 }
 
 void intro_Render() {

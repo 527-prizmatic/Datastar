@@ -7,6 +7,7 @@
 #include "sound_manager.h"
 #include "window_manager.h"
 #include "controls.h"
+#include "game.h"
 
 /// Container for save data
 typedef struct {
@@ -16,6 +17,8 @@ typedef struct {
 	float vol_sfx;
 	char fullscreen;
 	CtrlMap controls;
+	char best_level;
+	int best_scores[7];
 
 	/// Game data
 } SaveData;

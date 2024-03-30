@@ -90,7 +90,7 @@ void en_gamma_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
 }
 
 void en_gamma_OnKill(struct EnData* _en) {
-	game_SetScrollSpeed(5000.f, Bars(2));
+	lv1_End();
 }
 
 void en_gamma_Render(struct EnData* _en) {

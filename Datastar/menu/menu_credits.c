@@ -15,6 +15,8 @@ void m_cred_Update() {
 }
 
 void m_cred_Render() {
+	menu_RenderLogo(0.f);
+
 	vt_DrawText(Vector2f(960.f, 575.f), "DATASTAR", 50, TXT_CENTER, sfWhite);
 	switch (menu_CreditsState) {
 		case 0:

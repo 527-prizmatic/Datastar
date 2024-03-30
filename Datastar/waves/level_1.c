@@ -1,16 +1,47 @@
 #include "level_1.h"
 
-void wave_Level_1(int _wave_num) {
+sfBool lv1_Complete = sfFalse;
+float lv1_TimerGlobal = 0.f;
+float lv1_TimerCompleted = 0.f;
+
+void lv1_Init() {
+	snd_Preload(SND_MUS, "ode_to_the_future.wav", "future");
+
+}
+
+void lv1_Update() {
+	if (snd_GetMusicState() != sfPlaying) mus_Play("future");
+	lv1_TimerGlobal += getDeltaTime();
+	if (lv1_Complete) {
+		if (ISZERO(lv1_TimerCompleted)) game_SetScrollSpeed(5000.f, Bars(2));
+		lv1_TimerCompleted += getDeltaTime();
+		if (lv1_TimerCompleted >= Bars(2)) {
+			gs_ChangeState(GS_MENU);
+			if (score_Best[0] < score_Get()) score_Best[0] = score_Get();
+			game_LastLevelUnlocked++;
+			sav_Save();
+		}
+	}
+}
+
+void lv1_Unload() {
+	snd_Unload("future");
+
+}
+
+void lv1_End() { lv1_Complete = sfTrue; }
+
+void lv1_SpawnWaves(int _wave_num) {
 	switch (_wave_num) {
 	case 1:
-		mus_SetLoop("future", TimeSpan(Bars(1), Beats(1)));
+//		mus_SetLoop("future", TimeSpan(Bars(1), Beats(1)));
 		wave_CreateWall(1);
 		wave_CreateWall(6);
 		break;
 
 	case 2:
-		mus_StopLoop("future");
-		mus_SetPos("future", Bars(2));
+//		mus_StopLoop("future");
+//		mus_SetPos("future", Bars(2));
 		wave_CreateWall(2);
 		wave_CreateWall(5);
 		break;

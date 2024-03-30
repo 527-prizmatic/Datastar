@@ -22,6 +22,7 @@
 
 sfView* game_View;
 sfVector2f game_ViewPos;
+char game_LastLevelUnlocked;
 
 void game_Init();
 void game_Update();
@@ -39,3 +40,7 @@ float Bars(int _i);
 
 void game_SetScrollSpeed(float _target, float _time);
 float game_GetScrollSpeed();
+
+void game_InitLevel();
+void game_UpdateLevel();
+void game_UnloadLevel();

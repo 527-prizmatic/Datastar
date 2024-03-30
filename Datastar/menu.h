@@ -15,6 +15,7 @@
 #include "menu\menu_credits.h"
 #include "menu\menu_options.h"
 #include "menu\menu_controls.h"
+#include "menu\menu_select.h"
 
 typedef enum {
 	MENU_MAIN = 0,
@@ -31,3 +32,5 @@ void menu_Render();
 void menu_Unload();
 
 void menu_SetSubstate(MenuSubstate _s);
+
+void menu_RenderLogo(float _pos_y);

@@ -15,7 +15,6 @@ float Beats(int _i) { return game_BeatTime * _i; }
 float Bars(int _i) { return game_BeatTime * _i * 4.f; }
 
 void game_Init() {
-	snd_Preload(SND_MUS, "ode_to_the_future.wav", "future");
 	shd_Preload(NULL, "grid.frag", "bg_grid");
 
 	model_Init();
@@ -30,10 +29,9 @@ void game_Init() {
 	hud_Init();
 
 	game_TimerGlobal = 0.f;
-	game_LoadLevel(1);
 	game_TimerBeats = 0.f;
 	game_BeatTime = 60.f / wave_GetTempo(game_GetLevel());
-	game_Waves = 0;
+	game_Waves = 30;
 	game_Beats = 1;
 	game_ScrollSpeed = 3000.f;
 	game_ScrollSpeedOld = 3000.f;
@@ -43,7 +41,6 @@ void game_Init() {
 }
 
 void game_Update() {
-	if (snd_GetMusicState() != sfPlaying) mus_Play("future");
 	game_TimerBeats += getDeltaTime();
 	game_TimerGlobal += getDeltaTime();
 
@@ -53,9 +50,13 @@ void game_Update() {
 	game_ViewPos = v_Add(game_ViewPos, Vector2f(game_ScrollSpeed * getDeltaTime(), 0.f));
 	sfView_setCenter(game_View, game_ViewPos);
 
+	game_UpdateLevel();
+	if (gs_state == GS_MENU) return;
+
 	plr_Update();
 	if (plr_Player.hp == 0) return;
 	en_Update();
+	if (gs_state == GS_MENU) return;
 	plb_Update();
 	enb_Update();
 	score_Update();
@@ -113,7 +114,8 @@ void game_Unload() {
 	score_Unload();
 	hud_Unload();
 
-	snd_Unload("future");
+	game_UnloadLevel();
+
 //	shd_Unload("bg_grid");
 }
 
@@ -131,6 +133,7 @@ sfBool game_GetBeatFlag() { return game_BeatFlag; }
 
 void game_LoadLevel(int _lvl) {
 	game_Level = _lvl;
+	game_InitLevel();
 }
 
 int game_GetLevel() { return game_Level; }
@@ -143,3 +146,24 @@ void game_SetScrollSpeed(float _target, float _time) {
 }
 
 float game_GetScrollSpeed() { return game_ScrollSpeed; }
+
+void game_InitLevel() {
+	switch (game_Level) {
+		case 1: lv1_Init(); break;
+		default: break;
+	}
+}
+
+void game_UpdateLevel() {
+	switch (game_Level) {
+		case 1: lv1_Update(); break;
+		default: break;
+	}
+}
+
+void game_UnloadLevel() {
+	switch (game_Level) {
+		case 1: lv1_Unload(); break;
+		default: break;
+	}
+}

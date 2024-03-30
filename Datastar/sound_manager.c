@@ -321,6 +321,7 @@ void snd_Unload(char* _id) {
 			log_LogStr(LOG_INFO, _id, sfFalse, sfTrue);
 			return;
 		}
+		itr = itr->next;
 	}
 
 	log_LogStr(LOG_ERROR, "Sound unloading error - requested item does not exist:", sfTrue, sfFalse);

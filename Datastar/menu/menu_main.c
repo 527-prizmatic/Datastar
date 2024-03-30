@@ -29,7 +29,7 @@ void m_main_Update() {
 		switch (menu_MainSel) {
 			case 0: menu_SetSubstate(MENU_CREDITS); break;
 			case 1: menu_SetSubstate(MENU_OPTIONS); break;
-			case 2: gs_ChangeState(GS_GAME); break;
+			case 2: menu_SetSubstate(MENU_SELECT); break;
 			case 3: menu_SetSubstate(MENU_CONTROLS); break;
 			case 4: gs_ChangeState(GS_EXIT); break;
 		}
@@ -37,6 +37,8 @@ void m_main_Update() {
 }
 
 void m_main_Render() {
+	menu_RenderLogo(0.f);
+
 	for (int i = 0; i < 5; i++) {
 		sfFloatRect frame = menu_UiRectsMain[i];
 		sfColor clr = i == menu_MainSel ? sfWhite : Color3(64);

@@ -2,10 +2,13 @@
 
 char menu_CtrlEdit = 0;
 char menu_CtrlSpacePressed = 0;
-char menu_CtrlSelRow = 0, menu_CtrlSelCol;
+char menu_CtrlSelRow = 0, menu_CtrlSelCol = 0;
 
 void m_ctrl_Init() {
-
+	menu_CtrlEdit = 0;
+	menu_CtrlSpacePressed = 0;
+	menu_CtrlSelRow = 0;
+	menu_CtrlSelCol = 0;
 }
 
 void m_ctrl_Update() {
@@ -44,6 +47,8 @@ void m_ctrl_Update() {
 }
 
 void m_ctrl_Render() {
+	menu_RenderLogo(0.f);
+
 	sfColor colors[5][2];
 	for (int i = 0; i < 5; i++) for (int j = 0; j < 2; j++) colors[i][j] = clrDGray;
 	colors[menu_CtrlSelRow][menu_CtrlSelCol] = sfWhite;

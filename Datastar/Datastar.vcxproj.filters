@@ -205,7 +205,10 @@
       <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
     </ClCompile>
     <ClCompile Include="hud.c">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\menu_select.c">
+      <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="hud.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\menu_select.h">
+      <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

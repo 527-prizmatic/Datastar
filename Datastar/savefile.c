@@ -33,6 +33,8 @@ void sav_LoadDefault() {
 	sav_Data.vol_sfx = 100.f;
 	sav_Data.fullscreen = 0;
 	sav_Data.controls = ctrl_GetDefaults();
+	sav_Data.best_level = 1;
+	for (int i = 0; i < 7; i++) sav_Data.best_scores[i] = 10000;
 
 	sav_AssignData();
 }
@@ -43,6 +45,8 @@ void sav_AssembleData() {
 	sav_Data.vol_sfx = vol_GetSnd();
 	sav_Data.fullscreen = w_IsFullscreen();
 	sav_Data.controls = ctrl;
+	sav_Data.best_level = game_LastLevelUnlocked;
+	for (int i = 0; i < 7; i++) sav_Data.best_scores[i] = score_Best[i];
 }
 
 void sav_AssignData() {
@@ -51,4 +55,6 @@ void sav_AssignData() {
 	vol_SetSnd(sav_Data.vol_sfx);
 	w_SetFS(sav_Data.fullscreen);
 	ctrl = sav_Data.controls;
+	game_LastLevelUnlocked = sav_Data.best_level;
+	for (int i = 0; i < 7; i++) score_Best[i] = sav_Data.best_scores[i];
 }

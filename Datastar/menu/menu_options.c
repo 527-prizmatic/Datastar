@@ -6,6 +6,8 @@ char menu_ChangingVolSnd = 0;
 
 void m_options_Init() {
 	menu_OptionsSel = 0;
+	menu_ChangingVolMus = 0;
+	menu_ChangingVolSnd = 0;
 }
 
 void m_options_Update() {
@@ -36,6 +38,8 @@ void m_options_Update() {
 }
 
 void m_options_Render() {
+	menu_RenderLogo(0.f);
+
 	sfColor colors[4] = { clrDGray, clrDGray, clrDGray, clrDGray };
 	colors[menu_OptionsSel] = sfWhite;
 	vt_DrawText(Vector2f(410.f, 700.f), "MUSIC VOL.", 25, TXT_CENTER, menu_ChangingVolMus ? clrDGray : colors[0]);

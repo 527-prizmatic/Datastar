@@ -23,3 +23,5 @@ void score_Unload() {
 void score_Add(int _score) {
 	score += _score;
 }
+
+int score_Get() { return score; }

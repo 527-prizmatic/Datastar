@@ -1,5 +1,5 @@
 /// Functions related to the MENU_OPTIONS menu substate.
-/// Function prefix: m_opt_
+/// Function prefix: m_options_
 
 #pragma once
 #include "..\tools.h"

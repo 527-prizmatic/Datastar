@@ -2,7 +2,7 @@
 
 void wave_Generate(int _lvl, int _wave_num) {
 	switch (_lvl) {
-		case 1: wave_Level_1(_wave_num); break;
+		case 1: lv1_SpawnWaves(_wave_num); break;
 		default: break;
 	}
 }

@@ -74,6 +74,7 @@ void en_Update() {
 				case EN_STREAK: en_streak_OnKill(itr); break;
 				case EN_BOSS_GAMMA: en_gamma_OnKill(itr); break;
 			}
+			if (gs_state == GS_MENU) return;
 
 			PlayerBullet* itrB = plb_Sentinel->next;
 			while (itrB != NULL) {
