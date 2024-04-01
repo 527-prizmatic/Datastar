@@ -18,7 +18,7 @@ void lv2_Update() {
 		lv2_TimerCompleted += getDeltaTime();
 		if (lv2_TimerCompleted >= Bars(2)) {
 			gs_ChangeState(GS_MENU);
-			if (score_Best[0] < score_Get()) score_Best[0] = score_Get();
+			if (score_Best[1] < score_Get()) score_Best[1] = score_Get();
 			game_LastLevelUnlocked = 3;
 			sav_Save();
 		}
@@ -166,9 +166,86 @@ void lv2_SpawnWaves(int _wave_num) {
 		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 300.f), PWR_NONE);
 //		en_Streak(Vector2f(game_GetScrollX() + 2200.f, 540.f), 0, PWR_NONE);
 //		en_Streak(Vector2f(game_GetScrollX() + 2300.f, 540.f), 1, PWR_NONE);
-		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 240.f), Beats(4));
-		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 840.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 340.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 200.f, 740.f), Beats(5));
+		en_Pulse(Vector2f(game_GetScrollX() + 200.f, 190.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 790.f), Beats(7));
 		break;
+
+	case 24:
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 240.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 840.f), PWR_HP);
+		break;
+
+	case 25:
+		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 340.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 740.f), PWR_NONE);
+		en_Pulse(Vector2f(game_GetScrollX() + 200.f, 340.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 740.f), Beats(5));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 190.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 200.f, 790.f), Beats(7));
+		break;
+
+	case 26:
+		wave_CreateWall(2);
+		wave_CreateWall(3);
+		wave_CreateWall(4);
+		wave_CreateWall(5);
+		break;
+
+	case 27:
+		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 240.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 840.f), PWR_NONE);
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(6));
+		break;
+
+	case 28:
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(6));
+		break;
+
+	case 29:
+		wave_CreateWall(1);
+		wave_CreateWall(2);
+		wave_CreateWall(5);
+		wave_CreateWall(6);
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(6));
+		break;
+
+	case 30:
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(4));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 240.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 540.f), Beats(6));
+		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(6)); 
+		break;
+
+	case 31:
+		wave_CreateWallBarrier();
+		break;
+
+	case 32:
+		mus_SetLoop("captain", TimeSpan(Bars(40), Bars(8)));
+		en_Shockwave(Vector2f(game_GetScrollX() + 1500.f, 540.f));
+		game_SetScrollSpeed(0.f, Bars(2));
+		/// Shockwave appears on wave 32
+		/// Music loops around waves 40-48
 
 	default: break;
 	}

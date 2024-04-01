@@ -16,7 +16,7 @@ void enb_New(EnbType _type, sfVector2f _pos, sfVector2f _spd, sfColor _clr) {
 	new->oldPos[0] = _pos;
 	new->oldPos[1] = _pos;
 	new->oldPos[2] = _pos;
-	new->lifetime = 3.f;
+	new->lifetime = 15.f;
 	new->angle = RANDF(0.f, 360.f);
 	new->clr = _clr;
 	new->aabb = FloatRect_FromCenter(new->pos, 10.f, 10.f);
@@ -39,6 +39,8 @@ void enb_Update() {
 		itr->aabb = FloatRect_FromCenter(itr->pos, 10.f, 10.f);
 		itr->angle -= 720.f * getDeltaTime();
 		itr->lifetime -= getDeltaTime();
+
+		if (RANDF(0.f, 1.f) < .1f) ptc_CreateParticle(PTC_SHARD, itr->pos, NULLVECTF, 2.f, PTC_GRAV_NONE, NULL, RANDF(0.f, 3.f), 3, itp_Color(clrDGray, itr->clr, RANDF(0.f, 1.f), itp_Linear));
 
 		if (itr->lifetime <= 0.f || !game_IsOnScreen(itr->pos)) itr = enb_PopPtr(itr);
 		else itr = itr->next;

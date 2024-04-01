@@ -144,6 +144,7 @@
     <ClCompile Include="demo.c" />
     <ClCompile Include="enemy.c" />
     <ClCompile Include="enemy\boss_gamma.c" />
+    <ClCompile Include="enemy\boss_shockwave.c" />
     <ClCompile Include="enemy\dart.c" />
     <ClCompile Include="enemy\pulse.c" />
     <ClCompile Include="enemy\spark.c" />
@@ -195,6 +196,7 @@
     <ClInclude Include="demo.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy\boss_gamma.h" />
+    <ClInclude Include="enemy\boss_shockwave.h" />
     <ClInclude Include="enemy\dart.h" />
     <ClInclude Include="enemy\pulse.h" />
     <ClInclude Include="enemy\spark.h" />

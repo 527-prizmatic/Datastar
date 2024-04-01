@@ -20,7 +20,7 @@ void en_Gamma(sfVector2f _pos, enum PwrType _drop) {
 	new->dataGm.rot = 0.f;
 	new->dataGm.posOrigin = _pos;
 	new->dataGm.phase = 1;
-	new->dataGm.timer_shots = 0.f;
+	new->dataGm.timer_shots_slow = 0.f;
 
 	en_Add(new);
 }
@@ -29,7 +29,7 @@ struct EnData* en_gamma_Update(struct EnData* _en) {
 	_en->pos.x = itp_Float(_en->dataGm.posOrigin.x, 1820.f, clamp(_en->lifetime, 0.f, 5.f) * .2f, itp_Smoother) + game_GetScrollX();
 	_en->dataGm.rot += 75.f * getDeltaTime();
 	_en->aabb = FloatRect_FromCenter(_en->pos, 440.f, 440.f);
-	if (_en->dataGm.timer_shots > 0.f) _en->dataGm.timer_shots -= getDeltaTime();
+	if (_en->dataGm.timer_shots_slow > 0.f) _en->dataGm.timer_shots_slow -= getDeltaTime();
 
 	if (game_GetBeatFlag() && _en->lifetime >= Beats(1) + .1f) {
 		switch (_en->dataGm.phase) {
@@ -57,23 +57,23 @@ struct EnData* en_gamma_Update(struct EnData* _en) {
 		sfx_EnemyFire(_en->pos, Vector2f(-400.f, 0.f), _en->clr);
 	}
 
-	if (_en->dataGm.timer_shots <= 0.f) {
+	if (_en->dataGm.timer_shots_slow <= 0.f) {
 		switch (_en->dataGm.phase) {
 		case 1: break;
 		case 2:
 			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-350.f, 0.f), -sinf(_en->lifetime) * 20.f), _en->clr);
 			enb_New(ENB_NORMAL, _en->pos, Vector2f(-400.f, 0.f), _en->clr);
 			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-350.f, 0.f), sinf(_en->lifetime) * 20.f), _en->clr);
-			_en->dataGm.timer_shots = .667f;
+			_en->dataGm.timer_shots_slow = .667f;
 			break;
 		case 3:
 			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-400.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos))), _en->clr);
-			_en->dataGm.timer_shots = .5f;
+			_en->dataGm.timer_shots_slow = .5f;
 			break;
 		case 4:
 			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-200.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos)) - 30.f), _en->clr);
 			enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(-200.f, 0.f), v_AngAbsD(v_Sub(_en->pos, plr_Player.pos)) + 30.f), _en->clr);
-			_en->dataGm.timer_shots = .333f;
+			_en->dataGm.timer_shots_slow = .333f;
 			break;
 
 		}

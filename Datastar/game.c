@@ -155,6 +155,8 @@ void game_SetScrollSpeed(float _target, float _time) {
 
 float game_GetScrollSpeed() { return game_ScrollSpeed; }
 
+float game_GetTime() { return game_TimerGlobal; }
+
 void game_InitLevel() {
 	switch (game_Level) {
 		case 1: lv1_Init(); break;

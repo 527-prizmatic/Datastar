@@ -32,7 +32,7 @@ void plr_Update() {
 		return;
 	}
 	plr_Player.pos = v_Add(plr_Player.pos, v_Mul(plr_Player.spd, getDeltaTime()));
-	plr_Player.aabb = FloatRect_FromCenter(plr_Player.pos, 40.f, 40.f);
+	plr_Player.aabb = FloatRect_FromCenter(plr_Player.pos, 32.f, 32.f);
 }
 
 void plr_Render() {
@@ -50,25 +50,6 @@ void plr_Unload() {
 }
 
 void plr_Control() {
-	/// Old player movement code
-	/*
-	/// Moving when pressing arrow keys
-	if (kb_TestHold(ctrl_GetKey(KEY_UP))) plr_Player.spd.y = -1.f;
-	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN))) plr_Player.spd.y = 1.f;
-	else plr_Player.spd.y = 0.f;
-	if (kb_TestHold(ctrl_GetKey(KEY_LEFT))) plr_Player.spd.x = -1.f;
-	else if (kb_TestHold(ctrl_GetKey(KEY_RIGHT))) plr_Player.spd.x = 1.f;
-	else plr_Player.spd.x = 0.f;
-
-	plr_Player.spd = v_SetMag(plr_Player.spd, 500.f);
-	plr_Player.spd.x -= 2.f * max(0.f, plr_Player.pos.x - (game_GetScrollX() + 1720.f));
-	plr_Player.spd.x -= 2.f * min(0.f, plr_Player.pos.x - (game_GetScrollX() + 300.f));
-	plr_Player.spd.x += game_GetScrollSpeed() * .75f;
-	if (plr_Player.pos.y <= 90.f) plr_Player.spd.y = max(0.f, plr_Player.spd.y);
-	if (plr_Player.pos.y >= 990.f) plr_Player.spd.y = min(0.f, plr_Player.spd.y);
-	plr_Player.rot = 90.f;
-	*/
-
 	/// Moving when pressing arrow keys
 	if (kb_TestHold(ctrl_GetKey(KEY_UP))) plr_Player.acc.y = -1.f;
 	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN))) plr_Player.acc.y = 1.f;
@@ -90,7 +71,7 @@ void plr_Control() {
 	}
 
 	/// Firing while space is kept pressed
-	if (kb_TestHold(ctrl_GetKey(KEY_FIRE)) && plr_Player.fire_timer <= 0.f) {
+	if (kb_TestHold(ctrl_GetKey(KEY_FIRE)) && plr_Player.fire_timer <= 0.f && game_GetTime() > .5f) {
 		plr_Player.fire_timer = 1.f / plr_Player.rof;
 		for (int i = 0; i < plr_Player.bullet_count; i++) plb_New(plr_Player.fire_mode, v_Add(plr_Player.pos, v_RotateD(Vector2f(20.f, 0.f), plr_Player.rot - 90.f)), 4.f * i - 2.f * (plr_Player.bullet_count - 1.f));
 		sfx_PlayerFire();

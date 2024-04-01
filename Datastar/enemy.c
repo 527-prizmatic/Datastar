@@ -35,6 +35,7 @@ void en_Update() {
 			case EN_STREAK: itr = en_streak_Update(itr); break;
 			case EN_PULSE: itr = en_pulse_Update(itr); break;
 			case EN_BOSS_GAMMA: itr = en_gamma_Update(itr); break;
+			case EN_BOSS_SHOCKWAVE: itr = en_shockwave_Update(itr); break;
 		}
 		if (itr != enp) continue;
 
@@ -57,6 +58,7 @@ void en_Update() {
 					case EN_STREAK: en_streak_OnHit(itr, itrB); break;
 					case EN_PULSE: break;
 					case EN_BOSS_GAMMA: en_gamma_OnHit(itr, itrB); break;
+					case EN_BOSS_SHOCKWAVE: en_shockwave_OnHit(itr, itrB); break;
 					}
 				}
 
@@ -80,6 +82,7 @@ void en_Update() {
 				case EN_STREAK: en_streak_OnKill(itr); break;
 				case EN_PULSE: break;
 				case EN_BOSS_GAMMA: en_gamma_OnKill(itr); break;
+				case EN_BOSS_SHOCKWAVE: en_shockwave_OnKill(itr); break;
 			}
 			if (gs_state == GS_MENU) return;
 
@@ -106,6 +109,7 @@ void en_Render() {
 			case EN_STREAK: en_streak_Render(itr); break;
 			case EN_PULSE: en_pulse_Render(itr); break;
 			case EN_BOSS_GAMMA: en_gamma_Render(itr); break;
+			case EN_BOSS_SHOCKWAVE: en_shockwave_Render(itr); break;
 		}
 
 		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfRed);
@@ -142,6 +146,7 @@ int en_GetValue(EnType _type) {
 		case EN_STREAK: return en_streak_Value();
 		case EN_PULSE: return en_pulse_Value();
 		case EN_BOSS_GAMMA: return en_gamma_Value();
+		case EN_BOSS_SHOCKWAVE: return en_shockwave_Value();
 		default: return 100;
 	}
 }

@@ -17,6 +17,7 @@
 #include "enemy/streak.h"
 #include "enemy/pulse.h"
 #include "enemy/boss_gamma.h"
+#include "enemy/boss_shockwave.h"
 
 typedef enum EnType {
 	EN_WALL,
@@ -25,7 +26,8 @@ typedef enum EnType {
 	EN_STREAK,
 	EN_PULSE,
 
-	EN_BOSS_GAMMA
+	EN_BOSS_GAMMA,
+	EN_BOSS_SHOCKWAVE
 } EnType;
 
 typedef struct EnDataWall {
@@ -57,12 +59,25 @@ typedef struct EnDataPulse {
 	float rot;
 } EnDataPulse;
 
+
 typedef struct EnDataGamma {
 	sfVector2f posOrigin;
 	float rot;
 	char phase;
-	float timer_shots;
+	float timer_shots_slow;
 } EnDataGamma;
+
+typedef struct EnDataShockwave {
+	int hp_arm[6];
+	int hp_max_arm[6];
+	float timers_blink[6];
+	sfVector2f pos_target;
+	float rot;
+	char phase;
+	char beat_ctr;
+	float timer_shots_slow;
+	float lifetime_mod8;
+} EnDataShockwave;
 
 typedef struct EnData {
 	struct EnData* prev;
@@ -87,6 +102,7 @@ typedef struct EnData {
 
 
 		struct EnDataGamma dataGm;
+		struct EnDataShockwave dataSw;
 	};
 } EnData;
 EnData* en_Sentinel;

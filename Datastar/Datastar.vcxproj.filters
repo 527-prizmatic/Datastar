@@ -219,6 +219,9 @@
     <ClCompile Include="enemy\pulse.c">
       <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
     </ClCompile>
+    <ClCompile Include="enemy\boss_shockwave.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -363,6 +366,9 @@
       <Filter>Fichiers d%27en-tête\Game\Waves</Filter>
     </ClInclude>
     <ClInclude Include="enemy\pulse.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\boss_shockwave.h">
       <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
     </ClInclude>
   </ItemGroup>
