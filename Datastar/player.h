@@ -37,3 +37,4 @@ void plr_Unload();
 void plr_Control();
 sfBool plr_Collisions();
 void plr_IncreaseBullets(int _i);
+void plr_HealOne();

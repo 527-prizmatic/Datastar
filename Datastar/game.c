@@ -25,13 +25,15 @@ void game_Init() {
 	en_Init();
 	plb_Init();
 	enb_Init();
+	pwr_Init();
 	score_Init();
 	hud_Init();
+	sfx_ScoreInit();
 
 	game_TimerGlobal = 0.f;
 	game_TimerBeats = 0.f;
 	game_BeatTime = 60.f / wave_GetTempo(game_GetLevel());
-	game_Waves = 30;
+	game_Waves = 0;
 	game_Beats = 1;
 	game_ScrollSpeed = 3000.f;
 	game_ScrollSpeedOld = 3000.f;
@@ -59,7 +61,9 @@ void game_Update() {
 	if (gs_state == GS_MENU) return;
 	plb_Update();
 	enb_Update();
+	pwr_Update();
 	score_Update();
+	sfx_ScoreUpdate();
 
 	game_BeatFlag = sfFalse;
 	game_WaveFlag = sfFalse;
@@ -96,8 +100,10 @@ void game_Render() {
 	en_Render();
 	plb_Render();
 	enb_Render();
+	pwr_Render();
 	wall_Render();
 	ptc_Render();
+	sfx_ScoreRender();
 
 	w_ResetView();
 	hud_DrawHealth(plr_Player.hp);
@@ -111,8 +117,10 @@ void game_Unload() {
 	en_Unload();
 	plb_Unload();
 	enb_Unload();
+	pwr_ClearBuffer();
 	score_Unload();
 	hud_Unload();
+	sfx_ScoreClearBuffer();
 
 	game_UnloadLevel();
 
@@ -150,6 +158,7 @@ float game_GetScrollSpeed() { return game_ScrollSpeed; }
 void game_InitLevel() {
 	switch (game_Level) {
 		case 1: lv1_Init(); break;
+		case 2: lv2_Init(); break;
 		default: break;
 	}
 }
@@ -157,6 +166,7 @@ void game_InitLevel() {
 void game_UpdateLevel() {
 	switch (game_Level) {
 		case 1: lv1_Update(); break;
+		case 2: lv2_Update(); break;
 		default: break;
 	}
 }
@@ -164,6 +174,7 @@ void game_UpdateLevel() {
 void game_UnloadLevel() {
 	switch (game_Level) {
 		case 1: lv1_Unload(); break;
+		case 2: lv2_Unload(); break;
 		default: break;
 	}
 }

@@ -210,6 +210,15 @@
     <ClCompile Include="menu\menu_select.c">
       <Filter>Fichiers sources\Game\State Machine\Menu Substates</Filter>
     </ClCompile>
+    <ClCompile Include="powerup.c">
+      <Filter>Fichiers sources\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="waves\level_2.c">
+      <Filter>Fichiers sources\Game\Waves</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\pulse.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -346,6 +355,15 @@
     </ClInclude>
     <ClInclude Include="menu\menu_select.h">
       <Filter>Fichiers d%27en-tête\Game\State Machine\Menu Substates</Filter>
+    </ClInclude>
+    <ClInclude Include="powerup.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="waves\level_2.h">
+      <Filter>Fichiers d%27en-tête\Game\Waves</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\pulse.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

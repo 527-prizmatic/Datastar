@@ -1,6 +1,6 @@
 #include "dart.h"
 
-void en_Dart(sfVector2f _pos) {
+void en_Dart(sfVector2f _pos, enum PwrType _drop) {
 	EnData* new = malloc(sizeof(EnData));
 	if (!new) {
 		log_LogStr(LOG_ERROR, "Enemy creation error: insufficient memory", sfTrue, sfTrue);
@@ -15,6 +15,7 @@ void en_Dart(sfVector2f _pos) {
 	new->timer_blink = 0.f;
 	new->hp_max = 1;
 	new->hp = new->hp_max;
+	new->drop = _drop;
 
 	for (int i = 0; i < 5; i++) new->dataDt.posOld[i] = _pos;
 	new->dataDt.timerTrail = 0.f;

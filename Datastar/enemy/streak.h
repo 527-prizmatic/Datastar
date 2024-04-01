@@ -8,7 +8,7 @@
 #include "../va_tools.h"
 #include "../enemy.h"
 
-void en_Streak(sfVector2f _pos, sfBool _dir);
+void en_Streak(sfVector2f _pos, sfBool _dir, enum PwrType _drop);
 struct EnData* en_streak_Update(struct EnData* _en);
 void en_streak_OnHit(struct EnData* _en, struct PlayerBullet* _plb);
 void en_streak_OnKill(struct EnData* _en);

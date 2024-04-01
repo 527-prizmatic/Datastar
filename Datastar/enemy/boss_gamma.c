@@ -1,6 +1,6 @@
 #include "boss_gamma.h"
 
-void en_Gamma(sfVector2f _pos) {
+void en_Gamma(sfVector2f _pos, enum PwrType _drop) {
 	EnData* new = malloc(sizeof(EnData));
 	if (!new) {
 		log_LogStr(LOG_ERROR, "Enemy creation error: insufficient memory", sfTrue, sfTrue);
@@ -15,6 +15,7 @@ void en_Gamma(sfVector2f _pos) {
 	new->timer_blink = 0.f;
 	new->hp_max = 200;
 	new->hp = new->hp_max;
+	new->drop = _drop;
 
 	new->dataGm.rot = 0.f;
 	new->dataGm.posOrigin = _pos;

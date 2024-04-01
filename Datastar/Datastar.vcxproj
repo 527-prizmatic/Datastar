@@ -145,6 +145,7 @@
     <ClCompile Include="enemy.c" />
     <ClCompile Include="enemy\boss_gamma.c" />
     <ClCompile Include="enemy\dart.c" />
+    <ClCompile Include="enemy\pulse.c" />
     <ClCompile Include="enemy\spark.c" />
     <ClCompile Include="enemy\streak.c" />
     <ClCompile Include="enemy\wall.c" />
@@ -170,6 +171,7 @@
     <ClCompile Include="particle_manager.c" />
     <ClCompile Include="player.c" />
     <ClCompile Include="player_bullet.c" />
+    <ClCompile Include="powerup.c" />
     <ClCompile Include="savefile.c" />
     <ClCompile Include="score.c" />
     <ClCompile Include="sfx.c" />
@@ -184,6 +186,7 @@
     <ClCompile Include="walls.c" />
     <ClCompile Include="waves.c" />
     <ClCompile Include="waves\level_1.c" />
+    <ClCompile Include="waves\level_2.c" />
     <ClCompile Include="window_manager.c" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +196,7 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy\boss_gamma.h" />
     <ClInclude Include="enemy\dart.h" />
+    <ClInclude Include="enemy\pulse.h" />
     <ClInclude Include="enemy\spark.h" />
     <ClInclude Include="enemy\streak.h" />
     <ClInclude Include="enemy\wall.h" />
@@ -217,6 +221,7 @@
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_bullet.h" />
+    <ClInclude Include="powerup.h" />
     <ClInclude Include="savefile.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="sfx.h" />
@@ -231,6 +236,7 @@
     <ClInclude Include="walls.h" />
     <ClInclude Include="waves.h" />
     <ClInclude Include="waves\level_1.h" />
+    <ClInclude Include="waves\level_2.h" />
     <ClInclude Include="window_manager.h" />
   </ItemGroup>
   <ItemGroup>

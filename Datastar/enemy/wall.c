@@ -1,6 +1,6 @@
 #include "wall.h"
 
-void en_Wall(sfVector2f _pos, int _hp_max) {
+void en_Wall(sfVector2f _pos, int _hp_max, enum PwrType _drop) {
 	EnData* new = malloc(sizeof(EnData));
 	if (!new) {
 		log_LogStr(LOG_ERROR, "Enemy creation error: insufficient memory", sfTrue, sfTrue);
@@ -16,6 +16,7 @@ void en_Wall(sfVector2f _pos, int _hp_max) {
 	new->timer_blink = 0.f;
 	new->hp_max = _hp_max;
 	new->hp = new->hp_max;
+	new->drop = _drop;
 
 	en_Add(new);
 }

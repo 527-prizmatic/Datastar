@@ -82,7 +82,7 @@ void va_DrawPolygonReg(VaTypes _type, char* _rstate_id, int _v, sfVector2f _o, f
 }
 
 void va_DrawPolygonStar(VaTypes _type, char* _rstate_id, int _v, sfVector2f _o, float _rds, float _angle, sfColor _clr) {
-	if (_v < 3) {
+	if (_v < 2) {
 		log_LogStr(LOG_ERROR, "Vertex array engine rendering error: attempting to render a star with too few vertices (", sfTrue, sfFalse);
 		log_LogInt(LOG_ERROR, _v, sfFalse, sfFalse);
 		log_LogStr(LOG_ERROR, ")", sfFalse, sfTrue);
@@ -92,6 +92,7 @@ void va_DrawPolygonStar(VaTypes _type, char* _rstate_id, int _v, sfVector2f _o, 
 	va_Clear();
 	va_SetType(_type);
 
+	if (_type == VA_TRI) va_AddPoint(_o, _clr);
 	for (int i = 0; i <= _v; i++) {
 		va_AddPoint(v_Add(_o, v_RotateD(Vector2f(0.f, _rds), 180.f + _angle + (360.f / (float)_v) * i)), _clr);
 		va_AddPoint(v_Add(_o, v_RotateD(Vector2f(0.f, _rds * .4f), 180.f + _angle + (360.f / (float)_v) * (i + .5f))), _clr);

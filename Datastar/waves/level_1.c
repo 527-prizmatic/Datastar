@@ -18,7 +18,7 @@ void lv1_Update() {
 		if (lv1_TimerCompleted >= Bars(2)) {
 			gs_ChangeState(GS_MENU);
 			if (score_Best[0] < score_Get()) score_Best[0] = score_Get();
-			game_LastLevelUnlocked++;
+			game_LastLevelUnlocked = 2;
 			sav_Save();
 		}
 	}
@@ -26,7 +26,6 @@ void lv1_Update() {
 
 void lv1_Unload() {
 	snd_Unload("future");
-
 }
 
 void lv1_End() { lv1_Complete = sfTrue; }
@@ -56,116 +55,116 @@ void lv1_SpawnWaves(int _wave_num) {
 		break;
 
 	case 8:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 390.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 390.f), PWR_NONE);
 		break;
 
 	case 9:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 690.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 690.f), PWR_NONE);
 		break;
 
 	case 10:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 240.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 240.f), PWR_SCORE);
 		wave_CreateWall(4);
 		wave_CreateWall(5);
 		wave_CreateWall(6);
 		break;
 
 	case 11:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 840.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 840.f), PWR_NONE);
 		wave_CreateWall(1);
 		wave_CreateWall(2);
 		wave_CreateWall(3);
 		break;
 
 	case 12: case 14:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 440.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 640.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 440.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 640.f), PWR_NONE);
 		break;
 
 	case 15:
 		wave_CreateWallBarrier();
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 140.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 940.f));
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 140.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 940.f), PWR_NONE);
 
 	case 13:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 180.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 900.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 180.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 900.f), PWR_NONE);
 		break;
 
 	case 16:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 240.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 390.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 690.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 840.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 240.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 840.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 240.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 390.f), PWR_SCORE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 690.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 840.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 240.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 840.f), PWR_NONE);
 //		plr_IncreaseBullets(1);
 		break;
 
 	case 17:
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 340.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 740.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 340.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 740.f), PWR_NONE);
 		break;
 
 	case 18:
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 440.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 640.f));
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 440.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 640.f), PWR_NONE);
 		break;
 
 	case 19:
-		en_Dart(Vector2f(game_GetScrollX() + 3200.f, 150.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2800.f, 280.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 410.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 540.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 670.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2800.f, 800.f));
-		en_Dart(Vector2f(game_GetScrollX() + 3200.f, 930.f));
+		en_Dart(Vector2f(game_GetScrollX() + 3200.f, 150.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2800.f, 280.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 410.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_HP);
+		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 670.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2800.f, 800.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 3200.f, 930.f), PWR_NONE);
 		break;
 
 	case 20:
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 190.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 890.f));
 		wave_CreateWall(3);
 		wave_CreateWall(6);
-		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 540.f), 1);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 190.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 890.f), PWR_NONE);
+		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 540.f), 1, PWR_SCORE);
 		break;
 
 	case 21:
 		wave_CreateWall(1);
 		wave_CreateWall(5);
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 140.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 940.f));
-		en_Streak(Vector2f(game_GetScrollX() + 2120.f, 770.f), 1);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 140.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 940.f), PWR_NONE);
+		en_Streak(Vector2f(game_GetScrollX() + 2120.f, 770.f), 1, PWR_NONE);
 		break;
 
 	case 22:
 		wave_CreateWall(2);
 		wave_CreateWall(6);
-		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 340.f));
-		en_Dart(Vector2f(game_GetScrollX() + 2500.f, 740.f));
-		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 240.f), 1);
+		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 340.f), PWR_NONE);
+		en_Dart(Vector2f(game_GetScrollX() + 2500.f, 740.f), PWR_NONE);
+		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 240.f), 1, PWR_NONE);
 		break;
 
 	case 23:
 		wave_CreateWall(2);
 		wave_CreateWall(4);
 		wave_CreateWall(5);
-		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 100.f), 1);
-		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 980.f), 1);
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_NONE);
+		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 150.f), 1, PWR_NONE);
+		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 930.f), 1, PWR_NONE);
 		break;
 
 	case 24:
-		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 390.f), 1);
-		en_Streak(Vector2f(game_GetScrollX() + 2120.f, 520.f), 0);
-		en_Streak(Vector2f(game_GetScrollX() + 2240.f, 650.f), 1);
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 280.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 430.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 650.f));
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 800.f));
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 280.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 430.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 650.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 800.f), PWR_NONE);
+		en_Streak(Vector2f(game_GetScrollX() + 2000.f, 390.f), 1, PWR_NONE);
+		en_Streak(Vector2f(game_GetScrollX() + 2120.f, 520.f), 0, PWR_HP);
+		en_Streak(Vector2f(game_GetScrollX() + 2240.f, 650.f), 1, PWR_NONE);
 		break;
 
 	case 28: case 29: case 30: case 31:
@@ -174,7 +173,7 @@ void lv1_SpawnWaves(int _wave_num) {
 
 	case 32:
 		mus_SetLoop("future", TimeSpan(Bars(40), Bars(8)));
-		en_Gamma(Vector2f(game_GetScrollX() + 2500.f, 540.f));
+		en_Gamma(Vector2f(game_GetScrollX() + 2500.f, 540.f), PWR_NONE);
 		game_SetScrollSpeed(400.f, Bars(2));
 		break;
 

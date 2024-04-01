@@ -1,6 +1,6 @@
 #include "menu_select.h"
 
-#define NYI 1
+#define NYI 2
 
 float menu_TimerSelectGlobal = 0.f, menu_TimerSelectRotate = 0.f;
 sfBool menu_LeavingSelect = sfFalse;
@@ -76,8 +76,9 @@ void m_select_Render() {
 
 	char* title;
 	switch (menu_SelectLevel) {
-	case 0: title = "ODE TO THE FUTURE"; break;
-	default: title = "NOT YET IMPLEMENTED"; break;
+		case 0: title = "ODE TO THE FUTURE"; break;
+		case 1: title = "CAPTAIN VALENTINE"; break;
+		default: title = "NOT YET IMPLEMENTED"; break;
 	}
 	sprintf(menu_TextScore, "BEST SCORE - %d", score_Best[menu_SelectLevel]);
 	vt_DrawText(Vector2f(960.f, 175.f), title, 30, TXT_CENTER, menu_SelectLevel < NYI ? sfWhite : sfRed);

@@ -6,6 +6,7 @@
 #include "game.h"
 
 #include "waves\level_1.h"
+#include "waves\level_2.h"
 
 void wave_Generate(int _lvl, int _wave_num);
 

@@ -8,7 +8,7 @@
 #include "../va_tools.h"
 #include "../enemy.h"
 
-void en_Wall(sfVector2f _pos, int _hp_max);
+void en_Wall(sfVector2f _pos, int _hp_max, enum PwrType _drop);
 struct EnData* en_wall_Update(struct EnData* _en);
 void en_wall_OnHit(struct EnData* _en, struct PlayerBullet* _plb);
 void en_wall_OnKill(struct EnData* _en);

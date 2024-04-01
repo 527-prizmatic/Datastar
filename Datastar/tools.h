@@ -14,7 +14,7 @@
 #include "SFML\Audio.h"
 #include "SFML\Graphics.h"
 
-#pragma warning (disable: 4244)
+#pragma warning (disable: 4090 4244)
 
 #define E 1e-5 /// Reserved for floating-point error mitigation
 #define UL_LIMIT 0xFFFFFFFF
@@ -34,6 +34,7 @@ typedef unsigned long long int ULL;
 #define PATH_SAVEFILE		PATH_SAVES"savefile.bin"
 
 #define RENDER_HITBOXES		0
+#define PIZZA_MODE			0
 
 sfColor clrDGray;
 

@@ -8,7 +8,7 @@
 #include "../va_tools.h"
 #include "../enemy.h"
 
-void en_Spark(sfVector2f _pos);
+void en_Spark(sfVector2f _pos, enum PwrType _drop);
 struct EnData* en_spark_Update(struct EnData* _en);
 void en_spark_OnHit(struct EnData* _en, struct PlayerBullet* _plb);
 void en_spark_OnKill(struct EnData* _en);

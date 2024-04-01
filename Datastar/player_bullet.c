@@ -52,7 +52,7 @@ void plb_Update() {
 				float closestDist = 1.e9f;
 				EnData* itrE = en_Sentinel->next;
 				while (itrE != NULL) {
-					if (itrE->type != EN_WALL && itrE->pos.x >= plr_Player.pos.x) {
+					if (itrE->type != EN_WALL && itrE->type != EN_PULSE && itrE->pos.x >= plr_Player.pos.x) {
 						float dist = v_Mag2(v_Sub(itrE->pos, itr->pos));
 						if (closestDist > dist) {
 							closestDist = dist;
@@ -73,7 +73,7 @@ void plb_Update() {
 
 			itr->dataH.timer_turn += getDeltaTime();
 			if (itr->dataH.timer_turn >= .333f) {
-				itr->dataH.timer_turn -= RANDF(.2f, .45f);
+				itr->dataH.timer_turn -= RANDF(.2f, .4f);
 				if (itr->dataH.target != NULL) {
 					sfVector2f posDiff = v_Sub(itr->dataH.target->pos, itr->pos);
 						 if (posDiff.x <= 0.f && fabs(posDiff.y) <= fabs(posDiff.x)) itr->spd = Vector2f(-1200.f, 0.f);

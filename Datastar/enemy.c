@@ -33,45 +33,52 @@ void en_Update() {
 			case EN_SPARK: itr = en_spark_Update(itr); break;
 			case EN_DART: itr = en_dart_Update(itr); break;
 			case EN_STREAK: itr = en_streak_Update(itr); break;
+			case EN_PULSE: itr = en_pulse_Update(itr); break;
 			case EN_BOSS_GAMMA: itr = en_gamma_Update(itr); break;
 		}
 		if (itr != enp) continue;
 
 
 		/// On-hit functions
-		PlayerBullet* itrB = plb_Sentinel->next;
-		while (itrB != NULL) {
-			sfBool flagDestroy = sfFalse;
-			if (col_RectRect(itrB->aabb, itr->aabb)) {
-				flagDestroy = sfTrue;
-				itr->timer_blink = .4f;
-//				itr->hp--;
-				sfx_ProjectileImpact(itr->pos, itrB->spd, itr->clr);
+		if (itr->lifetime > Beats(1)) {
+			PlayerBullet* itrB = plb_Sentinel->next;
+			while (itrB != NULL) {
+				sfBool flagDestroy = sfFalse;
+				if (col_RectRect(itrB->aabb, itr->aabb)) {
+					flagDestroy = sfTrue;
+					itr->timer_blink = .4f;
+					//				itr->hp--;
+					sfx_ProjectileImpact(itr->pos, itrB->spd, itr->clr);
 
-				switch (itr->type) {
+					switch (itr->type) {
 					case EN_WALL: en_wall_OnHit(itr, itrB); break;
 					case EN_SPARK: en_spark_OnHit(itr, itrB); break;
 					case EN_DART: en_dart_OnHit(itr, itrB); break;
 					case EN_STREAK: en_streak_OnHit(itr, itrB); break;
+					case EN_PULSE: break;
 					case EN_BOSS_GAMMA: en_gamma_OnHit(itr, itrB); break;
+					}
 				}
-			}
 
-			if (flagDestroy) itrB = plb_PopPtr(itrB);
-			else itrB = itrB->next;
-			if (itr->hp <= 0) break;
+				if (flagDestroy) itrB = plb_PopPtr(itrB);
+				else itrB = itrB->next;
+				if (itr->hp <= 0) break;
+			}
 		}
 
 		/// On-kill functions
 		if (itr->hp <= 0) {
 			sfx_EnemyDeath(itr->pos, itr->clr);
 			score_Add(en_GetValue(itr->type));
+			sfx_ScoreNew(itr->pos, en_GetValue(itr->type));
+			if (itr->drop != PWR_NONE) pwr_New(itr->pos, itr->drop);
 
 			switch (itr->type) {
 				case EN_WALL: en_wall_OnKill(itr); break;
 				case EN_SPARK: en_spark_OnKill(itr); break;
 				case EN_DART: en_dart_OnKill(itr); break;
 				case EN_STREAK: en_streak_OnKill(itr); break;
+				case EN_PULSE: break;
 				case EN_BOSS_GAMMA: en_gamma_OnKill(itr); break;
 			}
 			if (gs_state == GS_MENU) return;
@@ -97,10 +104,11 @@ void en_Render() {
 			case EN_SPARK: en_spark_Render(itr); break;
 			case EN_DART: en_dart_Render(itr); break;
 			case EN_STREAK: en_streak_Render(itr); break;
+			case EN_PULSE: en_pulse_Render(itr); break;
 			case EN_BOSS_GAMMA: en_gamma_Render(itr); break;
 		}
 
-		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfGreen);
+		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfRed);
 		itr = itr->next;
 	}
 }
@@ -132,6 +140,7 @@ int en_GetValue(EnType _type) {
 		case EN_SPARK: return en_spark_Value();
 		case EN_DART: return en_dart_Value();
 		case EN_STREAK: return en_streak_Value();
+		case EN_PULSE: return en_pulse_Value();
 		case EN_BOSS_GAMMA: return en_gamma_Value();
 		default: return 100;
 	}

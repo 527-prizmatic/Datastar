@@ -6,24 +6,26 @@ void plr_Init() {
 	plr_Player.pos = Vector2f(960.f, 540.f);
 	plr_Player.spd = NULLVECTF;
 	plr_Player.hp = 3;
-	plr_Player.hp_max = 3;
+	plr_Player.hp_max = 6;
 	plr_Player.rot = 0.f;
 	plr_Player.fire_timer = 0.f;
 	plr_Player.inv_frames = 0.f;
 	plr_Player.bullet_count = 1;
 	plr_Player.fire_mode = PLB_NORMAL;
 	plr_Player.rof = 5.f;
+	plr_Player.rot = 90.f;
 }
 
 void plr_Update() {
 	if (plr_Player.fire_timer > 0.f) plr_Player.fire_timer -= getDeltaTime();
+	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= getDeltaTime();
 	plr_Control();
+
 	if (plr_Collisions()) {
 		plr_Player.hp--;
 		plr_Player.inv_frames = 3.f;
 		sfx_PlayerHit();
 	}
-	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= getDeltaTime();
 	
 	if (plr_Player.hp <= 0) {
 		gs_ChangeState(GS_MENU);
@@ -35,7 +37,6 @@ void plr_Update() {
 
 void plr_Render() {
 	plr_ModelShipTemp = sfVertexArray_copy(model_PlayerShip);
-//	sfVertexArray_getVertex(plr_ModelShipTemp, 2)->color = itp_Color(sfWhite, sfRed, plr_Player.fireTimer * 5.f, itp_InvSquare);
 	va_SetPosition(plr_ModelShipTemp, plr_Player.pos);
 	va_Rotate(plr_ModelShipTemp, plr_Player.rot);
 	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
@@ -49,6 +50,8 @@ void plr_Unload() {
 }
 
 void plr_Control() {
+	/// Old player movement code
+	/*
 	/// Moving when pressing arrow keys
 	if (kb_TestHold(ctrl_GetKey(KEY_UP))) plr_Player.spd.y = -1.f;
 	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN))) plr_Player.spd.y = 1.f;
@@ -64,6 +67,27 @@ void plr_Control() {
 	if (plr_Player.pos.y <= 90.f) plr_Player.spd.y = max(0.f, plr_Player.spd.y);
 	if (plr_Player.pos.y >= 990.f) plr_Player.spd.y = min(0.f, plr_Player.spd.y);
 	plr_Player.rot = 90.f;
+	*/
+
+	/// Moving when pressing arrow keys
+	if (kb_TestHold(ctrl_GetKey(KEY_UP))) plr_Player.acc.y = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN))) plr_Player.acc.y = 1.f;
+	else plr_Player.acc.y = 0.f;
+
+	if (kb_TestHold(ctrl_GetKey(KEY_LEFT))) plr_Player.acc.x = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_RIGHT))) plr_Player.acc.x = 1.f;
+	else plr_Player.acc.x = 0.f;
+
+	plr_Player.acc = v_Mul(plr_Player.acc, 3000.f);
+	plr_Player.spd = v_Add(plr_Player.spd, v_Mul(plr_Player.acc, getDeltaTime()));
+	plr_Player.spd.x += game_GetScrollSpeed() * .075f;
+	plr_Player.spd = v_Mul(plr_Player.spd, pow(.01f, getDeltaTime()));
+	plr_Player.spd.x -= 2.f * max(0.f, plr_Player.pos.x - (game_GetScrollX() + 1820.f));
+	plr_Player.spd.x -= 2.f * min(0.f, plr_Player.pos.x - (game_GetScrollX() + 100.f));
+	if (plr_Player.pos.y <= 99.f || plr_Player.pos.y >= 981.f) {
+		plr_Player.acc.y *= -2.f;
+		plr_Player.spd.y *= -2.f;
+	}
 
 	/// Firing while space is kept pressed
 	if (kb_TestHold(ctrl_GetKey(KEY_FIRE)) && plr_Player.fire_timer <= 0.f) {
@@ -88,7 +112,6 @@ void plr_Control() {
 sfBool plr_Collisions() {
 	if (plr_Player.inv_frames > 0.f) return sfFalse;
 	if (plr_Player.pos.y <= 100.f || plr_Player.pos.y >= 980.f) return sfTrue;
-//	sfFloatRect aabbPlr = floatRect_Expand(FloatRect(plr_Player.pos.x, plr_Player.pos.y, 0.f, 0.f), 20.f);
 
 	EnData* en = en_Sentinel->next;
 	while (en != NULL) {
@@ -109,3 +132,5 @@ sfBool plr_Collisions() {
 }
 
 void plr_IncreaseBullets(int _i) { plr_Player.bullet_count += _i; }
+
+void plr_HealOne() { if (plr_Player.hp < plr_Player.hp_max) plr_Player.hp++; }

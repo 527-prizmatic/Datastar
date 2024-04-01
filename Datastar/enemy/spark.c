@@ -1,6 +1,6 @@
 #include "spark.h"
 
-void en_Spark(sfVector2f _pos) {
+void en_Spark(sfVector2f _pos, enum PwrType _drop) {
 	EnData* new = malloc(sizeof(EnData));
 	if (!new) {
 		log_LogStr(LOG_ERROR, "Enemy creation error: insufficient memory", sfTrue, sfTrue);
@@ -15,6 +15,7 @@ void en_Spark(sfVector2f _pos) {
 	new->timer_blink = 0.f;
 	new->hp_max = 2;
 	new->hp = new->hp_max;
+	new->drop = _drop;
 
 	new->dataSp.posOrigin = Vector2f(_pos.x - game_GetScrollX(), _pos.y);
 	new->dataSp.rot = 0.f;
@@ -63,7 +64,10 @@ struct EnData* en_spark_Update(struct EnData* _en) {
 
 void en_spark_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
 	_en->hp--;
-	if (_en->hp == 1) score_Add(en_GetValue(_en->type));
+	if (_en->hp == 1) {
+		score_Add(en_GetValue(_en->type));
+		sfx_ScoreNew(_en->pos, en_GetValue(_en->type));
+	}
 }
 
 void en_spark_OnKill(struct EnData* _en) {

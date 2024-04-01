@@ -19,6 +19,7 @@
 #include "waves.h"
 #include "score.h"
 #include "hud.h"
+#include "sfx.h"
 
 sfView* game_View;
 sfVector2f game_ViewPos;
