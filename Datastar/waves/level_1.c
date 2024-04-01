@@ -10,9 +10,10 @@ void lv1_Init() {
 }
 
 void lv1_Update() {
-	if (snd_GetMusicState() != sfPlaying) mus_Play("future");
+	if (snd_GetMusicState() == SND_STOPPED) mus_FadeIn("future");
 	lv1_TimerGlobal += getDeltaTime();
 	if (lv1_Complete) {
+		mus_FadeOut();
 		if (ISZERO(lv1_TimerCompleted)) game_SetScrollSpeed(5000.f, Bars(2));
 		lv1_TimerCompleted += getDeltaTime();
 		if (lv1_TimerCompleted >= Bars(2)) {
