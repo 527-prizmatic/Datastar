@@ -13,6 +13,7 @@ void lv2_Update() {
 	if (snd_GetMusicState() == SND_STOPPED) mus_FadeIn("captain");
 	lv2_TimerGlobal += getDeltaTime();
 	if (lv2_Complete) {
+		plr_Invincible(sfTrue);
 		mus_FadeOut();
 		if (ISZERO(lv2_TimerCompleted)) game_SetScrollSpeed(5000.f, Bars(2));
 		lv2_TimerCompleted += getDeltaTime();
@@ -82,7 +83,7 @@ void lv2_SpawnWaves(int _wave_num) {
 
 	case 12:
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 240.f), PWR_NONE);
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_POWER);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_SCORE);
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 840.f), PWR_NONE);
 	//	en_Dart(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_SCORE);
 		break;
@@ -148,8 +149,6 @@ void lv2_SpawnWaves(int _wave_num) {
 
 	case 21:
 		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 780.f), PWR_NONE);
-//		en_Streak(Vector2f(game_GetScrollX() + 2200.f, 540.f), 1, PWR_NONE);
-//		en_Streak(Vector2f(game_GetScrollX() + 2300.f, 540.f), 0, PWR_NONE);
 		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 240.f), Beats(4));
 		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 840.f), Beats(6));
 		break;
@@ -164,8 +163,6 @@ void lv2_SpawnWaves(int _wave_num) {
 
 	case 23:
 		en_Dart(Vector2f(game_GetScrollX() + 2400.f, 300.f), PWR_NONE);
-//		en_Streak(Vector2f(game_GetScrollX() + 2200.f, 540.f), 0, PWR_NONE);
-//		en_Streak(Vector2f(game_GetScrollX() + 2300.f, 540.f), 1, PWR_NONE);
 		en_Pulse(Vector2f(game_GetScrollX() + 1760.f, 340.f), Beats(4));
 		en_Pulse(Vector2f(game_GetScrollX() + 200.f, 740.f), Beats(5));
 		en_Pulse(Vector2f(game_GetScrollX() + 200.f, 190.f), Beats(6));
@@ -236,9 +233,7 @@ void lv2_SpawnWaves(int _wave_num) {
 		en_Pulse(Vector2f(game_GetScrollX() + 1360.f, 840.f), Beats(6)); 
 		break;
 
-	case 31:
-		wave_CreateWallBarrier();
-		break;
+	case 31: break;
 
 	case 32:
 		mus_SetLoop("captain", TimeSpan(Bars(40), Bars(8)));

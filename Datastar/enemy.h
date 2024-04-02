@@ -73,10 +73,12 @@ typedef struct EnDataShockwave {
 	float timers_blink[6];
 	sfVector2f pos_target;
 	float rot;
+	float rot_spd;
 	char phase;
 	char beat_ctr;
 	float timer_shots_slow;
 	float lifetime_mod8;
+	sfBool flag_targeting;
 } EnDataShockwave;
 
 typedef struct EnData {

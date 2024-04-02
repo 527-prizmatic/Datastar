@@ -69,14 +69,14 @@ void gs_Unload() {
 	log_LogStr(LOG_INFO, "Requested deinitialization of game state", sfTrue, sfFalse);
 	log_LogStr(LOG_INFO, gs_StateToString(gs_state), sfFalse, sfTrue);
 
-	ptc_Clear();
-
 	switch (gs_state) {
 		case GS_INIT: init_Unload(); break;
 		case GS_INTRO: intro_Unload(); break;
 		case GS_MENU: menu_Unload(); break;
 		case GS_GAME: game_Unload(); break;
 	}
+
+	ptc_Clear();
 
 	log_LogStr(LOG_INFO, "Deinitialization of game state", sfTrue, sfFalse);
 	log_LogStr(LOG_INFO, gs_StateToString(gs_state), sfFalse, sfFalse);

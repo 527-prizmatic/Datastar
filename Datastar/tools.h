@@ -34,7 +34,8 @@ typedef unsigned long long int ULL;
 #define PATH_SAVEFILE		PATH_SAVES"savefile.bin"
 
 #define RENDER_HITBOXES		0
-#define PIZZA_MODE			0
+#define DOUBLE_RENDER		0
+#define PIZZA_MODE			1
 
 sfColor clrDGray;
 

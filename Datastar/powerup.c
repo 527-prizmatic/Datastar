@@ -74,7 +74,7 @@ void pwr_Render() {
 }
 
 PwrData* pwr_PopPtr(PwrData* _pwr) {
-	ptc_DestroySystem(_pwr->ptc);
+	if (_pwr->ptc) ptc_DestroySystem(_pwr->ptc);
 
 	PwrData* p = _pwr->prev;
 	PwrData* n = _pwr->next;

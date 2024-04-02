@@ -14,6 +14,7 @@ void plr_Init() {
 	plr_Player.fire_mode = PLB_NORMAL;
 	plr_Player.rof = 5.f;
 	plr_Player.rot = 90.f;
+	plr_Player.invincible = sfFalse;
 }
 
 void plr_Update() {
@@ -21,7 +22,7 @@ void plr_Update() {
 	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= getDeltaTime();
 	plr_Control();
 
-	if (plr_Collisions()) {
+	if (plr_Collisions() && !plr_Player.invincible) {
 		plr_Player.hp--;
 		plr_Player.inv_frames = 3.f;
 		sfx_PlayerHit();
@@ -42,6 +43,10 @@ void plr_Render() {
 	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
 	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
 	if (RANDF(0.f, 1.f) < .25f) sfx_PlayerPropeller();
+	if (plr_Player.invincible) {
+		va_DrawCircle(VA_LINE, NULL, plr_Player.pos, 35.f, sfWhite);
+		va_DrawCircle(VA_LINE, NULL, plr_Player.pos, 38.f, sfWhite);
+	}
 	if (RENDER_HITBOXES) va_DrawFrame(NULL, plr_Player.aabb, sfGreen);
 }
 
@@ -115,3 +120,5 @@ sfBool plr_Collisions() {
 void plr_IncreaseBullets(int _i) { plr_Player.bullet_count += _i; }
 
 void plr_HealOne() { if (plr_Player.hp < plr_Player.hp_max) plr_Player.hp++; }
+
+void plr_Invincible(sfBool _inv) { plr_Player.invincible = _inv; }

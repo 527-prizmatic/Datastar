@@ -262,9 +262,10 @@ void ptc_Render() {
 		if (itrP->type == PTC_CIRCLE) rq_Draw(RQ_CIRCLE, itrP->rState, itrP->pos, itrP->rds, itrP->origin, itrP->clr, RQ_SCALE_DEFAULT);
 		else if (itrP->type == PTC_SPRITE) rq_Draw(RQ_SPRITE, itrP->rState, itrP->pos, itrP->id, RQ_TEX_NORECT, itrP->origin, itrP->rot, Vector2f(itrP->scale, itrP->scale), itrP->clr_spr);
 		else if (itrP->type == PTC_SHARD) {
-			sfVertexArray_clear(ptc_va);
-			for (int i = 0; i <= itrP->v_count; i++) sfVertexArray_append(ptc_va, Vertex(v_Add(itrP->pos, v_RotateD(Vector2f(itrP->rds, 0.f), itrP->rot + i * (360.f / (float)itrP->v_count))), itrP->clr));
-			rq_Draw(RQ_VA, itrP->rState, ptc_va);
+			va_DrawPolygonReg(VA_LINE, NULL, itrP->v_count, itrP->pos, itrP->rds, itrP->rot, itrP->clr);
+		//	sfVertexArray_clear(ptc_va);
+		//	for (int i = 0; i <= itrP->v_count; i++) sfVertexArray_append(ptc_va, Vertex(v_Add(itrP->pos, v_RotateD(Vector2f(itrP->rds, 0.f), itrP->rot + i * (360.f / (float)itrP->v_count))), itrP->clr));
+		//	rq_Draw(RQ_VA, itrP->rState, ptc_va);
 		}
 		itrP = itrP->next;
 	}

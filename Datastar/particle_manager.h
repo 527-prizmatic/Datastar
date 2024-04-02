@@ -10,6 +10,7 @@
 #include "interpolation.h"
 #include "texture_manager.h"
 #include "window_manager.h"
+#include "va_tools.h"
 
 #define PTC_GRAV_UP_FAST -60.f
 #define PTC_GRAV_UP_DEFAULT -20.f

@@ -26,6 +26,7 @@ typedef struct {
 	float bullet_count;
 	float inv_frames;
 	sfFloatRect aabb;
+	sfBool invincible;
 } PlrPlayer;
 PlrPlayer plr_Player;
 
@@ -38,3 +39,4 @@ void plr_Control();
 sfBool plr_Collisions();
 void plr_IncreaseBullets(int _i);
 void plr_HealOne();
+void plr_Invincible(sfBool _inv);

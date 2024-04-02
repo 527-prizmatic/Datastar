@@ -18,14 +18,10 @@ void m_main_Init() {
 }
 
 void m_main_Update() {
-	for (int i = 0; i < 5; i++) {
-		if (sfFloatRect_contains(&menu_UiRectsMain[i], w_GetMousePos().x, w_GetMousePos().y)) menu_MainSel = i;
-	}
-
 	if (kb_TestPress(sfKeyLeft) && menu_MainSel > 0) menu_MainSel--;
 	if (kb_TestPress(sfKeyRight) && menu_MainSel < 4) menu_MainSel++;
 
-	if (kb_TestPress(sfKeySpace) || w_LeftClick()) {
+	if (kb_TestPress(sfKeySpace)) {
 		switch (menu_MainSel) {
 			case 0: menu_SetSubstate(MENU_CREDITS); break;
 			case 1: menu_SetSubstate(MENU_OPTIONS); break;
