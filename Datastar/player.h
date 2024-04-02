@@ -24,6 +24,7 @@ typedef struct {
 	float rof;
 	enum PlbType fire_mode;
 	float bullet_count;
+	sfBool hit;
 	float inv_frames;
 	sfFloatRect aabb;
 	sfBool invincible;
@@ -40,3 +41,4 @@ sfBool plr_Collisions();
 void plr_IncreaseBullets(int _i);
 void plr_HealOne();
 void plr_Invincible(sfBool _inv);
+void plr_Hit();

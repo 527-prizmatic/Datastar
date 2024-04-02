@@ -13,7 +13,7 @@
 /// \param _size - Text size, in pixels
 /// \param _align - Text alignment. Note that TXT_CENTER and TXT_RIGHT does not work quite correctly with multi-line text.
 /// \param _clr - Text color
-void vt_DrawText(sfVector2f _pos, char* _msg, int _size, WTxtAlign _align, sfColor _clr);
+void vt_DrawText(sfVector2f _pos, char* _msg, int _size, enum WTxtAlign _align, sfColor _clr);
 
 void vt_DrawChar(sfVector2f _pos, char _char, int _size, sfColor _clr);
 

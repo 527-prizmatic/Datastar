@@ -39,18 +39,6 @@ typedef unsigned long long int ULL;
 
 sfColor clrDGray;
 
-/// Object wrapper for sfRenderWindow
-typedef struct {
-	sfRenderWindow* rw; /// Render window object
-	sfEvent e; /// Event handler
-	char* title;
-	sfBool isFullscreen;
-	sfBool isPaused;
-	sfVideoMode mode; /// Video mode
-	unsigned int framerate;
-} W_Window;
-W_Window window;
-
 
 /// === TIME UTILITIES === ///
 

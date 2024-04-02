@@ -13,7 +13,7 @@ void en_Shockwave(sfVector2f _pos) {
 	new->spd = NULLVECTF;
 	new->lifetime = -Bars(1);
 	new->timer_blink = 0.f;
-	new->hp_max = 100;
+	new->hp_max = 60;
 	new->hp = new->hp_max;
 	new->drop = PWR_NONE;
 
@@ -47,6 +47,7 @@ struct EnData* en_shockwave_Update(struct EnData* _en) {
 
 		if (_en->dataSw.lifetime_mod8 >= Bars(8)) {
 			_en->dataSw.lifetime_mod8 -= Bars(8);
+			mus_SetPos("captain", Bars(40));
 
 			char ctr = 0;
 			for (int i = 0; i < 6; i++) if (_en->dataSw.hp_arm[i] == 0) ctr++;
@@ -83,6 +84,11 @@ struct EnData* en_shockwave_Update(struct EnData* _en) {
 			en_Pulse(Vector2f(game_GetScrollX() +  200.f, 790.f), Beats(6));
 		}
 
+		if (game_GetBeatFlag()) {
+			_en->dataSw.beat_ctr++;
+			if (_en->dataSw.beat_ctr % 32 == 0) mus_SetPos("captain", Bars(40));
+		}
+
 		if (lt < Bars(1)) {
 			_en->aabb = FloatRect(-1.f, -1.f, 0.f, 0.f);
 			_en->dataSw.pos_target.y = -200.f;
@@ -109,7 +115,9 @@ struct EnData* en_shockwave_Update(struct EnData* _en) {
 			if (_en->dataSw.flag_targeting) {
 				_en->pos = v_Mul(v_Add(_en->pos, _en->dataSw.pos_target), .5f);
 				if (v_Mag2(v_Sub(_en->pos, _en->dataSw.pos_target)) < 100.f && v_Mag2(v_Sub(_en->pos, _en->dataSw.pos_target)) > 1.f) {
+					sfx_EnemyShockwaveWaves(_en->pos, _en->clr);
 					_en->pos = _en->dataSw.pos_target;
+					if (v_Mag2(v_Sub(plr_Player.pos, _en->pos)) < 100000.f) plr_Hit();
 					for (int i = 0; i < 24; i++) {
 						enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(0.f, 300.f), _en->dataSw.rot + 15.f * i), _en->clr);
 						enb_New(ENB_NORMAL, _en->pos, v_RotateD(Vector2f(0.f, 250.f), _en->dataSw.rot + 15.f * i + 4.f), _en->clr);
@@ -133,58 +141,18 @@ struct EnData* en_shockwave_Update(struct EnData* _en) {
 void en_shockwave_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
 	if (_en->dataSw.phase == 1) {
 		_en->timer_blink = 0.f;
-		float angle = fmod(690.f - v_AngAbsD(v_RotateD(v_Sub(_plb->pos, _en->pos), _en->dataSw.rot)), 360.f);
 
-		/*for (int i = 0; i < 6; i++) {
-			if (angle < 60.f * i) {
+		int hpArmSum = 0;
+		for (int i = 0; i < 6; i++) hpArmSum += _en->dataSw.hp_arm[i];
+		if (hpArmSum) {
+			while (1) {
+				int i = RAND(0, 5);
 				if (_en->dataSw.hp_arm[i] != 0) {
 					_en->dataSw.hp_arm[i]--;
 					_en->dataSw.timers_blink[i] = .4f;
+					if (_en->dataSw.hp_arm[i] == 0) _en->dataSw.rot_spd += 20.f;
+					break;
 				}
-				break;
-			}
-		}*/
-
-		if (angle < 60.f) {
-			if (_en->dataSw.hp_arm[0] != 0) {
-				_en->dataSw.hp_arm[0]--;
-				_en->dataSw.timers_blink[0] = .4f;
-				if (_en->dataSw.hp_arm[0] == 0) _en->dataSw.rot_spd += 20.f;
-			}
-		}
-		else if (angle < 120.f) {
-			if (_en->dataSw.hp_arm[1] != 0) {
-				_en->dataSw.hp_arm[1]--;
-				_en->dataSw.timers_blink[1] = .4f;
-				if (_en->dataSw.hp_arm[1] == 0) _en->dataSw.rot_spd += 20.f;
-			}
-		}
-		else if (angle < 180.f) {
-			if (_en->dataSw.hp_arm[2] != 0) {
-				_en->dataSw.hp_arm[2]--;
-				_en->dataSw.timers_blink[2] = .4f;
-				if (_en->dataSw.hp_arm[2] == 0) _en->dataSw.rot_spd += 20.f;
-			}
-		}
-		else if (angle < 240.f) {
-			if (_en->dataSw.hp_arm[3] != 0) {
-				_en->dataSw.hp_arm[3]--;
-				_en->dataSw.timers_blink[3] = .4f;
-				if (_en->dataSw.hp_arm[3] == 0) _en->dataSw.rot_spd += 20.f;
-			}
-		}
-		else if (angle < 300.f) {
-			if (_en->dataSw.hp_arm[4] != 0) {
-				_en->dataSw.hp_arm[4]--;
-				_en->dataSw.timers_blink[4] = .4f;
-				if (_en->dataSw.hp_arm[4] == 0) _en->dataSw.rot_spd += 20.f;
-			}
-		}
-		else if (angle < 360.f) {
-			if (_en->dataSw.hp_arm[5] != 0) {
-				_en->dataSw.hp_arm[5]--;
-				_en->dataSw.timers_blink[5] = .4f;
-				if (_en->dataSw.hp_arm[5] == 0) _en->dataSw.rot_spd += 20.f;
 			}
 		}
 	}
@@ -199,6 +167,7 @@ void en_shockwave_OnKill(struct EnData* _en) {
 void en_shockwave_Render(struct EnData* _en) {
 	sfColor colorBase = _en->clr;
 	sfColor colorBlink = (fmod(_en->timer_blink, .1f) > .05f) ? sfWhite : _en->clr;
+	sfColor colorFlicker = (fmod(_en->lifetime, .2f) > .1f) ? sfWhite : _en->clr;
 
 	if (_en->lifetime < 0.f) {
 		colorBase.a = 128;
@@ -228,7 +197,6 @@ void en_shockwave_Render(struct EnData* _en) {
 		}
 		else {
 			float lt = _en->dataSw.lifetime_mod8;
-			if (lt >= Bars(4)) _en->dataSw.lifetime_mod8 -= Bars(4);
 
 			if (!(lt > Bars(1) && lt < Bars(2))) {
 				float rds = 60.f;
@@ -240,7 +208,8 @@ void en_shockwave_Render(struct EnData* _en) {
 
 			if (lt < Bars(2)) {
 				va_DrawPolygonStar(VA_LINE, NULL, 6, _en->dataSw.pos_target, 160.f, _en->dataSw.rot, colorBase);
-				va_DrawPolygonStar(VA_TRI, NULL, 6, _en->dataSw.pos_target, itp_Float(0.f, 160.f, clamp((lt - Bars(1)) / Bars(1), 0.f, 1.f), itp_Square), _en->dataSw.rot, colorBlink);
+				va_DrawPolygonStar(VA_TRI, NULL, 6, _en->dataSw.pos_target, itp_Float(0.f, 160.f, clamp((lt - Bars(1)) / Bars(1), 0.f, 1.f), itp_Square), _en->dataSw.rot, colorFlicker);
+				if (lt > Bars(1)) va_DrawCircle(VA_LINE, NULL, _en->dataSw.pos_target, 300.f, colorFlicker);
 			}
 		}
 	}

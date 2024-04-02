@@ -100,6 +100,20 @@ void sfx_EnemyFire(sfVector2f _pos, sfVector2f _dir, sfColor _clr) {
 	ptc_SetShape(firePtc, PTCS_POINT, _pos);
 }
 
+void sfx_EnemyShockwaveWaves(sfVector2f _pos, sfColor _clr) {
+	PtcSystem* ptc1 = ptc_CreateSystem(-1.f, 2.5f, 100, 6.f, 6.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc1, PTC_SHARD, 1.f, 5.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc1, PTCS_POINT, _pos);
+
+	PtcSystem* ptc2 = ptc_CreateSystem(-1.f, 1.75f, 100, 10.f, 10.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc2, PTC_SHARD, 2.f, 6.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc2, PTCS_POINT, _pos);
+
+	PtcSystem* ptc3 = ptc_CreateSystem(-1.f, 1.f, 100, 14.f, 14.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc3, PTC_SHARD, 3.f, 8.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc3, PTCS_POINT, _pos);
+}
+
 void sfx_EnemyDeath(sfVector2f _pos, sfColor _clr) {
 	PtcSystem* ptc = ptc_CreateSystem(-1.f, 1.f, 75, 2.f, 8.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
 	ptc_SetType(ptc, PTC_SHARD, 1.f, 6.f, 3, 3, sfWhite, _clr);

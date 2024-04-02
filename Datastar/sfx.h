@@ -30,6 +30,7 @@ void sfx_PlayerFire();
 void sfx_PlayerHit();
 void sfx_ProjectileImpact(sfVector2f _pos, sfVector2f _spd, sfColor _clr);
 void sfx_EnemyFire(sfVector2f _pos, sfVector2f _dir, sfColor _clr);
+void sfx_EnemyShockwaveWaves(sfVector2f _pos, sfColor _clr);
 void sfx_EnemyDeath(sfVector2f _pos, sfColor _clr);
 void sfx_EnemyBossDeath(sfVector2f _pos, sfColor _clr);
 struct PtcSystem* sfx_PowerupParticle(sfVector2f _pos, enum PwrType _type);

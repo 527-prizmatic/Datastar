@@ -33,7 +33,7 @@ void game_Init() {
 	game_TimerGlobal = 0.f;
 	game_TimerBeats = 0.f;
 	game_BeatTime = 60.f / wave_GetTempo(game_GetLevel());
-	game_Waves = 0;
+	game_Waves = 30;
 	game_Beats = 1;
 	game_ScrollSpeed = 3000.f;
 	game_ScrollSpeedOld = 3000.f;
