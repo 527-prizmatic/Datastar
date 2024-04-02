@@ -192,6 +192,7 @@ void en_shockwave_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
 }
 
 void en_shockwave_OnKill(struct EnData* _en) {
+	sfx_EnemyBossDeath(_en->pos, _en->clr);
 	lv2_End();
 }
 

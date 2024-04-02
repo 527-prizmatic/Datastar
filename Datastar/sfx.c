@@ -106,6 +106,12 @@ void sfx_EnemyDeath(sfVector2f _pos, sfColor _clr) {
 	ptc_SetShape(ptc, PTCS_CIRCLE, _pos, 20.f);
 }
 
+void sfx_EnemyBossDeath(sfVector2f _pos, sfColor _clr) {
+	PtcSystem* ptc = ptc_CreateSystem(-1.f, 5.f, 500, 2.f, 16.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc, PTC_SHARD, 1.f, 6.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc, PTCS_CIRCLE, _pos, 20.f);
+}
+
 PtcSystem* sfx_PowerupParticle(sfVector2f _pos, enum PwrType _type) {
 	sfColor clr;
 	switch (_type) {

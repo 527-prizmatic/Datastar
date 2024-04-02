@@ -10,18 +10,6 @@
 #include "keyboard.h"
 #include "logger.h"
 
-/// Object wrapper for sfRenderWindow
-typedef struct {
-	sfRenderWindow* rw; /// Render window object
-	sfEvent e; /// Event handler
-	char* title;
-	sfBool isFullscreen;
-	sfBool isPaused;
-	sfVideoMode mode; /// Video mode
-	unsigned int framerate;
-} W_Window;
-W_Window window;
-
 /// Initializes the window handling API.
 void w_Init(char* _title, sfVideoMode _mode, unsigned int _framerate);
 
@@ -35,6 +23,7 @@ sfBool w_IsClosed();
 sfBool w_IsFullscreen();
 sfBool w_IsPaused();
 sfBool w_HasFocus();
+W_Window* w_Get();
 
 /// Initiates the rendering phase and clears the contents of the render window.
 void w_RenderStart();

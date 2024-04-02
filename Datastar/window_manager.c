@@ -3,14 +3,21 @@
 void w_Init(char* _title, sfVideoMode _mode, unsigned int _framerate) {
 	window.mode = _mode;
 	window.title = calloc(strlen(_title), sizeof(char));
-	if (window.title) {
+/*	if (window.title) {
 		if (_title != '\0') strcpy(window.title, _title);
 		else strcpy(window.title, "Window");
 		window.rw = sfRenderWindow_create(window.mode, window.title, sfDefaultStyle, NULL);
 	}
-	else window.rw = sfRenderWindow_create(window.mode, "Window", sfDefaultStyle, NULL);
+	else window.rw = sfRenderWindow_create(window.mode, "Window", sfDefaultStyle, NULL); */
+
+	if (!window.title) window.title = "Window";
+	else {
+		if (_title != '\0') strcpy(window.title, _title);
+		else strcpy(window.title, "Window");
+	}
+
 	window.framerate = _framerate;
-	sfRenderWindow_setFramerateLimit(window.rw, _framerate);
+//	sfRenderWindow_setFramerateLimit(window.rw, _framerate);
 	window.isFullscreen = sfFalse;
 	window.isPaused = sfFalse;
 	log_LogStr(LOG_INFO, "Render window initialization complete", sfTrue, sfTrue);
@@ -21,6 +28,7 @@ sfBool w_IsClosed() { return !sfRenderWindow_isOpen(window.rw); }
 sfBool w_IsFullscreen() { return window.isFullscreen; }
 sfBool w_IsPaused() { return window.isPaused; }
 sfBool w_HasFocus() { return sfRenderWindow_hasFocus(window.rw); }
+W_Window* w_Get() { return &window; }
 
 void w_RenderStart() {
 	sfRenderWindow_clear(window.rw, sfBlack);
@@ -32,6 +40,7 @@ void w_RenderEnd() {
 
 void w_Create() {
 	window.rw = sfRenderWindow_create(window.mode, window.title, window.isFullscreen ? sfFullscreen : sfDefaultStyle, NULL);
+
 	if (window.rw == NULL) {
 		log_LogStr(LOG_FATAL, "Game window creation error: insufficient memory", sfTrue, sfTrue);
 		return;

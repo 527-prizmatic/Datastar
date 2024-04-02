@@ -91,6 +91,7 @@ void en_gamma_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
 }
 
 void en_gamma_OnKill(struct EnData* _en) {
+	sfx_EnemyBossDeath(_en->pos, _en->clr);
 	lv1_End();
 }
 

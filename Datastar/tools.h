@@ -35,9 +35,21 @@ typedef unsigned long long int ULL;
 
 #define RENDER_HITBOXES		0
 #define DOUBLE_RENDER		0
-#define PIZZA_MODE			1
+#define PIZZA_MODE			0
 
 sfColor clrDGray;
+
+/// Object wrapper for sfRenderWindow
+typedef struct {
+	sfRenderWindow* rw; /// Render window object
+	sfEvent e; /// Event handler
+	char* title;
+	sfBool isFullscreen;
+	sfBool isPaused;
+	sfVideoMode mode; /// Video mode
+	unsigned int framerate;
+} W_Window;
+W_Window window;
 
 
 /// === TIME UTILITIES === ///

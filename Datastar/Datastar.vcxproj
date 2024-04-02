@@ -135,7 +135,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\CSFML\lib\msvc;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);csfml-audio.lib;csfml-graphics.lib;csfml-network.lib;csfml-system.lib;csfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(CoreLibraryDependencies);csfml-graphics.lib;csfml-audio.lib;csfml-system.lib;csfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
