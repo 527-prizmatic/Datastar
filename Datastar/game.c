@@ -11,6 +11,13 @@ int game_Level;
 float game_ScrollSpeed, game_ScrollSpeedOld, game_ScrollSpeedTarget;
 float game_TimeCallSetSpeed, game_SpeedChangeTime;
 
+/// Internal functions related to individual level updates
+
+float game_GetStartingSpeed();
+void game_InitLevel();
+void game_UpdateLevel();
+void game_UnloadLevel();
+
 float Beats(int _i) { return game_BeatTime * _i; }
 float Bars(int _i) { return game_BeatTime * _i * 4.f; }
 
@@ -33,11 +40,11 @@ void game_Init() {
 	game_TimerGlobal = 0.f;
 	game_TimerBeats = 0.f;
 	game_BeatTime = 60.f / wave_GetTempo(game_GetLevel());
-	game_Waves = 30;
+	game_Waves = 0;
 	game_Beats = 1;
 	game_ScrollSpeed = 3000.f;
 	game_ScrollSpeedOld = 3000.f;
-	game_ScrollSpeedTarget = 300.f;
+	game_ScrollSpeedTarget = game_GetStartingSpeed();
 	game_TimeCallSetSpeed = 0.f;
 	game_SpeedChangeTime = Beats(2);
 }
@@ -105,6 +112,8 @@ void game_Render() {
 	ptc_Render();
 	sfx_ScoreRender();
 
+	if (game_Level == 3) sfx_AmbientLv3();
+
 	w_ResetView();
 	hud_DrawHealth(plr_Player.hp);
 	hud_DrawMaxHealth(plr_Player.hp_max);
@@ -161,6 +170,7 @@ void game_InitLevel() {
 	switch (game_Level) {
 		case 1: lv1_Init(); break;
 		case 2: lv2_Init(); break;
+		case 3: lv3_Init(); break;
 		default: break;
 	}
 }
@@ -169,6 +179,7 @@ void game_UpdateLevel() {
 	switch (game_Level) {
 		case 1: lv1_Update(); break;
 		case 2: lv2_Update(); break;
+		case 3: lv3_Update(); break;
 		default: break;
 	}
 }
@@ -177,6 +188,16 @@ void game_UnloadLevel() {
 	switch (game_Level) {
 		case 1: lv1_Unload(); break;
 		case 2: lv2_Unload(); break;
+		case 3: lv3_Unload(); break;
 		default: break;
+	}
+}
+
+float game_GetStartingSpeed() {
+	switch (game_Level) {
+	case 1: return 300.f;
+	case 2: return 300.f;
+	case 3: return 150.f;
+	default: return 300.f;
 	}
 }

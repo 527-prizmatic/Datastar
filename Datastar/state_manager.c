@@ -8,7 +8,7 @@ void gs_Init() {
 	if (gs_FirstInit) {
 		gs_FirstInit = sfFalse;
 		gs_InitPass = sfTrue;
-		gs_state = GS_INIT;
+		gs_state = GS_MENU;
 		gs_TimerGlobal = 0.f;
 
 		tex_Init();

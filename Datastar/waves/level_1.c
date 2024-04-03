@@ -6,7 +6,9 @@ float lv1_TimerCompleted = 0.f;
 
 void lv1_Init() {
 	snd_Preload(SND_MUS, "ode_to_the_future.wav", "future");
-
+	lv1_Complete = sfFalse;
+	lv1_TimerGlobal = 0.f;
+	lv1_TimerCompleted = 0.f;
 }
 
 void lv1_Update() {
@@ -20,7 +22,7 @@ void lv1_Update() {
 		if (lv1_TimerCompleted >= Bars(2)) {
 			gs_ChangeState(GS_MENU);
 			if (score_Best[0] < score_Get()) score_Best[0] = score_Get();
-			game_LastLevelUnlocked = 2;
+			if (game_LastLevelUnlocked < 2) game_LastLevelUnlocked = 2;
 			sav_Save();
 		}
 	}

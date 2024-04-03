@@ -2,6 +2,9 @@
 
 char* sfx_TexScoreRender;
 
+
+/// === SCORE POPUP HANDLER === ///
+
 void sfx_ScoreInit() {
 	sfx_ScoreSentinel = malloc(sizeof(SfxScore));
 	if (!sfx_ScoreSentinel) return;
@@ -70,6 +73,14 @@ void sfx_ScoreClearBuffer() {
 }
 
 
+/// === MISC EFFECTS === ///
+
+void sfx_AmbientLv3() {
+	PtcSystem* propellerPtc = ptc_CreateSystem(-1.f, 5.f, 1, 3.f, 105.f, 215.f, 235.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(propellerPtc, PTC_SHARD, 1.f, 5.f, 5, 5, Color(192, 128, 255), Color(128, 255, 224));
+	ptc_SetShape(propellerPtc, PTCS_RECTANGLE, Vector2f(game_GetScrollX(), -10.f), Vector2f(game_GetScrollX() + 3000.f, -10.f));
+}
+
 void sfx_PlayerPropeller() {
 	PtcSystem* propellerPtc = ptc_CreateSystem(-1.f, .25f, 1, 1.f, 5.f, -100.f, -80.f, PTC_GRAV_NONE, NULL);
 	ptc_SetType(propellerPtc, PTC_SHARD, 1.f, 5.f, 3, 3, Color3(128), sfWhite);
@@ -98,6 +109,46 @@ void sfx_EnemyFire(sfVector2f _pos, sfVector2f _dir, sfColor _clr) {
 	PtcSystem* firePtc = ptc_CreateSystem(-1.f, .5f, 5, 5.f, 15.f, v_AngAbsD(_dir) + 70.f, v_AngAbsD(_dir) + 110.f, PTC_GRAV_NONE, NULL);
 	ptc_SetType(firePtc, PTC_SHARD, 2.f, 5.f, 3, 3, sfWhite, _clr);
 	ptc_SetShape(firePtc, PTCS_POINT, _pos);
+}
+
+void sfx_EnemyGlimmerTrail(sfVector2f _pos, sfColor _clr) {
+	PtcSystem* ptc1 = ptc_CreateSystem(-1.f, 2.f, 1, 0.f, 2.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc1, PTC_SHARD, 1.f, 5.f, 3, 3, ColorA(255, 255, 255, _clr.a), _clr);
+	ptc_SetShape(ptc1, PTCS_CIRCLE, _pos, 30.f);
+}
+
+void sfx_EnemyGlimmerWaves(sfVector2f _pos, sfColor _clr) {
+	PtcSystem* ptc1 = ptc_CreateSystem(-1.f, 2.5f, 50, 2.f, 2.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc1, PTC_SHARD, 1.f, 5.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc1, PTCS_POINT, _pos);
+
+	PtcSystem* ptc2 = ptc_CreateSystem(-1.f, 1.75f, 50, 4.f, 4.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc2, PTC_SHARD, 2.f, 6.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc2, PTCS_POINT, _pos);
+
+	PtcSystem* ptc3 = ptc_CreateSystem(-1.f, 1.f, 50, 6.f, 6.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc3, PTC_SHARD, 3.f, 8.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc3, PTCS_POINT, _pos);
+}
+
+void sfx_EnemyFlareTrail(sfVector2f _pos, sfColor _clr) {
+	PtcSystem* ptc1 = ptc_CreateSystem(-1.f, 2.f, 1, 0.f, 8.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc1, PTC_SHARD, 1.f, 5.f, 3, 3, ColorA(255, 255, 255, _clr.a), _clr);
+	ptc_SetShape(ptc1, PTCS_CIRCLE, _pos, 90.f);
+}
+
+void sfx_EnemyFlareWaves(sfVector2f _pos, sfColor _clr) {
+	PtcSystem* ptc1 = ptc_CreateSystem(-1.f, 2.5f, 50, 6.f, 6.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc1, PTC_SHARD, 1.f, 5.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc1, PTCS_POINT, _pos);
+
+	PtcSystem* ptc2 = ptc_CreateSystem(-1.f, 1.75f, 50, 10.f, 10.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc2, PTC_SHARD, 2.f, 6.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc2, PTCS_POINT, _pos);
+
+	PtcSystem* ptc3 = ptc_CreateSystem(-1.f, 1.f, 50, 14.f, 14.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
+	ptc_SetType(ptc3, PTC_SHARD, 3.f, 8.f, 3, 3, sfWhite, _clr);
+	ptc_SetShape(ptc3, PTCS_POINT, _pos);
 }
 
 void sfx_EnemyShockwaveWaves(sfVector2f _pos, sfColor _clr) {

@@ -19,7 +19,7 @@ void en_Pulse(sfVector2f _pos, float _delay) {
 
 	for (int i = 0; i < 5; i++) new->dataPl.posOld[i] = new->pos;
 	new->dataPl.timerTrail = 0.f;
-	new->dataPl.pos_target = Vector2f(_pos.x, _pos.y);
+	new->dataPl.pos_target = _pos;
 	new->dataPl.rot = 0.f;
 
 	en_Add(new);

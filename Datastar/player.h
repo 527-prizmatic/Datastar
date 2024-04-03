@@ -36,9 +36,21 @@ void plr_Update();
 void plr_Render();
 void plr_Unload();
 
+/// User input handler
 void plr_Control();
+
+/// Computes collisions with various world objects.
 sfBool plr_Collisions();
+
+/// Adds one extra projectile to the player's fire.
 void plr_IncreaseBullets(int _i);
+
+/// Heals the player for 1 HP.
 void plr_HealOne();
+
+/// Makes the player invincible, or revokes that status.
 void plr_Invincible(sfBool _inv);
+
+/// Marks the player as having been hit and triggers related events.
+/// For use in non-direct damage sources such as AoE effects.
 void plr_Hit();

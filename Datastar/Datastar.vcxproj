@@ -146,6 +146,8 @@
     <ClCompile Include="enemy\boss_gamma.c" />
     <ClCompile Include="enemy\boss_shockwave.c" />
     <ClCompile Include="enemy\dart.c" />
+    <ClCompile Include="enemy\flare.c" />
+    <ClCompile Include="enemy\glimmer.c" />
     <ClCompile Include="enemy\pulse.c" />
     <ClCompile Include="enemy\spark.c" />
     <ClCompile Include="enemy\streak.c" />
@@ -188,6 +190,7 @@
     <ClCompile Include="waves.c" />
     <ClCompile Include="waves\level_1.c" />
     <ClCompile Include="waves\level_2.c" />
+    <ClCompile Include="waves\level_3.c" />
     <ClCompile Include="window_manager.c" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +201,8 @@
     <ClInclude Include="enemy\boss_gamma.h" />
     <ClInclude Include="enemy\boss_shockwave.h" />
     <ClInclude Include="enemy\dart.h" />
+    <ClInclude Include="enemy\flare.h" />
+    <ClInclude Include="enemy\glimmer.h" />
     <ClInclude Include="enemy\pulse.h" />
     <ClInclude Include="enemy\spark.h" />
     <ClInclude Include="enemy\streak.h" />
@@ -239,6 +244,7 @@
     <ClInclude Include="waves.h" />
     <ClInclude Include="waves\level_1.h" />
     <ClInclude Include="waves\level_2.h" />
+    <ClInclude Include="waves\level_3.h" />
     <ClInclude Include="window_manager.h" />
   </ItemGroup>
   <ItemGroup>

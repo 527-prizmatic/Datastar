@@ -4,6 +4,7 @@ void wave_Generate(int _lvl, int _wave_num) {
 	switch (_lvl) {
 		case 1: lv1_SpawnWaves(_wave_num); break;
 		case 2: lv2_SpawnWaves(_wave_num); break;
+		case 3: lv3_SpawnWaves(_wave_num); break;
 		default: break;
 	}
 }
@@ -12,6 +13,7 @@ float wave_GetTempo(int _lvl) {
 	switch (_lvl) {
 		case 1: return 80.f;
 		case 2: return 90.f;
+		case 3: return 70.f;
 		default: return 120.f;
 	}
 }

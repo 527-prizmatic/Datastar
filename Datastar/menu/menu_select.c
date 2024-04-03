@@ -1,6 +1,6 @@
 #include "menu_select.h"
 
-#define NYI 2
+#define NYI 3
 
 float menu_TimerSelectGlobal = 0.f, menu_TimerSelectRotate = 0.f;
 sfBool menu_LeavingSelect = sfFalse;
@@ -55,6 +55,7 @@ void m_select_Render() {
 
 	for (int i = 0; i < 7; i++) {
 		sfColor clr = game_LastLevelUnlocked > i ? sfWhite : clrDGray;
+		if (i < game_LastLevelUnlocked - 1) clr = Color(96, 224, 255);
 		if (i >= NYI) clr = sfRed;
 		clr.a = a;
 		float size = 30.f + ((i == menu_SelectLevel) * 30.f);
@@ -79,6 +80,7 @@ void m_select_Render() {
 	switch (menu_SelectLevel) {
 		case 0: title = "ODE TO THE FUTURE"; break;
 		case 1: title = "CAPTAIN VALENTINE"; break;
+		case 2: title = "SOFT GLOW"; break;
 		default: title = "NOT YET IMPLEMENTED"; break;
 	}
 	sprintf(menu_TextScore, "BEST SCORE - %d", score_Best[menu_SelectLevel]);

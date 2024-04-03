@@ -10,7 +10,7 @@ void en_Dart(sfVector2f _pos, enum PwrType _drop) {
 	new->type = EN_DART;
 	new->clr = Color(255, 192, 0);
 	new->pos = _pos;
-	new->spd = Vector2f(300.f, 0.f);
+	new->spd = NULLVECTF;
 	new->lifetime = 0.f;
 	new->timer_blink = 0.f;
 	new->hp_max = 1;
@@ -34,10 +34,14 @@ struct EnData* en_dart_Update(struct EnData* _en) {
 			for (int i = 4; i > 0; i--) _en->dataDt.posOld[i] = _en->dataDt.posOld[i - 1];
 			_en->dataDt.posOld[0] = _en->pos;
 		}
+		_en->aabb = FloatRect_FromCenter(_en->pos, 60.f, 80.f);
 	}
-	else for (int i = 0; i < 5; i++) _en->dataDt.posOld[i] = _en->pos;
+	else {
+		_en->spd.x = game_GetScrollSpeed();
+		for (int i = 0; i < 5; i++) _en->dataDt.posOld[i] = _en->pos;
+		_en->aabb = FloatRect(-1.f, -1.f, 0.f, 0.f);
+	}
 
-	_en->aabb = FloatRect_FromCenter(_en->pos, 60.f, 80.f);
 	return _en;
 }
 

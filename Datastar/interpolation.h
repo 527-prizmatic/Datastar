@@ -54,3 +54,7 @@ float itp_Smooth(float _x);
 /// Smootherstep function. Return values are clamped between 0 and 1.
 /// \return 6x^5 - 15x^4 + 10x^3
 float itp_Smoother(float _x);
+
+/// Third-order smoothstep function. Return values are clamped between 0 and 1.
+/// \return -20x^7 + 70x^6 - 84x^5 + 35x^4
+float itp_Smoothest(float _x);

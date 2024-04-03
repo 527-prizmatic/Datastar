@@ -6,7 +6,9 @@ float lv2_TimerCompleted = 0.f;
 
 void lv2_Init() {
 	snd_Preload(SND_MUS, "captain_valentine.wav", "captain");
-
+	lv2_Complete = sfFalse;
+	lv2_TimerGlobal = 0.f;
+	lv2_TimerCompleted = 0.f;
 }
 
 void lv2_Update() {
@@ -20,7 +22,7 @@ void lv2_Update() {
 		if (lv2_TimerCompleted >= Bars(2)) {
 			gs_ChangeState(GS_MENU);
 			if (score_Best[1] < score_Get()) score_Best[1] = score_Get();
-			game_LastLevelUnlocked = 3;
+			if (game_LastLevelUnlocked < 3) game_LastLevelUnlocked = 3;
 			sav_Save();
 		}
 	}
@@ -85,7 +87,6 @@ void lv2_SpawnWaves(int _wave_num) {
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 240.f), PWR_NONE);
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_SCORE);
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 840.f), PWR_NONE);
-	//	en_Dart(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_SCORE);
 		break;
 
 	case 14:

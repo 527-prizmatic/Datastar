@@ -53,6 +53,7 @@ struct EnData* en_shockwave_Update(struct EnData* _en) {
 			for (int i = 0; i < 6; i++) if (_en->dataSw.hp_arm[i] == 0) ctr++;
 			if (ctr == 6) {
 				_en->dataSw.phase = 2;
+				_en->dataSw.lifetime_mod8 -= Bars(2);
 				game_SetScrollSpeed(-200.f, Bars(1));
 			}
 		}
@@ -185,7 +186,7 @@ void en_shockwave_Render(struct EnData* _en) {
 			for (int i = 0; i < 6; i++) {
 				if (_en->dataSw.hp_arm[i] != 0) {
 					sfColor clr = (fmod(_en->dataSw.timers_blink[i], .1f) > .05f) ? sfWhite : clrDGray;
-					sfVector2f v[5];
+					sfVector2f v[5] = { 0 };
 					v[0] = v_Add(_en->pos, v_RotateD(Vector2f(120.f, 0.f), i * 60.f + _en->dataSw.rot + 60.f));
 					v[1] = v_Add(_en->pos, v_RotateD(Vector2f(210.f, 0.f), i * 60.f + _en->dataSw.rot + 30.f));
 					v[2] = v_Add(_en->pos, v_RotateD(Vector2f(120.f, 0.f), i * 60.f + _en->dataSw.rot));

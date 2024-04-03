@@ -52,7 +52,7 @@ void plb_Update() {
 				float closestDist = 1.e9f;
 				EnData* itrE = en_Sentinel->next;
 				while (itrE != NULL) {
-					if (itrE->type != EN_WALL && itrE->type != EN_PULSE && itrE->pos.x >= plr_Player.pos.x) {
+					if (itrE->type != EN_WALL && itrE->type != EN_PULSE && itrE->type != EN_GLIMMER && itrE->type != EN_FLARE && itrE->pos.x >= plr_Player.pos.x) {
 						float dist = v_Mag2(v_Sub(itrE->pos, itr->pos));
 						if (closestDist > dist) {
 							closestDist = dist;

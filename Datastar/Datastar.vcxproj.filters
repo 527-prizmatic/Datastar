@@ -222,6 +222,15 @@
     <ClCompile Include="enemy\boss_shockwave.c">
       <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
     </ClCompile>
+    <ClCompile Include="waves\level_3.c">
+      <Filter>Fichiers sources\Game\Waves</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\glimmer.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\flare.c">
+      <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -369,6 +378,15 @@
       <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
     </ClInclude>
     <ClInclude Include="enemy\boss_shockwave.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="waves\level_3.h">
+      <Filter>Fichiers d%27en-tête\Game\Waves</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\glimmer.h">
+      <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\flare.h">
       <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
     </ClInclude>
   </ItemGroup>

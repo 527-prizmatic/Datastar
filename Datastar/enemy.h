@@ -16,15 +16,20 @@
 #include "enemy/dart.h"
 #include "enemy/streak.h"
 #include "enemy/pulse.h"
+#include "enemy/glimmer.h"
+#include "enemy/flare.h"
 #include "enemy/boss_gamma.h"
 #include "enemy/boss_shockwave.h"
 
+/// Enemy type list
 typedef enum EnType {
 	EN_WALL,
 	EN_SPARK,
 	EN_DART,
 	EN_STREAK,
 	EN_PULSE,
+	EN_GLIMMER,
+	EN_FLARE,
 
 	EN_BOSS_GAMMA,
 	EN_BOSS_SHOCKWAVE
@@ -59,6 +64,11 @@ typedef struct EnDataPulse {
 	float rot;
 } EnDataPulse;
 
+typedef struct EnDataGlimmer {
+	sfVector2f pos_target;
+	float rot;
+} EnDataGlimmer;
+
 
 typedef struct EnDataGamma {
 	sfVector2f posOrigin;
@@ -81,6 +91,7 @@ typedef struct EnDataShockwave {
 	sfBool flag_targeting;
 } EnDataShockwave;
 
+/// Data structure for enemies
 typedef struct EnData {
 	struct EnData* prev;
 	struct EnData* next;
@@ -101,6 +112,7 @@ typedef struct EnData {
 		struct EnDataDart dataDt;
 		struct EnDataStreak dataSt;
 		struct EnDataPulse dataPl;
+		struct EnDataGlimmer dataGl;
 
 
 		struct EnDataGamma dataGm;
@@ -109,18 +121,27 @@ typedef struct EnData {
 } EnData;
 EnData* en_Sentinel;
 
+/// Initializes the enemy buffer system.
 void en_Init();
 
+/// Adds a newly created enemy to the buffer.
 void en_Add(EnData* _en);
 
+/// Computes tick updates for enemies.
 void en_Update();
 
+/// Enemy renderer
 void en_Render();
 
+/// Removes a given element from the enemy buffer and frees up allocated memory.
+/// Also returns the next element of the list.
 EnData* en_PopPtr(EnData* _en);
 
+/// Empties the enemy buffer.
 void en_ClearBuffer();
 
+/// Empties the enemy buffer and destroys all allocated resources.
 void en_Unload();
 
+/// Gets the score value of an enemy type.
 int en_GetValue(EnType _type);
