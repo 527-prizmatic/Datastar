@@ -4,6 +4,8 @@ FILE* log_File;
 char log_Level;
 
 void log_Init(int _lvl) {
+	if (!ENABLE_LOGGING) return;
+
 	log_File = NULL;
 	time_t t = time(NULL);
 	struct tm time = *localtime(&t);
@@ -26,12 +28,16 @@ void log_Init(int _lvl) {
 }
 
 void log_LogHeader(LogLevel _lvl) {
+	if (!ENABLE_LOGGING) return;
+
 	time_t t = time(NULL);
 	struct tm time = *localtime(&t);
 	fprintf(log_File, "[%s] [%02d:%02d:%02d] ", log_GetLevel(_lvl), time.tm_hour, time.tm_min, time.tm_sec);
 }
 
 void log_LogStr(LogLevel _lvl, char* _msg, sfBool _header, sfBool _is_newline) {
+	if (!ENABLE_LOGGING) return;
+
 	if (log_File == NULL) return;
 	if ((log_Level & _lvl) == 0) return;
 	if (_header) log_LogHeader(_lvl);
@@ -41,6 +47,8 @@ void log_LogStr(LogLevel _lvl, char* _msg, sfBool _header, sfBool _is_newline) {
 }
 
 void log_LogInt(LogLevel _lvl, int _msg, sfBool _header, sfBool _is_newline) {
+	if (!ENABLE_LOGGING) return;
+
 	if (log_File == NULL) return;
 	if ((log_Level & _lvl) == 0) return;
 	if (_header) log_LogHeader(_lvl);
@@ -50,6 +58,8 @@ void log_LogInt(LogLevel _lvl, int _msg, sfBool _header, sfBool _is_newline) {
 }
 
 void log_LogFloat(LogLevel _lvl, float _msg, sfBool _header, sfBool _is_newline) {
+	if (!ENABLE_LOGGING) return;
+
 	if (log_File == NULL) return;
 	if ((log_Level & _lvl) == 0) return;
 	if (_header) log_LogHeader(_lvl);
@@ -59,11 +69,15 @@ void log_LogFloat(LogLevel _lvl, float _msg, sfBool _header, sfBool _is_newline)
 }
 
 void log_Conclude() {
+	if (!ENABLE_LOGGING) return;
+
 	log_LogStr(LOG_INFO, "Concluding logging session", sfTrue, sfTrue);
 	fclose(log_File);
 }
 
 char* log_GetLevel(LogLevel _lvl) {
+	if (!ENABLE_LOGGING) return "LOGGING DISABLED";
+
 	switch (_lvl) {
 		case LOG_INFO: return "INFO";
 		case LOG_WARN: return "WARN";

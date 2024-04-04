@@ -76,9 +76,11 @@ void sfx_ScoreClearBuffer() {
 /// === MISC EFFECTS === ///
 
 void sfx_AmbientLv3() {
-	PtcSystem* propellerPtc = ptc_CreateSystem(-1.f, 2.f, 1, 3.f, 105.f, 215.f, 235.f, PTC_GRAV_NONE, NULL);
-	ptc_SetType(propellerPtc, PTC_SHARD, 0.f, 8.f, 5, 5, Color(192, 128, 255), Color(128, 255, 224));
-	ptc_SetShape(propellerPtc, PTCS_RECTANGLE, Vector2f(game_GetScrollX(), -100.f), Vector2f(game_GetScrollX() + 3200.f, -10.f));
+	if (RAND_BOOL) {
+		PtcSystem* propellerPtc = ptc_CreateSystem(-1.f, 1.5f, 1, 0.f, 100.f, 215.f, 235.f, PTC_GRAV_NONE, NULL);
+		ptc_SetType(propellerPtc, PTC_SHARD, 0.f, 4.f, 5, 5, Color(192, 128, 255), Color(128, 255, 224));
+		ptc_SetShape(propellerPtc, PTCS_RECTANGLE, Vector2f(game_GetScrollX(), -100.f), Vector2f(game_GetScrollX() + 3200.f, -10.f));
+	}
 }
 
 void sfx_PlayerPropeller() {

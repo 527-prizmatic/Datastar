@@ -24,7 +24,6 @@ sfVector2f init_LogoA[14];			   /// Current positions for the logo's VA - the A
 void init_InitLogoMorph();
 
 void init_Init() {
-	tex_Preload("ga.png", "ga");
 	init_InitLogoMorph();
 }
 
@@ -42,15 +41,20 @@ void init_Update() {
 	}
 	else if (init_TimerGlobal >= 13.f && init_TimerGlobal < 14.5f) {
 		float time = (init_TimerGlobal - 13.f) / 1.5f;
-		for (int i = 0; i < 13; i++) init_LogoCap[i] = itp_Vector2f(init_LogoCap_RandomPos[i], init_LogoCap_Star[i], time, itp_Smoothest);
-		for (int i = 0; i < 17; i++) init_LogoG[i]   = itp_Vector2f(init_LogoG_RandomPos[i],   init_LogoG_Star[i],   time, itp_Smoothest);
-		for (int i = 0; i < 14; i++) init_LogoA[i]   = itp_Vector2f(init_LogoA_RandomPos[i],   init_LogoA_Star[i],   time, itp_Smoothest);
+		for (int i = 0; i < 13; i++) init_LogoCap[i] = itp_Vector2f(init_LogoCap_RandomPos[i], init_LogoCap_Star[i], time, itp_Smoothester);
+		for (int i = 0; i < 17; i++) init_LogoG[i]   = itp_Vector2f(init_LogoG_RandomPos[i],   init_LogoG_Star[i],   time, itp_Smoothester);
+		for (int i = 0; i < 14; i++) init_LogoA[i]   = itp_Vector2f(init_LogoA_RandomPos[i],   init_LogoA_Star[i],   time, itp_Smoothester);
+	}
+	else if (init_TimerGlobal >= 14.5f && init_TimerGlobal < 15.f) {
+		for (int i = 0; i < 13; i++) init_LogoCap[i] = init_LogoCap_Star[i];
+		for (int i = 0; i < 17; i++) init_LogoG[i] = init_LogoG_Star[i];
+		for (int i = 0; i < 14; i++) init_LogoA[i] = init_LogoA_Star[i];
 	}
 	else if (init_TimerGlobal >= 15.f && init_TimerGlobal < 16.5f) {
 		float time = (init_TimerGlobal - 15.f) / 1.5f;
-		for (int i = 0; i < 13; i++) init_LogoCap[i] = itp_Vector2f(init_LogoCap_Star[i], init_LogoCap_Final[i], time, itp_Smoothest);
-		for (int i = 0; i < 17; i++) init_LogoG[i]   = itp_Vector2f(init_LogoG_Star[i],   init_LogoG_Final[i],   time, itp_Smoothest);
-		for (int i = 0; i < 14; i++) init_LogoA[i]   = itp_Vector2f(init_LogoA_Star[i],   init_LogoA_Final[i],   time, itp_Smoothest);
+		for (int i = 0; i < 13; i++) init_LogoCap[i] = itp_Vector2f(init_LogoCap_Star[i], init_LogoCap_Final[i], time, itp_Smoothester);
+		for (int i = 0; i < 17; i++) init_LogoG[i]   = itp_Vector2f(init_LogoG_Star[i],   init_LogoG_Final[i],   time, itp_Smoothester);
+		for (int i = 0; i < 14; i++) init_LogoA[i]   = itp_Vector2f(init_LogoA_Star[i],   init_LogoA_Final[i],   time, itp_Smoothester);
 	}
 	else {
 		for (int i = 0; i < 13; i++) init_LogoCap[i] = init_LogoCap_Final[i];
@@ -65,7 +69,7 @@ void init_Render() {
 	if (init_TimerGlobal <= 10.f) {
 		vt_DrawText(Vector2f(960.f, 437.5f), "THIS GAME IS A WORK OF FICTION.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.f)) * 64.f, 0.f, 255.f)));
 		vt_DrawText(Vector2f(960.f, 472.5f), "ANY RESEMBLANCE TO ACTUAL EVENTS OR LOCALES", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.5f)) * 64.f, 0.f, 255.f)));
-		vt_DrawText(Vector2f(960.f, 507.5f), "OR PERSONS, LIVING OR DEAD,", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.f)) * 64.f, 0.f, 255.f)));
+		vt_DrawText(Vector2f(960.f, 507.5f), "OR PERSONS, LIVING OR DECEASED,", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.f)) * 64.f, 0.f, 255.f)));
 		vt_DrawText(Vector2f(960.f, 542.5f), "WOULD BE ENTIRELY COINCIDENTAL.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.5f)) * 64.f, 0.f, 255.f)));
 		vt_DrawText(Vector2f(960.f, 612.5f), "ALL RIGHTS RESERVED.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 6.f)) * 64.f, 0.f, 255.f)));
 
@@ -92,9 +96,7 @@ void init_Render() {
 	else gs_ChangeState(GS_INTRO);
 }
 
-void init_Unload() {
-	tex_Unload("ga");
-}
+void init_Unload() { }
 
 void init_InitLogoMorph() {
 	init_LogoCap_Star[0]  = Vector2f( 900.f, 480.f);

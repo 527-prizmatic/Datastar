@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="collisions.c" />
     <ClCompile Include="controls.c" />
-    <ClCompile Include="demo.c" />
     <ClCompile Include="enemy.c" />
     <ClCompile Include="enemy\boss_gamma.c" />
     <ClCompile Include="enemy\boss_incandesce.c" />
@@ -184,7 +183,6 @@
     <ClCompile Include="state_manager.c" />
     <ClCompile Include="texture_manager.c" />
     <ClCompile Include="tools.c" />
-    <ClCompile Include="trolfaec.c" />
     <ClCompile Include="va_text.c" />
     <ClCompile Include="va_tools.c" />
     <ClCompile Include="vectors.c" />

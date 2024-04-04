@@ -34,7 +34,7 @@ void sav_LoadDefault() {
 	sav_Data.fullscreen = 0;
 	sav_Data.controls = ctrl_GetDefaults();
 	sav_Data.best_level = 1;
-	for (int i = 0; i < 7; i++) sav_Data.best_scores[i] = 10000;
+	for (int i = 0; i < 7; i++) sav_Data.best_scores[i] = 20000;
 
 	sav_AssignData();
 }

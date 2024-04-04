@@ -120,9 +120,6 @@
     <ClCompile Include="game.c">
       <Filter>Fichiers sources\Game\State Machine</Filter>
     </ClCompile>
-    <ClCompile Include="demo.c">
-      <Filter>Fichiers sources\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="player.c">
       <Filter>Fichiers sources\Game\Entities</Filter>
     </ClCompile>
@@ -233,9 +230,6 @@
     </ClCompile>
     <ClCompile Include="enemy\boss_incandesce.c">
       <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
-    </ClCompile>
-    <ClCompile Include="trolfaec.c">
-      <Filter>Fichiers sources\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

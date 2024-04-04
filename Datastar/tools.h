@@ -36,6 +36,7 @@ typedef unsigned long long int ULL;
 #define RENDER_HITBOXES		0
 #define DOUBLE_RENDER		0
 #define PIZZA_MODE			0
+#define ENABLE_LOGGING		0
 
 sfColor clrDGray;
 
