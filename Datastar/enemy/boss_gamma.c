@@ -106,10 +106,11 @@ void en_gamma_Render(struct EnData* _en) {
 	sfFloatRect rect = FloatRect_FromCenter(Vector2f(960.f + game_GetScrollX(), 1020.f), 1000.f, 15.f);
 	rect.width = itp_Float(0.f, 1000.f, clamp(_en->lifetime, 0.f, Beats(2)) / Beats(2), itp_Smoother);
 	float w = rect.width;
-	va_DrawRectangle(VA_LINE, NULL, rect, sfWhite);
 	colorBase.a = 128;
 	rect.width = itp_Float(0.f, w, _en->hp / (float)_en->hp_max, itp_Linear);
 	va_DrawRectangle(VA_TRI, NULL, rect, colorBase);
+	rect.width = w;
+	va_DrawRectangle(VA_LINE, NULL, rect, sfWhite);
 	va_DrawLine(NULL, Vector2f(710.f + game_GetScrollX(), 1015.f), Vector2f(710.f + game_GetScrollX(), 1025.f), sfWhite);
 	va_DrawLine(NULL, Vector2f(960.f + game_GetScrollX(), 1015.f), Vector2f(960.f + game_GetScrollX(), 1025.f), sfWhite);
 	va_DrawLine(NULL, Vector2f(1210.f + game_GetScrollX(), 1015.f), Vector2f(1210.f + game_GetScrollX(), 1025.f), sfWhite);

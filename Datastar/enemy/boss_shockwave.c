@@ -219,7 +219,6 @@ void en_shockwave_Render(struct EnData* _en) {
 	rectRed.width = itp_Float(0.f, 500.f, clamp(_en->lifetime, 0.f, Beats(1)) / Beats(1), itp_Smoother);
 	float w = rectRed.width;
 	colorBlink.a = 128;
-	va_DrawRectangle(VA_LINE, NULL, rectRed, sfWhite);
 	rectRed.width = itp_Float(0.f, w, _en->hp / (float)_en->hp_max, itp_Linear);
 	va_DrawRectangle(VA_TRI, NULL, rectRed, colorBlink);
 	rectRed.width = w;

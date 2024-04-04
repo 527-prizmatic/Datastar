@@ -20,6 +20,7 @@
 #include "enemy/flare.h"
 #include "enemy/boss_gamma.h"
 #include "enemy/boss_shockwave.h"
+#include "enemy/boss_incandesce.h"
 
 /// Enemy type list
 typedef enum EnType {
@@ -32,7 +33,8 @@ typedef enum EnType {
 	EN_FLARE,
 
 	EN_BOSS_GAMMA,
-	EN_BOSS_SHOCKWAVE
+	EN_BOSS_SHOCKWAVE,
+	EN_BOSS_INCANDESCE
 } EnType;
 
 typedef struct EnDataWall {
@@ -67,6 +69,7 @@ typedef struct EnDataPulse {
 typedef struct EnDataGlimmer {
 	sfVector2f pos_target;
 	float rot;
+	float fall_time;
 } EnDataGlimmer;
 
 
@@ -90,6 +93,19 @@ typedef struct EnDataShockwave {
 	float lifetime_mod8;
 	sfBool flag_targeting;
 } EnDataShockwave;
+
+typedef struct EnDataIncandesce {
+	float rot;
+	float rot_spd;
+	float clr_osc;
+	float clr_osc_spd;
+	sfVector2f pos_target;
+	sfBool entrance;
+	char beat_ctr;
+	float timer_cycle;
+	float timer_fire;
+	float fire_dir;
+} EnDataIncandesce;
 
 /// Data structure for enemies
 typedef struct EnData {
@@ -117,6 +133,7 @@ typedef struct EnData {
 
 		struct EnDataGamma dataGm;
 		struct EnDataShockwave dataSw;
+		struct EnDataIncandesce dataIc;
 	};
 } EnData;
 EnData* en_Sentinel;

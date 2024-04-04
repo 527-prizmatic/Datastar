@@ -37,8 +37,8 @@ void init_Update() {
 
 	if (init_TimerGlobal < 13.f) {
 		for (int i = 0; i < 13; i++) init_LogoCap[i] = init_LogoCap_RandomPos[i];
-		for (int i = 0; i < 17; i++) init_LogoG[i] = init_LogoG_RandomPos[i];
-		for (int i = 0; i < 14; i++) init_LogoA[i] = init_LogoA_RandomPos[i];
+		for (int i = 0; i < 17; i++) init_LogoG[i]   = init_LogoG_RandomPos[i];
+		for (int i = 0; i < 14; i++) init_LogoA[i]   = init_LogoA_RandomPos[i];
 	}
 	else if (init_TimerGlobal >= 13.f && init_TimerGlobal < 14.5f) {
 		float time = (init_TimerGlobal - 13.f) / 1.5f;
@@ -51,6 +51,11 @@ void init_Update() {
 		for (int i = 0; i < 13; i++) init_LogoCap[i] = itp_Vector2f(init_LogoCap_Star[i], init_LogoCap_Final[i], time, itp_Smoothest);
 		for (int i = 0; i < 17; i++) init_LogoG[i]   = itp_Vector2f(init_LogoG_Star[i],   init_LogoG_Final[i],   time, itp_Smoothest);
 		for (int i = 0; i < 14; i++) init_LogoA[i]   = itp_Vector2f(init_LogoA_Star[i],   init_LogoA_Final[i],   time, itp_Smoothest);
+	}
+	else {
+		for (int i = 0; i < 13; i++) init_LogoCap[i] = init_LogoCap_Final[i];
+		for (int i = 0; i < 17; i++) init_LogoG[i]   = init_LogoG_Final[i];
+		for (int i = 0; i < 14; i++) init_LogoA[i]   = init_LogoA_Final[i];
 	}
 }
 
@@ -73,7 +78,7 @@ void init_Render() {
 		va_DrawPolygon(VA_LINE, NULL, 17, init_LogoG,   sfTrue, clr);
 		va_DrawPolygon(VA_LINE, NULL, 14, init_LogoA,   sfTrue, clr);
 
-		if (kb_TestPress(sfKeySpace)) init_TimerGlobal = 20.f;
+		if (kb_TestPress(sfKeySpace) && init_TimerGlobal < 18.f) init_TimerGlobal = 18.f;
 	}
 	else if (init_TimerGlobal <= 30.f) {
 		for (int i = 0; i < 3; i++) {
@@ -153,7 +158,7 @@ void init_InitLogoMorph() {
 	init_LogoG_Final[11] = Vector2f( 956.f, 564.f);
 	init_LogoG_Final[12] = Vector2f( 956.f, 710.f);
 	init_LogoG_Final[13] = Vector2f( 841.f, 639.f);
-	init_LogoG_Final[14] = Vector2f( 841.f, 552.f);
+	init_LogoG_Final[14] = Vector2f( 841.f, 550.f);
 	init_LogoG_Final[15] = Vector2f( 864.f, 527.f);
 	init_LogoG_Final[16] = Vector2f( 849.f, 512.f);
 

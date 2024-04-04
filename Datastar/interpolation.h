@@ -47,6 +47,10 @@ float itp_InvSquare(float _x);
 /// \return x^3
 float itp_Cube(float _x);
 
+/// Quartic interpolation. Return values are clamped between 0 and 1.
+/// \return x^4
+float itp_Quartic(float _x);
+
 /// Smoothstep function. Return values are clamped between 0 and 1.
 /// \return 3x^2 - 2x^3
 float itp_Smooth(float _x);

@@ -9,7 +9,7 @@
 
 /// Creates a new Flare.
 /// \param _pos - Absolute spawn position
-void en_Flare(sfVector2f _pos);
+void en_Flare(sfVector2f _pos, float _lifetime);
 
 /// Computes tick updates for Flares.
 struct EnData* en_flare_Update(struct EnData* _en);

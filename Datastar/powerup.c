@@ -25,7 +25,7 @@ void pwr_New(sfVector2f _pos, PwrType _type) {
 	new->pos = _pos;
 	new->lifetime = 0.f;
 	new->ptc = sfx_PowerupParticle(_pos, _type);
-	new->spd = POL2REC(Vector2f(25.f, RANDF(0.f, 2.f * PI)));
+	new->spd = POL2REC(Vector2f(25.f, RANDF(0.f, 2.f * (float)PI)));
 
 	PwrData* n = pwr_Sentinel->next;
 	pwr_Sentinel->next = new;

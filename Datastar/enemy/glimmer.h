@@ -10,7 +10,9 @@
 
 /// Creates a new Glimmer.
 /// \param _pos - Absolute spawn position
-void en_Glimmer(sfVector2f _pos);
+/// \param _lifetime - Time between spawning and falling
+/// \param _delay - Time before spawning
+void en_Glimmer(sfVector2f _pos, float _lifetime, float _delay);
 
 /// Computes tick updates for Glimmers.
 struct EnData* en_glimmer_Update(struct EnData* _en);

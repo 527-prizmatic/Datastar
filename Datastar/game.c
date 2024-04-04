@@ -112,8 +112,6 @@ void game_Render() {
 	ptc_Render();
 	sfx_ScoreRender();
 
-	if (game_Level == 3) sfx_AmbientLv3();
-
 	w_ResetView();
 	hud_DrawHealth(plr_Player.hp);
 	hud_DrawMaxHealth(plr_Player.hp_max);

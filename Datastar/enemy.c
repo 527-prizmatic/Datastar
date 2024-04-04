@@ -38,6 +38,7 @@ void en_Update() {
 			case EN_FLARE: itr = en_flare_Update(itr); break;
 			case EN_BOSS_GAMMA: itr = en_gamma_Update(itr); break;
 			case EN_BOSS_SHOCKWAVE: itr = en_shockwave_Update(itr); break;
+			case EN_BOSS_INCANDESCE: itr = en_incandesce_Update(itr); break;
 		}
 		if (itr != enp) continue;
 
@@ -49,9 +50,9 @@ void en_Update() {
 				sfBool flagDestroy = sfFalse;
 				if (col_RectRect(itrB->aabb, itr->aabb)) {
 					flagDestroy = sfTrue;
-					itr->timer_blink = .4f;
+					if (itr->type != EN_BOSS_INCANDESCE) itr->timer_blink = .4f;
 					//				itr->hp--;
-					sfx_ProjectileImpact(itr->pos, itrB->spd, itr->clr);
+					sfx_ProjectileImpact(itrB->pos, itrB->spd, itr->clr);
 
 					switch (itr->type) {
 					case EN_WALL: en_wall_OnHit(itr, itrB); break;
@@ -60,10 +61,12 @@ void en_Update() {
 					case EN_STREAK: en_streak_OnHit(itr, itrB); break;
 					case EN_BOSS_GAMMA: en_gamma_OnHit(itr, itrB); break;
 					case EN_BOSS_SHOCKWAVE: en_shockwave_OnHit(itr, itrB); break;
+					case EN_BOSS_INCANDESCE: en_incandesce_OnHit(itr, itrB); break;
 
 					case EN_PULSE:
 					case EN_GLIMMER:
-					case EN_FLARE: break;
+					case EN_FLARE:
+						break;
 					}
 				}
 
@@ -87,6 +90,7 @@ void en_Update() {
 				case EN_STREAK: en_streak_OnKill(itr); break;
 				case EN_BOSS_GAMMA: en_gamma_OnKill(itr); break;
 				case EN_BOSS_SHOCKWAVE: en_shockwave_OnKill(itr); break;
+				case EN_BOSS_INCANDESCE: en_incandesce_OnKill(itr); break;
 
 				case EN_PULSE:
 				case EN_GLIMMER:
@@ -120,6 +124,7 @@ void en_Render() {
 			case EN_FLARE: en_flare_Render(itr); break;
 			case EN_BOSS_GAMMA: en_gamma_Render(itr); break;
 			case EN_BOSS_SHOCKWAVE: en_shockwave_Render(itr); break;
+			case EN_BOSS_INCANDESCE: en_incandesce_Render(itr); break;
 		}
 
 		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfRed);
@@ -159,6 +164,7 @@ int en_GetValue(EnType _type) {
 		case EN_FLARE: return en_flare_Value();
 		case EN_BOSS_GAMMA: return en_gamma_Value();
 		case EN_BOSS_SHOCKWAVE: return en_shockwave_Value();
+		case EN_BOSS_INCANDESCE: return en_incandesce_Value();
 		default: return 100;
 	}
 }
