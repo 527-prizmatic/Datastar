@@ -13,6 +13,8 @@
 #include "collisions.h"
 #include "controls.h"
 
+float plr_TimerDeath;
+
 typedef struct {
 	sfVector2f pos;
 	sfVector2f spd;

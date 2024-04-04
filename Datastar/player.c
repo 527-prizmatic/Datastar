@@ -15,28 +15,39 @@ void plr_Init() {
 	plr_Player.rof = 5.f;
 	plr_Player.rot = 90.f;
 	plr_Player.invincible = sfFalse;
+
+	plr_TimerDeath = 0.f;
 }
 
 void plr_Update() {
 	if (plr_Player.fire_timer > 0.f) plr_Player.fire_timer -= getDeltaTime();
 	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= getDeltaTime();
 	plr_Control();
-
-	if ((plr_Collisions() || plr_Player.hit) && !plr_Player.invincible) {
-		plr_Player.hit = sfFalse;
-		if (plr_Player.inv_frames <= .01f) {
-			plr_Player.hp--;
-			plr_Player.inv_frames = 3.f;
-		}
-		sfx_PlayerHit();
-	}
 	
 	if (plr_Player.hp <= 0) {
-		gs_ChangeState(GS_MENU);
-		return;
+		if (FEQS(plr_TimerDeath, 0.f)) {
+			mus_FadeOut();
+			game_SetScrollSpeed(0.f, 2.f);
+		}
+		plr_TimerDeath += getDeltaTime();
+		if (plr_TimerDeath > 2.f) {
+			gs_ChangeState(GS_MENU);
+			return;
+		}
 	}
-	plr_Player.pos = v_Add(plr_Player.pos, v_Mul(plr_Player.spd, getDeltaTime()));
-	plr_Player.aabb = FloatRect_FromCenter(plr_Player.pos, 32.f, 32.f);
+	else {
+		if ((plr_Collisions() || plr_Player.hit) && !plr_Player.invincible) {
+			plr_Player.hit = sfFalse;
+			if (plr_Player.inv_frames <= .01f) {
+				plr_Player.hp--;
+				plr_Player.inv_frames = 3.f;
+			}
+			sfx_PlayerHit();
+		}
+
+		plr_Player.pos = v_Add(plr_Player.pos, v_Mul(plr_Player.spd, getDeltaTime()));
+		plr_Player.aabb = FloatRect_FromCenter(plr_Player.pos, 32.f, 32.f);
+	}
 }
 
 void plr_Render() {

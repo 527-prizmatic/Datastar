@@ -63,7 +63,7 @@ void game_Update() {
 	if (gs_state == GS_MENU) return;
 
 	plr_Update();
-	if (plr_Player.hp == 0) return;
+	if (plr_TimerDeath > 2.f) return;
 	en_Update();
 	if (gs_state == GS_MENU) return;
 	plb_Update();
@@ -103,7 +103,7 @@ void game_Render() {
 	}
 	w_SetView(game_View);
 
-	plr_Render();
+	if (ISZERO(plr_TimerDeath)) plr_Render();
 	en_Render();
 	plb_Render();
 	enb_Render();
