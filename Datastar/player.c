@@ -79,7 +79,7 @@ void plr_Control() {
 	else plr_Player.acc.x = 0.f;
 
 	/// DEBUG KEYBIND
-	if (kb_TestPress(sfKeyP)) plr_HealOne();
+	if (kb_TestPress(sfKeyE)) plr_HealOne();
 
 	plr_Player.acc = v_Mul(plr_Player.acc, 3000.f);
 	plr_Player.spd = v_Add(plr_Player.spd, v_Mul(plr_Player.acc, getDeltaTime()));
