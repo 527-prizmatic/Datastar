@@ -49,7 +49,7 @@ void m_ctrl_Update() {
 void m_ctrl_Render() {
 	menu_RenderLogo(0.f);
 
-	sfColor colors[5][2];
+	sfColor colors[5][2] = { 0 };
 	for (int i = 0; i < 5; i++) for (int j = 0; j < 2; j++) colors[i][j] = clrDGray;
 	colors[menu_CtrlSelRow][menu_CtrlSelCol] = sfWhite;
 	vt_DrawText(Vector2f(190.f, 625.f), "MOVE UP", 25, TXT_LEFT, colors[0][0]);

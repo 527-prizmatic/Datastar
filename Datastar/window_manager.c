@@ -128,7 +128,7 @@ void rq_Init() {
 
 void rq_Draw(RQType _type, sfRenderStates* _rs, ...) {
 	va_list args;
-	RQuery rq;
+	RQuery rq = { 0 };
 	rq.type = _type;
 	rq.rState = _rs;
 
