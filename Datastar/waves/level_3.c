@@ -97,7 +97,7 @@ void lv3_SpawnWaves(int _wave_num) {
 		wave_CreateWall(3);
 		wave_CreateWall(4);
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 340.f), PWR_NONE);
-		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_NONE);
+		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 540.f), PWR_POWER);
 		en_Spark(Vector2f(game_GetScrollX() + 2000.f, 740.f), PWR_NONE);
 		break;
 
@@ -183,7 +183,7 @@ void lv3_SpawnWaves(int _wave_num) {
 	case 23:
 		en_Dart(Vector2f(game_GetScrollX() + 2000.f, 240.f), PWR_HP);
 		en_Dart(Vector2f(game_GetScrollX() + 2100.f, 390.f), PWR_NONE);
-		en_Dart(Vector2f(game_GetScrollX() + 2200.f, 690.f), PWR_POWER);
+		en_Dart(Vector2f(game_GetScrollX() + 2200.f, 690.f), PWR_NONE);
 		en_Dart(Vector2f(game_GetScrollX() + 2300.f, 840.f), PWR_NONE);
 		break;
 
