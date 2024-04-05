@@ -1,78 +1,83 @@
 #include "window_manager.h"
 #include "savefile.h"
 
+W_Window* w_Get() {
+	static W_Window w;
+	return &w;
+}
+
 void w_Init(char* _title, sfVideoMode _mode, unsigned int _framerate) {
-	window.title = calloc(strlen(_title), sizeof(char));
-	if (!window.title) window.title = "Window";
+	(w_Get())->title = calloc(strlen(_title), sizeof(char));
+	if (!(w_Get())->title) (w_Get())->title = "Window";
 	else {
-		if (_title != '\0') strcpy(window.title, _title);
-		else strcpy(window.title, "Window");
+		if (_title != '\0') strcpy((w_Get())->title, _title);
+		else strcpy((w_Get())->title, "Window");
 	}
 
-	window.mode = _mode;
-	window.framerate = _framerate;
-	window.isFullscreen = sfFalse;
-	window.isPaused = sfFalse;
+	(w_Get())->mode = _mode;
+	(w_Get())->framerate = _framerate;
+	(w_Get())->isFullscreen = sfFalse;
+	(w_Get())->isPaused = sfFalse;
 	log_LogStr(LOG_INFO, "Render window initialization complete", sfTrue, sfTrue);
 	rq_Init();
 }
 
-sfBool w_IsClosed() { return !sfRenderWindow_isOpen(window.rw); }
-sfBool w_IsFullscreen() { return window.isFullscreen; }
-sfBool w_IsPaused() { return window.isPaused; }
-sfBool w_HasFocus() { return sfRenderWindow_hasFocus(window.rw); }
+sfBool w_IsClosed() { return !sfRenderWindow_isOpen((w_Get())->rw); }
+sfBool w_IsFullscreen() { return (w_Get())->isFullscreen; }
+sfBool w_IsPaused() { return (w_Get())->isPaused; }
+sfBool w_HasFocus() { return sfRenderWindow_hasFocus((w_Get())->rw); }
 
 void w_RenderStart() {
-	sfRenderWindow_clear(window.rw, sfBlack);
+	sfRenderWindow_clear((w_Get())->rw, sfBlack);
 }
 
 void w_RenderEnd() {
-	sfRenderWindow_display(window.rw);
+	sfRenderWindow_display((w_Get())->rw);
 }
 
 void w_Create() {
-	window.rw = sfRenderWindow_create(window.mode, window.title, window.isFullscreen ? sfFullscreen : sfDefaultStyle, NULL);
+	(w_Get())->rw = sfRenderWindow_create((w_Get())->mode, (w_Get())->title, (w_Get())->isFullscreen ? sfFullscreen : sfDefaultStyle, NULL);
 
-	if (window.rw == NULL) {
+	if ((w_Get())->rw == NULL) {
 		log_LogStr(LOG_FATAL, "Game window creation error: insufficient memory", sfTrue, sfTrue);
 		return;
 	}
-	sfRenderWindow_setFramerateLimit(window.rw, window.framerate);
-	if (w_IsFullscreen()) sfRenderWindow_setMouseCursorVisible(window.rw, sfFalse);
+	sfRenderWindow_setFramerateLimit((w_Get())->rw, (w_Get())->framerate);
+	if (w_IsFullscreen()) sfRenderWindow_setMouseCursorVisible((w_Get())->rw, sfFalse);
 	log_LogStr(LOG_INFO, "Successfully created new game window", sfTrue, sfTrue);
 }
 
 void w_Destroy() {
-	sfRenderWindow_close(window.rw);
+	sfRenderWindow_close((w_Get())->rw);
 }
 
 void w_ToggleFS() {
-	window.isFullscreen = !window.isFullscreen;
+	(w_Get())->isFullscreen = !(w_Get())->isFullscreen;
 	w_Destroy();
 	w_Create();
 }
 
 void w_SetFS(sfBool _fs) {
-	if (window.isFullscreen != _fs) w_ToggleFS();
+	if ((w_Get())->isFullscreen != _fs) w_ToggleFS();
 }
 
-void w_TogglePause() { window.isPaused = !window.isPaused; }
+void w_TogglePause() { (w_Get())->isPaused = !(w_Get())->isPaused; }
 
-void w_SetView(sfView* _v) { sfRenderWindow_setView(window.rw, _v); }
-void w_ResetView() { sfRenderWindow_setView(window.rw, sfRenderWindow_getDefaultView(window.rw)); }
+void w_SetView(sfView* _v) { sfRenderWindow_setView((w_Get())->rw, _v); }
+void w_ResetView() { sfRenderWindow_setView((w_Get())->rw, sfRenderWindow_getDefaultView((w_Get())->rw)); }
 
 void w_Update() {
 	restartClock();
-	while (sfRenderWindow_pollEvent(window.rw, &(window.e))) {
-		if (window.e.type == sfEvtClosed) w_Destroy();
-		if (window.e.type == sfEvtJoystickConnected) {
+	while (sfRenderWindow_pollEvent((w_Get())->rw, &((w_Get())->e))) {
+		if ((w_Get())->e.type == sfEvtClosed) w_Destroy();
+		if ((w_Get())->e.type == sfEvtJoystickConnected) {
 			log_LogStr(LOG_INFO, "Controller with ID", sfTrue, sfFalse);
-			log_LogInt(LOG_INFO, window.e.joystickConnect.joystickId, sfFalse, sfFalse);
+			log_LogInt(LOG_INFO, (w_Get())->e.joystickConnect.joystickId, sfFalse, sfFalse);
 			log_LogStr(LOG_INFO, "connected", sfFalse, sfTrue);
 		}
-		if (window.e.type == sfEvtJoystickDisconnected) {
+		if ((w_Get())->e.type == sfEvtJoystickDisconnected) {
 			log_LogStr(LOG_INFO, "Controller with ID", sfTrue, sfFalse);
-			log_LogInt(LOG_INFO, window.e.joystickConnect.joystickId, sfFalse, sfFalse);
+			log_LogInt(LOG_INFO, (w_Get())->e.joystickConnect.joystickId, sfFalse, sfFalse);
 			log_LogStr(LOG_INFO, "disconnected", sfFalse, sfTrue);
 		}
 	}
@@ -85,7 +90,7 @@ void w_Update() {
 
 sfVector2f w_GetMousePos() {
 	if (!w_HasFocus()) return Vector2f(-65536.f, -65536.f);
-	sfVector2i m = sfMouse_getPositionRenderWindow(window.rw);
+	sfVector2i m = sfMouse_getPositionRenderWindow((w_Get())->rw);
 	return Vector2f(m.x, m.y);
 }
 
@@ -161,7 +166,7 @@ void rq_Draw(RQType _type, sfRenderStates* _rs, ...) {
 		rq.dataT.align = va_arg(args, WTxtAlign);
 	}
 	else if (_type == RQ_VA) {
-		sfRenderWindow_drawVertexArray(window.rw, va_arg(args, sfVertexArray*), _rs);
+		sfRenderWindow_drawVertexArray((w_Get())->rw, va_arg(args, sfVertexArray*), _rs);
 		va_end(args);
 		return;
 	}
@@ -184,7 +189,7 @@ void rq_RenderQuery(RQuery _query) {
 		sfSprite_setScale(rq_S, _query.dataSp.scale);
 		sfSprite_setRotation(rq_S, _query.dataSp.rot);
 		sfSprite_setColor(rq_S, _query.dataSp.clr);
-		sfRenderWindow_drawSprite(window.rw, rq_S, _query.rState);
+		sfRenderWindow_drawSprite((w_Get())->rw, rq_S, _query.rState);
 	}
 	else if (_query.type == RQ_CIRCLE) {
 		sfCircleShape_setPosition(rq_C, _query.dataC.pos);
@@ -192,7 +197,7 @@ void rq_RenderQuery(RQuery _query) {
 		sfCircleShape_setOrigin(rq_C, _query.dataC.origin);
 		sfCircleShape_setScale(rq_C, _query.dataC.scale);
 		sfCircleShape_setFillColor(rq_C, _query.dataC.fillClr);
-		sfRenderWindow_drawCircleShape(window.rw, rq_C, _query.rState);
+		sfRenderWindow_drawCircleShape((w_Get())->rw, rq_C, _query.rState);
 	}
 	else if (_query.type == RQ_RECTANGLE) {
 		sfRectangleShape_setPosition(rq_R, _query.dataR.pos);
@@ -201,7 +206,7 @@ void rq_RenderQuery(RQuery _query) {
 		sfRectangleShape_setScale(rq_R, _query.dataR.scale);
 		sfRectangleShape_setRotation(rq_R, _query.dataR.rot);
 		sfRectangleShape_setFillColor(rq_R, _query.dataR.fillClr);
-		sfRenderWindow_drawRectangleShape(window.rw, rq_R, _query.rState);
+		sfRenderWindow_drawRectangleShape((w_Get())->rw, rq_R, _query.rState);
 	}
 	else if (_query.type == RQ_TEXT) {
 		sfText_setPosition(rq_T, _query.dataT.pos);
@@ -214,7 +219,7 @@ void rq_RenderQuery(RQuery _query) {
 		else if (_query.dataT.align == TXT_RIGHT) sfText_setOrigin(rq_T, Vector2f(bounds.width, 0.f));
 		else sfText_setOrigin(rq_T, NULLVECTF);
 
-		sfRenderWindow_drawText(window.rw, rq_T, _query.rState);
+		sfRenderWindow_drawText((w_Get())->rw, rq_T, _query.rState);
 	}
 	else log_LogStr(LOG_ERROR, "Render query error - malformed query", sfTrue, sfTrue);
 }

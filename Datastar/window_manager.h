@@ -20,7 +20,11 @@ typedef struct {
 	sfVideoMode mode; /// Video mode
 	unsigned int framerate;
 } W_Window;
-W_Window window;
+// W_Window window;
+
+/// C++ style singleton implementation to work on a W_WINDOW object.
+/// \return Currently used window
+W_Window* w_Get();
 
 /// Initializes the window handling API.
 void w_Init(char* _title, sfVideoMode _mode, unsigned int _framerate);

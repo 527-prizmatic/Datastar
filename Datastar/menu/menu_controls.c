@@ -33,13 +33,13 @@ void m_ctrl_Update() {
 		if (menu_CtrlSpacePressed) {
 			if (kb_TestRelease(sfKeySpace)) menu_CtrlSpacePressed = 0;
 		}
-		else if (window.e.type == sfEvtKeyPressed) {
-			ctrl_MapKeyToControl(window.e.key.code, menu_CtrlEdit);
+		else if ((w_Get())->e.type == sfEvtKeyPressed) {
+			ctrl_MapKeyToControl((w_Get())->e.key.code, menu_CtrlEdit);
 			sav_Save();
 			menu_CtrlEdit = 0;
 		}
-		else if (window.e.type == sfEvtTextEntered) {
-			ctrl_MapTextToControl(window.e.text.unicode, menu_CtrlEdit);
+		else if ((w_Get())->e.type == sfEvtTextEntered) {
+			ctrl_MapTextToControl((w_Get())->e.text.unicode, menu_CtrlEdit);
 			sav_Save();
 			menu_CtrlEdit = 0;
 		}
