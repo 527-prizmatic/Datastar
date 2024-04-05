@@ -31,6 +31,12 @@ void en_Shockwave(sfVector2f _pos) {
 	new->dataSw.lifetime_mod8 = 0.f;
 	new->dataSw.flag_targeting = sfFalse;
 
+	new->Update = en_shockwave_Update;
+	new->OnHit  = en_shockwave_OnHit;
+	new->OnKill = en_shockwave_OnKill;
+	new->Render = en_shockwave_Render;
+	new->Value  = en_shockwave_Value;
+
 	en_Add(new);
 }
 

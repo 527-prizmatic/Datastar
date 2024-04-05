@@ -135,6 +135,12 @@ typedef struct EnData {
 		struct EnDataShockwave dataSw;
 		struct EnDataIncandesce dataIc;
 	};
+
+	struct EnData* (*Update)(struct EnData*); /// Enemy AI updates
+	void (*OnHit)(struct EnData*, struct PlayerBullet*); /// What to do when the enemy is hit with a bullet from the player
+	void (*OnKill)(struct EnData*); /// Extra effects happening on an enemy's death
+	void (*Render)(struct EnData*); /// Enemy rendering
+	int (*Value)(); /// \return an enemy's score value
 } EnData;
 EnData* en_Sentinel;
 
@@ -159,6 +165,3 @@ void en_ClearBuffer();
 
 /// Empties the enemy buffer and destroys all allocated resources.
 void en_Unload();
-
-/// Gets the score value of an enemy type.
-int en_GetValue(EnType _type);

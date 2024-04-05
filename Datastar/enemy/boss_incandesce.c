@@ -32,6 +32,12 @@ void en_Incandesce(sfVector2f _pos) {
 	new->dataIc.timer_fire = 0.f;
 	new->dataIc.fire_dir = 0.f;
 
+	new->Update = en_incandesce_Update;
+	new->OnHit  = en_incandesce_OnHit;
+	new->OnKill = en_incandesce_OnKill;
+	new->Render = en_incandesce_Render;
+	new->Value  = en_incandesce_Value;
+
 	en_Add(new);
 }
 
@@ -199,8 +205,7 @@ struct EnData* en_incandesce_Update(struct EnData* _en) {
 	_en->aabb = FloatRect_FromCenter(_en->pos, 200.f, 200.f);
 	return _en;
 }
-void en_incandesce_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
-}
+void en_incandesce_OnHit(struct EnData* _en, struct PlayerBullet* _plb) { }
 
 void en_incandesce_OnKill(struct EnData* _en) {
 	sfx_EnemyBossDeath(_en->pos, _en->clr);
@@ -223,7 +228,7 @@ void en_incandesce_Render(struct EnData* _en) {
 		for (int i = 0; i < 5; i++) {
 			if ((i == 0 || i == 2) && _en->hp == 2) continue;
 			float rot = 72.f * i + _en->dataIc.rot + 36.f;
-			sfVector2f v[3];
+			sfVector2f v[3] = { 0 };
 			v[0] = v_Add(_en->pos, v_RotateD(Vector2f(0.f, -109.f), rot - 7.f));
 			v[1] = v_Add(_en->pos, v_RotateD(Vector2f(0.f, -109.f), rot + 7.f));
 			v[2] = v_Add(_en->pos, v_RotateD(Vector2f(0.f, -235.f + (70.f * (_en->hp == 2))), rot));

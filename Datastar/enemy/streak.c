@@ -22,6 +22,12 @@ void en_Streak(sfVector2f _pos, sfBool _dir, enum PwrType _drop) {
 	for (int i = 0; i < 5; i++) new->dataSt.posOld[i] = _pos;
 	new->dataSt.timerTrail = 0.f;
 
+	new->Update = en_streak_Update;
+	new->OnHit  = en_streak_OnHit;
+	new->OnKill = en_streak_OnKill;
+	new->Render = en_streak_Render;
+	new->Value  = en_streak_Value;
+
 	en_Add(new);
 }
 

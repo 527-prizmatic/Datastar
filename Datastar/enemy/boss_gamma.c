@@ -22,6 +22,12 @@ void en_Gamma(sfVector2f _pos, enum PwrType _drop) {
 	new->dataGm.phase = 1;
 	new->dataGm.timer_shots_slow = 0.f;
 
+	new->Update	= en_gamma_Update;
+	new->OnHit	= en_gamma_OnHit;
+	new->OnKill	= en_gamma_OnKill;
+	new->Render	= en_gamma_Render;
+	new->Value	= en_gamma_Value;
+
 	en_Add(new);
 }
 

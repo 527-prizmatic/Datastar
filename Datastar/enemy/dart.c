@@ -20,6 +20,12 @@ void en_Dart(sfVector2f _pos, enum PwrType _drop) {
 	for (int i = 0; i < 5; i++) new->dataDt.posOld[i] = _pos;
 	new->dataDt.timerTrail = 0.f;
 
+	new->Update = en_dart_Update;
+	new->OnHit  = en_dart_OnHit;
+	new->OnKill = en_dart_OnKill;
+	new->Render = en_dart_Render;
+	new->Value  = en_dart_Value;
+
 	en_Add(new);
 }
 

@@ -22,6 +22,12 @@ void en_Pulse(sfVector2f _pos, float _delay) {
 	new->dataPl.pos_target = _pos;
 	new->dataPl.rot = 0.f;
 
+	new->Update = en_pulse_Update;
+	new->OnHit  = NULL;
+	new->OnKill = NULL;
+	new->Render = en_pulse_Render;
+	new->Value  = en_pulse_Value;
+
 	en_Add(new);
 }
 

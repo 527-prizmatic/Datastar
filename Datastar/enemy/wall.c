@@ -18,6 +18,12 @@ void en_Wall(sfVector2f _pos, int _hp_max, enum PwrType _drop) {
 	new->hp = new->hp_max;
 	new->drop = _drop;
 
+	new->Update = en_wall_Update;
+	new->OnHit  = en_wall_OnHit;
+	new->OnKill = en_wall_OnKill;
+	new->Render = en_wall_Render;
+	new->Value  = en_wall_Value;
+
 	en_Add(new);
 }
 

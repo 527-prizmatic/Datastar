@@ -25,6 +25,12 @@ void en_Glimmer(sfVector2f _pos, float _lifetime, float _delay) {
 	new->dataGl.rot = 0.f;
 	new->dataGl.fall_time = _lifetime;
 
+	new->Update = en_glimmer_Update;
+	new->OnHit  = NULL;
+	new->OnKill = NULL;
+	new->Render = en_glimmer_Render;
+	new->Value  = en_glimmer_Value;
+
 	en_Add(new);
 }
 

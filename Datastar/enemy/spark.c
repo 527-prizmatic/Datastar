@@ -21,6 +21,12 @@ void en_Spark(sfVector2f _pos, enum PwrType _drop) {
 	new->dataSp.rot = 0.f;
 	new->dataSp.beatCounter = 0;
 
+	new->Update = en_spark_Update;
+	new->OnHit  = en_spark_OnHit;
+	new->OnKill = en_spark_OnKill;
+	new->Render = en_spark_Render;
+	new->Value  = en_spark_Value;
+
 	en_Add(new);
 }
 
@@ -65,8 +71,8 @@ struct EnData* en_spark_Update(struct EnData* _en) {
 void en_spark_OnHit(struct EnData* _en, struct PlayerBullet* _plb) {
 	_en->hp--;
 	if (_en->hp == 1) {
-		score_Add(en_GetValue(_en->type));
-		sfx_ScoreNew(_en->pos, en_GetValue(_en->type));
+		score_Add(_en->Value());
+		sfx_ScoreNew(_en->pos, _en->Value());
 	}
 }
 

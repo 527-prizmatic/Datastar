@@ -25,6 +25,12 @@ void en_Flare(sfVector2f _pos, float _lifetime) {
 	new->dataGl.rot = 0.f;
 	new->dataGl.fall_time = _lifetime;
 
+	new->Update = en_flare_Update;
+	new->OnHit  = NULL;
+	new->OnKill = NULL;
+	new->Render = en_flare_Render;
+	new->Value  = en_flare_Value;
+
 	en_Add(new);
 }
 
