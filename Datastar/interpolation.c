@@ -39,7 +39,7 @@ float itp_Square(float _x) { return clamp(pow2(_x), 0.f, 1.f); }
 float itp_InvSquare(float _x) { return clamp(1.f - pow2(1.f - _x), 0.f, 1.f); }
 float itp_Cube(float _x) { return clamp(pow3(_x), 0.f, 1.f); }
 float itp_Quartic(float _x) { return clamp(pow4(_x), 0.f, 1.f); }
-float itp_Smooth(float _x) { return clamp(pow2(_x) * (3 - 2 * _x), 0.f, 1.f); }
-float itp_Smoother(float _x) { return clamp(pow3(_x) * ((6 * _x - 15) * _x + 10), 0.f, 1.f); }
+float itp_Smooth(float _x) { return clamp(pow2(_x) * (3.f - 2.f * _x), 0.f, 1.f); }
+float itp_Smoother(float _x) { return clamp(pow3(_x) * ((6.f * _x - 15.f) * _x + 10.f), 0.f, 1.f); }
 float itp_Smoothest(float _x) { return clamp(pow4(_x) * (35.f + _x * (_x * (70.f - _x * 20.f) - 84.f)), 0.f, 1.f); }
 float itp_Smoothester(float _x) { return clamp(powi(_x, 5) * (126.f + _x * (-420.f + _x * (540.f + _x * (-315.f + _x * 70.f)))), 0.f, 1.f); }
