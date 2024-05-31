@@ -15,6 +15,7 @@ void gs_Init() {
 		snd_Init();
 		shd_Init();
 		ptc_Init();
+		hud_Init();
 		va_Init();
 		kb_Enable();
 		gp_Enable();
@@ -63,6 +64,7 @@ void gs_Render() {
 		case GS_MENU: menu_Render(); break;
 		case GS_GAME: game_Render(); break;
 	}
+	hud_DrawInfoFrameRate();
 }
 
 void gs_Unload() {

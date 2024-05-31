@@ -71,4 +71,8 @@ sfVector2f gp_StickState(int _gpid, gp_StickID _i);
 /// Reads and returns the current direction of a gamepad joystick.
 gp_Dir gp_StickDir(int _gpid, gp_StickID _i);
 
+/// Reads and returns whether a joystick has just been moved around.
+/// Useful for handling menu navigation.
+gp_Dir gp_StickDirOnce(int _gpid, gp_StickID _i);
+
 void gp_Update();

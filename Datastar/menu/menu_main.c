@@ -18,10 +18,13 @@ void m_main_Init() {
 }
 
 void m_main_Update() {
-	if (kb_TestPress(sfKeyLeft) && menu_MainSel > 0) menu_MainSel--;
-	if (kb_TestPress(sfKeyRight) && menu_MainSel < 4) menu_MainSel++;
+	gp_Dir dir = gp_StickDirOnce(0, GP_STICK_LEFT);
+	if (dir == GP_DIR_IDLE) dir = gp_StickDirOnce(0, GP_STICK_DPAD);
 
-	if (kb_TestPress(sfKeySpace)) {
+	if ((kb_TestPress(sfKeyLeft) || dir == GP_DIR_LEFT) && menu_MainSel > 0) menu_MainSel--;
+	if ((kb_TestPress(sfKeyRight) || dir == GP_DIR_RIGHT) && menu_MainSel < 4) menu_MainSel++;
+
+	if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) {
 		switch (menu_MainSel) {
 			case 0: menu_SetSubstate(MENU_CREDITS); break;
 			case 1: menu_SetSubstate(MENU_OPTIONS); break;

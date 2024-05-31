@@ -1,8 +1,10 @@
 #include "gamepad.h"
 
 sfBool gp_Enabled;
-char gp_ButtonStates[8][32];
-sfVector2f gp_StickStates[8][4];
+char gp_ButtonStates[8][32] = { 0 };
+sfVector2f gp_StickStates[8][4] = { 0 };
+gp_Dir gp_StickDirs[8][4][2] = { 0 };
+gp_Dir gp_StickDirsOnce[8][4] = { 0 };
 
 sfBool gp_IsEnabled() { return gp_Enabled; }
 
@@ -67,13 +69,11 @@ sfVector2f gp_StickState(int _gpid, gp_StickID _i) {
 }
 
 gp_Dir gp_StickDir(int _gpid, gp_StickID _i) {
-	sfVector2f v = gp_StickState(_gpid, _i);
+	return gp_StickDirs[_gpid][_i][0];
+}
 
-	if (v_Mag2(v) < STICK_DEADZONE_2) return GP_DIR_IDLE;
-	if (fabs(v.x) < fabs(v.y) && v.y < 0) return GP_DIR_UP;
-	if (fabs(v.x) < fabs(v.y) && v.y > 0) return GP_DIR_DOWN;
-	if (fabs(v.x) > fabs(v.y) && v.x < 0) return GP_DIR_LEFT;
-	if (fabs(v.x) > fabs(v.y) && v.x > 0) return GP_DIR_RIGHT;
+gp_Dir gp_StickDirOnce(int _gpid, gp_StickID _i) {
+	return gp_StickDirsOnce[_gpid][_i];
 }
 
 void gp_Update() {
@@ -107,6 +107,22 @@ void gp_Update() {
 			gp_StickStates[i][GP_STICK_TRIGGERS].y = sfJoystick_getAxisPosition(i, sfJoystickR);
 			gp_StickStates[i][GP_STICK_DPAD].x = sfJoystick_getAxisPosition(i, sfJoystickPovX);
 			gp_StickStates[i][GP_STICK_DPAD].y = sfJoystick_getAxisPosition(i, sfJoystickPovY);
+
+			for (int j = 0; j < 4; j++) {
+				sfVector2f v = gp_StickState(i, j);
+
+				if (v_Mag2(v) < STICK_DEADZONE_2) gp_StickDirs[i][j][0] = GP_DIR_IDLE;
+				else if (fabs(v.x) < fabs(v.y) && v.y < 0) gp_StickDirs[i][j][0] = GP_DIR_UP;
+				else if (fabs(v.x) < fabs(v.y) && v.y > 0) gp_StickDirs[i][j][0] = GP_DIR_DOWN;
+				else if (fabs(v.x) > fabs(v.y) && v.x < 0) gp_StickDirs[i][j][0] = GP_DIR_LEFT;
+				else if (fabs(v.x) > fabs(v.y) && v.x > 0) gp_StickDirs[i][j][0] = GP_DIR_RIGHT;
+				else gp_StickDirs[i][j][0] = GP_DIR_IDLE;
+
+				sfBool hasMoved = gp_StickDirs[i][j][0] != gp_StickDirs[i][j][1];
+				gp_StickDirs[i][j][1] = gp_StickDirs[i][j][0];
+				if (hasMoved) gp_StickDirsOnce[i][j] = gp_StickDirs[i][j][0];
+				else gp_StickDirsOnce[i][j] = GP_DIR_IDLE;
+			}
  		}
 	}
 }

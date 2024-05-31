@@ -19,17 +19,20 @@ void m_select_Init() {
 void m_select_Update() {
 	menu_TimerSelectRotate += getDeltaTime();
 	if (!menu_LeavingSelect) {
+		gp_Dir dir = gp_StickDirOnce(0, GP_STICK_LEFT);
+		if (dir == GP_DIR_IDLE) dir = gp_StickDirOnce(0, GP_STICK_DPAD);
+
 		menu_TimerSelectGlobal += getDeltaTime();
 
-		if (kb_TestPress(sfKeyRight) && menu_SelectLevel < 6 && menu_SelectLevel < game_LastLevelUnlocked - 1) menu_SelectLevel++;
-		else if (kb_TestPress(sfKeyLeft) && menu_SelectLevel > 0) menu_SelectLevel--;
+		if ((kb_TestPress(sfKeyRight) || dir == GP_DIR_RIGHT) && menu_SelectLevel < 6 && menu_SelectLevel < game_LastLevelUnlocked - 1) menu_SelectLevel++;
+		else if ((kb_TestPress(sfKeyLeft) || dir == GP_DIR_LEFT) && menu_SelectLevel > 0) menu_SelectLevel--;
 
-		if (kb_TestPress(sfKeyEscape)) {
+		if (kb_TestPress(sfKeyEscape) || gp_TestPress(0, GP_BUTTON_B)) {
 			menu_LeavingSelect = sfTrue;
 			menu_TimerSelectGlobal = 2.f;
 		}
 
-		if (kb_TestPress(sfKeySpace) && (menu_SelectLevel < NYI)) {
+		if ((kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) && (menu_SelectLevel < NYI)) {
 			game_LoadLevel(menu_SelectLevel + 1);
 			gs_ChangeState(GS_GAME);
 		}

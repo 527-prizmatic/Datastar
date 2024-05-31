@@ -11,22 +11,28 @@ void m_options_Init() {
 }
 
 void m_options_Update() {
-	if (kb_TestHold(sfKeyRight)) {
+	gp_Dir dir = gp_StickDirOnce(0, GP_STICK_LEFT);
+	if (dir == GP_DIR_IDLE) dir = gp_StickDirOnce(0, GP_STICK_DPAD);
+
+	gp_Dir dirHold = gp_StickDir(0, GP_STICK_LEFT);
+	if (dirHold == GP_DIR_IDLE) dir = gp_StickDir(0, GP_STICK_DPAD);
+
+	if (kb_TestHold(sfKeyRight) || dirHold == GP_DIR_RIGHT) {
 		if (menu_ChangingVolMus) vol_SetMus(min(100.f, vol_GetMus() + 50.f * getDeltaTime()));
 		else if (menu_ChangingVolSnd) vol_SetSnd(min(100.f, vol_GetSnd() + 50.f * getDeltaTime()));
 	}
 
-	if (kb_TestHold(sfKeyLeft)) {
+	if (kb_TestHold(sfKeyLeft) || dirHold == GP_DIR_LEFT) {
 		if (menu_ChangingVolMus) vol_SetMus(max(0.f, vol_GetMus() - 50.f * getDeltaTime()));
 		else if (menu_ChangingVolSnd) vol_SetSnd(max(0.f, vol_GetSnd() - 50.f * getDeltaTime()));
 	}
 
 	if (!menu_ChangingVolMus && !menu_ChangingVolSnd) {
-		if (kb_TestPress(sfKeyRight) && menu_OptionsSel != 3) menu_OptionsSel++;
-		if (kb_TestPress(sfKeyLeft) && menu_OptionsSel != 0) menu_OptionsSel--;
+		if ((kb_TestPress(sfKeyRight) || dir == GP_DIR_RIGHT) && menu_OptionsSel != 3) menu_OptionsSel++;
+		if ((kb_TestPress(sfKeyLeft) || dir == GP_DIR_LEFT) && menu_OptionsSel != 0) menu_OptionsSel--;
 	}
 
-	if (kb_TestPress(sfKeySpace)) {
+	if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) {
 		if (menu_OptionsSel == 0) menu_ChangingVolMus = !menu_ChangingVolMus;
 		if (menu_OptionsSel == 1) menu_ChangingVolSnd = !menu_ChangingVolSnd;
 		if (menu_OptionsSel == 2) w_ToggleFS();
@@ -34,6 +40,11 @@ void m_options_Update() {
 			sav_Save();
 			menu_SetSubstate(MENU_MAIN);
 		}
+	}
+
+	if (gp_TestPress(0, GP_BUTTON_B)) {
+		sav_Save();
+		menu_SetSubstate(MENU_MAIN);
 	}
 }
 

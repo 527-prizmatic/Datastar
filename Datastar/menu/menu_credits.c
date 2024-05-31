@@ -7,8 +7,8 @@ void m_cred_Init() {
 }
 
 void m_cred_Update() {
-	if (kb_TestPress(sfKeySpace)) menu_CreditsState++;
-	if (menu_CreditsState == 5) {
+	if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) menu_CreditsState++;
+	if (menu_CreditsState == 5 || gp_TestPress(0, GP_BUTTON_MENU)) {
 		menu_CreditsState = 0;
 		menu_SetSubstate(MENU_MAIN);
 	}

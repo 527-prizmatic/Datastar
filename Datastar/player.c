@@ -81,17 +81,21 @@ void plr_Unload() {
 }
 
 void plr_Control() {
-	gp_Dir dirL = gp_StickDir(0, GP_STICK_LEFT);
-	gp_Dir dirD = gp_StickDir(0, GP_STICK_DPAD);
+	sfVector2f vStick = (gp_StickDir(0, GP_STICK_LEFT) != GP_DIR_IDLE) ? gp_StickState(0, GP_STICK_LEFT) : gp_StickState(0, GP_STICK_DPAD);
 
-	/// Moving when pressing arrow keys
-	if (kb_TestHold(ctrl_GetKey(KEY_UP)) || dirL == GP_DIR_UP || dirD == GP_DIR_UP) plr_Player.acc.y = -1.f;
-	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN)) || dirL == GP_DIR_DOWN || dirD == GP_DIR_DOWN) plr_Player.acc.y = 1.f;
+	/// Moving when pressing movement keys (duh)
+	if (kb_TestHold(ctrl_GetKey(KEY_UP))) plr_Player.acc.y = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN))) plr_Player.acc.y = 1.f;
 	else plr_Player.acc.y = 0.f;
 
-	if (kb_TestHold(ctrl_GetKey(KEY_LEFT)) || dirL == GP_DIR_LEFT || dirD == GP_DIR_LEFT) plr_Player.acc.x = -1.f;
-	else if (kb_TestHold(ctrl_GetKey(KEY_RIGHT)) || dirL == GP_DIR_RIGHT || dirD == GP_DIR_RIGHT) plr_Player.acc.x = 1.f;
+	if (kb_TestHold(ctrl_GetKey(KEY_LEFT))) plr_Player.acc.x = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_RIGHT))) plr_Player.acc.x = 1.f;
 	else plr_Player.acc.x = 0.f;
+
+	/// if no keyboard input registered, use gamepad input instead
+	if (ISZERO(v_Mag2(plr_Player.acc))) plr_Player.acc = vStick;
+
+	plr_Player.acc = v_Nmlz(plr_Player.acc);
 
 	/// DEBUG KEYBIND
 	if (kb_TestPress(sfKeyE)) plr_HealOne();

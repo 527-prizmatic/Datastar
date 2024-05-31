@@ -13,12 +13,15 @@ void m_ctrl_Init() {
 
 void m_ctrl_Update() {
 	if (!menu_CtrlEdit) {
-		if (kb_TestPress(sfKeyDown) && menu_CtrlSelRow != 4) menu_CtrlSelRow++;
-		if (kb_TestPress(sfKeyUp) && menu_CtrlSelRow != 0) menu_CtrlSelRow--;
-		if (kb_TestPress(sfKeyRight) && menu_CtrlSelCol != 1) menu_CtrlSelCol++;
-		if (kb_TestPress(sfKeyLeft) && menu_CtrlSelCol != 0) menu_CtrlSelCol--;
+		gp_Dir dir = gp_StickDirOnce(0, GP_STICK_LEFT);
+		if (dir == GP_DIR_IDLE) dir = gp_StickDirOnce(0, GP_STICK_DPAD);
 
-		if (kb_TestPress(sfKeySpace)) {
+		if ((kb_TestPress(sfKeyDown) || dir == GP_DIR_DOWN) && menu_CtrlSelRow != 4) menu_CtrlSelRow++;
+		if ((kb_TestPress(sfKeyUp) || dir == GP_DIR_UP) && menu_CtrlSelRow != 0) menu_CtrlSelRow--;
+		if ((kb_TestPress(sfKeyRight) || dir == GP_DIR_RIGHT) && menu_CtrlSelCol != 1) menu_CtrlSelCol++;
+		if ((kb_TestPress(sfKeyLeft) || dir == GP_DIR_LEFT) && menu_CtrlSelCol != 0) menu_CtrlSelCol--;
+
+		if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) {
 			if (menu_CtrlSelRow == 4) {
 				if (menu_CtrlSelCol == 0) ctrl_SetDefaults();
 				else menu_SetSubstate(MENU_MAIN);
@@ -28,10 +31,12 @@ void m_ctrl_Update() {
 				menu_CtrlEdit = 1 + 4 * menu_CtrlSelCol + menu_CtrlSelRow;
 			}
 		}
+
+		if (gp_TestPress(0, GP_BUTTON_B)) menu_SetSubstate(MENU_MAIN);
 	}
 	else {
 		if (menu_CtrlSpacePressed) {
-			if (kb_TestRelease(sfKeySpace)) menu_CtrlSpacePressed = 0;
+			if (kb_TestRelease(sfKeySpace) || gp_TestIdle(0, GP_BUTTON_A)) menu_CtrlSpacePressed = 0;
 		}
 		else if (window.e.type == sfEvtKeyPressed) {
 			ctrl_MapKeyToControl(window.e.key.code, menu_CtrlEdit);

@@ -33,7 +33,6 @@ void game_Init() {
 	enb_Init();
 	pwr_Init();
 	score_Init();
-	hud_Init();
 	sfx_ScoreInit();
 
 	game_TimerGlobal = 0.f;
@@ -115,7 +114,6 @@ void game_Render() {
 	hud_DrawHealth(plr_Player.hp);
 	hud_DrawMaxHealth(plr_Player.hp_max);
 	hud_DrawInfoTime(game_Beats, game_Waves);
-	hud_DrawInfoFrameRate();
 	score_Render();
 }
 
@@ -126,7 +124,6 @@ void game_Unload() {
 	enb_Unload();
 	pwr_ClearBuffer();
 	score_Unload();
-	hud_Unload();
 	sfx_ScoreClearBuffer();
 
 	game_UnloadLevel();
