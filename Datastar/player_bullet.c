@@ -107,7 +107,7 @@ void plb_Render() {
 			for (int i = 0; i < 25; i++) sfVertexArray_append(plb_VAHomingTrail, Vertex(itr->dataH.trail[i], ColorA(255, 255, 255, 200 - 8 * i)));
 			rq_Draw(RQ_VA, NULL, plb_VAHomingTrail);
 		}
-		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfCyan);
+		if (ARGS_RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfCyan);
 		itr = itr->next;
 	}
 }

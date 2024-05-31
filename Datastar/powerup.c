@@ -67,7 +67,7 @@ void pwr_Render() {
 			default: break;
 		}
 
-		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfMagenta);
+		if (ARGS_RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfMagenta);
 		itr = itr->next;
 	}
 
@@ -94,7 +94,7 @@ void pwr_ClearBuffer() {
 }
 
 void pwr_RenderHp(sfVector2f _pos, float _angle) {
-	if (PIZZA_MODE) {
+	if (ARGS_PIZZA_MODE) {
 		sfColor clrDough = Color(255, 208, 64);
 		sfColor clrCrust = Color(128, 64, 32);
 		sfColor clrPepperoni = Color(208, 64, 64);

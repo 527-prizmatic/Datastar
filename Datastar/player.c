@@ -61,7 +61,7 @@ void plr_Render() {
 		va_DrawCircle(VA_LINE, NULL, plr_Player.pos, 35.f, sfWhite);
 		va_DrawCircle(VA_LINE, NULL, plr_Player.pos, 38.f, sfWhite);
 	}
-	if (RENDER_HITBOXES) va_DrawFrame(NULL, plr_Player.aabb, sfGreen);
+	if (ARGS_RENDER_HITBOXES) va_DrawFrame(NULL, plr_Player.aabb, sfGreen);
 }
 
 void plr_Unload() {

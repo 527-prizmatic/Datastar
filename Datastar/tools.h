@@ -33,13 +33,14 @@ typedef unsigned long long int ULL;
 #define PATH_SAVES			""
 #define PATH_SAVEFILE		PATH_SAVES"savefile.bin"
 
-#define RENDER_HITBOXES		0
-#define DOUBLE_RENDER		0
-#define PIZZA_MODE			0
-#define ENABLE_LOGGING		0
+sfBool ARGS_RENDER_HITBOXES; /// Enables rendering hitboxes of various objects such as enemies, projectiles, and the player.
+sfBool ARGS_DOUBLE_RENDER; /// Renders everything twice with a one-pixel offset to improve visibility on lower-quality displays.
+sfBool ARGS_PIZZA_MODE; /// Did somebody say pizza?
+sfBool ARGS_ENABLE_LOGGING; /// Enables debug logs, found in the logs folder.
 
 sfColor clrDGray;
 
+double dtLatestList[10];
 
 /// === TIME UTILITIES === ///
 
@@ -51,6 +52,9 @@ void restartClock();
 
 /// \return Time elapsed since last restartClock() call
 float getDeltaTime();
+
+/// \return Average value of getDeltaTime() over the last 10 ticks
+float getDtAverage();
 
 
 /// === CONSTRUCTORS === ///

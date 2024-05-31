@@ -77,7 +77,7 @@ void en_Render() {
 	while (itr != NULL) {
 		itr->Render(itr);
 
-		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfRed);
+		if (ARGS_RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfRed);
 		itr = itr->next;
 	}
 }

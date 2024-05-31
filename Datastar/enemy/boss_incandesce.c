@@ -271,7 +271,7 @@ void en_incandesce_Render(struct EnData* _en) {
 
 	va_DrawLine(NULL, Vector2f(793.f + game_GetScrollX(), 1015.f), Vector2f(793.f + game_GetScrollX(), 1025.f), sfWhite);
 	va_DrawLine(NULL, Vector2f(1127.f + game_GetScrollX(), 1015.f), Vector2f(1127.f + game_GetScrollX(), 1025.f), sfWhite);
-	vt_DrawText(Vector2f(960.f + game_GetScrollX(), 965.f), "INCANDESCE", 25, TXT_CENTER, ColorA(255, 255, 255, itp_Float(0, 255, clamp(_en->lifetime, 0.f, Beats(1)) / Beats(1), itp_Smoother)));
+	vt_DrawText(Vector2f(960.f + game_GetScrollX(), 965.f), "INCANDESCE", 25, TXT_CENTER, ColorA(255, 255, 255, (int)itp_Float(0, 255, clamp(_en->lifetime, 0.f, Beats(1)) / Beats(1), itp_Smoother)));
 }
 
 int en_incandesce_Value() { return 10000; }

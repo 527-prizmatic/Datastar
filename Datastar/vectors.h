@@ -8,8 +8,8 @@
 #include "tools.h"
 
 #define PI 3.1415926535
-#define D2R_FACTOR PI / 180. /// Multiply an angle in degrees by this to convert it to radians
-#define R2D_FACTOR 180. / PI /// Multiply an angle in radians by this to convert it to degrees
+#define D2R_FACTOR (PI / 180.) /// Multiply an angle in degrees by this to convert it to radians
+#define R2D_FACTOR (180. / PI) /// Multiply an angle in radians by this to convert it to degrees
 
 #define D2R(x) x * (D2R_FACTOR) /// Converts a degree angle to radians
 #define R2D(x) x * (R2D_FACTOR) /// Converts a radian angle to degrees

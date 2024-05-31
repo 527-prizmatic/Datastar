@@ -51,7 +51,7 @@ void enb_Render() {
 	EnemyBullet* itr = enb_Sentinel->next;
 	while (itr != NULL) {
 		va_DrawPolygonStar(VA_LINE, NULL, 4, itr->pos, 15.f, itr->angle, (fmod(itr->lifetime, .1f) < .05f) ? sfWhite : itr->clr);
-		if (RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfCyan);
+		if (ARGS_RENDER_HITBOXES) va_DrawFrame(NULL, itr->aabb, sfCyan);
 		itr = itr->next;
 	}
 }

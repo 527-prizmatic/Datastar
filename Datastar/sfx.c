@@ -190,7 +190,7 @@ void sfx_EnemyBossDeath(sfVector2f _pos, sfColor _clr) {
 PtcSystem* sfx_PowerupParticle(sfVector2f _pos, enum PwrType _type) {
 	sfColor clr;
 	switch (_type) {
-		case PWR_HP: clr = PIZZA_MODE ? Color(255, 208, 64) : Color(0, 64, 192); break;
+		case PWR_HP: clr = ARGS_PIZZA_MODE ? Color(255, 208, 64) : Color(0, 64, 192); break;
 		case PWR_POWER: clr = Color(192, 0, 0); break;
 		case PWR_SCORE: clr = Color(0, 160, 64); break;
 		default: break;

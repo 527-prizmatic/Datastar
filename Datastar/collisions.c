@@ -13,8 +13,8 @@ sfBool col_PointRect(sfVector2f _a, sfFloatRect _rect) {
 }
 
 sfBool col_PointLine(sfVector2f _p, sfVector2f _l1, sfVector2f _l2) {
-	float dist = v_Mag(v_Add(v_Sub(_p, _l1), v_Sub(_p, _l2)));
-	float line = v_Mag(v_Sub(_l2, _l1));
+	double dist = v_Mag(v_Add(v_Sub(_p, _l1), v_Sub(_p, _l2)));
+	double line = v_Mag(v_Sub(_l2, _l1));
 	return dist - line < .1f;
 }
 

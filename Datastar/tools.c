@@ -15,12 +15,19 @@ void initTools() {
 
 void restartClock() {
 	t = sfClock_restart(clockGame);
+	for (int i = 9; i > 0; i--) dtLatestList[i] = dtLatestList[i - 1];
+	dtLatestList[0] = getDeltaTime();
 }
 
 float getDeltaTime() {
 	return sfTime_asSeconds(t);
 }
 
+float getDtAverage() {
+	float t = 0.f;
+	for (int i = 0; i < 10; i++) t += dtLatestList[i];
+	return t * .1f;
+}
 
 /// === CONSTRUCTORS === ///
 

@@ -116,6 +116,7 @@ void game_Render() {
 	hud_DrawHealth(plr_Player.hp);
 	hud_DrawMaxHealth(plr_Player.hp_max);
 	hud_DrawInfoTime(game_Beats, game_Waves);
+	hud_DrawInfoFrameRate();
 	score_Render();
 }
 

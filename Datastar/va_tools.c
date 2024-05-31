@@ -9,7 +9,7 @@ void va_Clear() { sfVertexArray_clear(va_va); }
 void va_AddPoint(sfVector2f _pos, sfColor _clr) { sfVertexArray_append(va_va, Vertex(_pos, _clr)); }
 void va_Draw(sfRenderStates* _rstate) {
 	sfRenderWindow_drawVertexArray(window.rw, va_va, _rstate);
-	if (DOUBLE_RENDER) {
+	if (ARGS_DOUBLE_RENDER) {
 		va_Translate(va_va, Vector2f(0.f, -1.f));
 		sfRenderWindow_drawVertexArray(window.rw, va_va, _rstate);
 	}
