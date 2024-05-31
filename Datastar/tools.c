@@ -98,6 +98,22 @@ double rand_unit(int _d) {
 
 /// === MISC === ///
 
+void claHandler(int argc, char** argv) {
+	ARGS_DEBUG_KEYS = sfFalse;
+	ARGS_RENDER_HITBOXES = sfFalse;
+	ARGS_DOUBLE_RENDER = sfFalse;
+	ARGS_PIZZA_MODE = sfFalse;
+	ARGS_ENABLE_LOGGING = sfFalse;
+
+	for (int i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-debug")) ARGS_DEBUG_KEYS = sfTrue;
+		if (strcmp(argv[i], "-hitboxes")) ARGS_RENDER_HITBOXES = sfTrue;
+		if (strcmp(argv[i], "-double-render")) ARGS_DOUBLE_RENDER = sfTrue;
+		if (strcmp(argv[i], "-pizza")) ARGS_PIZZA_MODE = sfTrue;
+		if (strcmp(argv[i], "-log")) ARGS_ENABLE_LOGGING = sfTrue;
+	}
+}
+
 sfFloatRect floatRect_Contract(sfFloatRect _r, float _val) { return FloatRect(_r.left + _val, _r.top + _val, _r.width - 2.f * _val, _r.height - 2.f * _val); }
 sfFloatRect floatRect_Expand(sfFloatRect _r, float _val) { return FloatRect(_r.left - _val, _r.top - _val, _r.width + 2.f * _val, _r.height + 2.f * _val); }
 sfFloatRect FloatRect_FromCenter(sfVector2f _c, float _w, float _h) { return FloatRect(_c.x - _w * .5f, _c.y - _h * .5f, _w, _h); }

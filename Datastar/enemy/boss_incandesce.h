@@ -10,9 +10,21 @@
 #include "../enemy.h"
 #include "../waves/level_3.h"
 
+/// Creates a new Incandesce boss.
+/// \param _pos - Absolute spawn position
 void en_Incandesce(sfVector2f _pos);
+
+/// Computes tick updates for Incandesces.
 struct EnData* en_incandesce_Update(struct EnData* _en);
+
+/// Incandesce's reaction to being hit
 void en_incandesce_OnHit(struct EnData* _en, struct PlayerBullet* _plb);
+
+/// Extra effects on an Incandesce's death
 void en_incandesce_OnKill(struct EnData* _en);
+
+/// Incandesce renderer
 void en_incandesce_Render(struct EnData* _en);
+
+/// \return Score value of a single Incandesce
 int en_incandesce_Value();

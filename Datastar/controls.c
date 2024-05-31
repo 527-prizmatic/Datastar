@@ -28,7 +28,8 @@ void ctrl_MapKeyToControl(sfKeyCode _code, CtrlKeyId _id) {
 void ctrl_MapTextToControl(int _code, CtrlKeyId _id) {
 	sfKeyCode key = -1;
 	if (_code >= 97 && _code <= 122) key = _code - 97;
-	if (_code >= 48 && _code <= 57) key = _code - 22;
+	else if (_code >= 65 && _code <= 90) key = _code - 65;
+	else if (_code >= 48 && _code <= 57) key = _code - 22;
 	else {
 		switch (_code) {
 		case ',':	key = sfKeyComma; break;

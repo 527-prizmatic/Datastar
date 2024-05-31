@@ -34,6 +34,14 @@ typedef enum {
 	GP_STICK_DPAD		= 3
 } gp_StickID;
 
+typedef enum {
+	GP_DIR_IDLE			= 0,
+	GP_DIR_UP			= 1,
+	GP_DIR_DOWN			= 2,
+	GP_DIR_LEFT			= 3,
+	GP_DIR_RIGHT		= 4,
+} gp_Dir;
+
 sfBool gp_IsEnabled();
 
 /// Enables gamepad input.
@@ -59,5 +67,8 @@ sfBool gp_StickIdle(int _gpid, gp_StickID _i);
 
 /// Reads and returns the current state of a gamepad joystick.
 sfVector2f gp_StickState(int _gpid, gp_StickID _i);
+
+/// Reads and returns the current direction of a gamepad joystick.
+gp_Dir gp_StickDir(int _gpid, gp_StickID _i);
 
 void gp_Update();

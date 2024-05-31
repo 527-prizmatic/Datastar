@@ -170,7 +170,6 @@
     <ClCompile Include="menu\menu_main.c" />
     <ClCompile Include="menu\menu_options.c" />
     <ClCompile Include="menu\menu_select.c" />
-    <ClCompile Include="models.c" />
     <ClCompile Include="particle_manager.c" />
     <ClCompile Include="player.c" />
     <ClCompile Include="player_bullet.c" />
@@ -225,7 +224,6 @@
     <ClInclude Include="menu\menu_main.h" />
     <ClInclude Include="menu\menu_options.h" />
     <ClInclude Include="menu\menu_select.h" />
-    <ClInclude Include="models.h" />
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_bullet.h" />

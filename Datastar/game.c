@@ -24,7 +24,6 @@ float Bars(int _i) { return game_BeatTime * _i * 4.f; }
 void game_Init() {
 	shd_Preload(NULL, "grid.frag", "bg_grid");
 
-	model_Init();
 	game_View = sfView_createFromRect(FloatRect(0.f, 0.f, 1920.f, 1080.f));
 	game_ViewPos = sfView_getCenter(game_View);
 

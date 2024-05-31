@@ -66,6 +66,16 @@ sfVector2f gp_StickState(int _gpid, gp_StickID _i) {
 	return gp_StickStates[_gpid][_i];
 }
 
+gp_Dir gp_StickDir(int _gpid, gp_StickID _i) {
+	sfVector2f v = gp_StickState(_gpid, _i);
+
+	if (v_Mag2(v) < STICK_DEADZONE_2) return GP_DIR_IDLE;
+	if (fabs(v.x) < fabs(v.y) && v.y < 0) return GP_DIR_UP;
+	if (fabs(v.x) < fabs(v.y) && v.y > 0) return GP_DIR_DOWN;
+	if (fabs(v.x) > fabs(v.y) && v.x < 0) return GP_DIR_LEFT;
+	if (fabs(v.x) > fabs(v.y) && v.x > 0) return GP_DIR_RIGHT;
+}
+
 void gp_Update() {
 	if (!w_HasFocus() || !gp_IsEnabled()) {
 		for (int i = 0; i < 8; i++) {

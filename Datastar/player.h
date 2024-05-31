@@ -9,7 +9,6 @@
 #include "game.h"
 #include "player_bullet.h"
 #include "enemy_bullet.h"
-#include "models.h"
 #include "collisions.h"
 #include "controls.h"
 

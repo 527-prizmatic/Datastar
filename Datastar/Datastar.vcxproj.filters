@@ -31,9 +31,6 @@
     <Filter Include="Fichiers sources\Engine\Managers">
       <UniqueIdentifier>{5fb23705-ed99-4096-b093-aaa646bb1ba0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\Shaders">
-      <UniqueIdentifier>{82ff56ec-7840-49a2-abfe-8dcfdd584b5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Game">
       <UniqueIdentifier>{6de503f4-e839-4ed7-b041-1a6cce6bc713}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,9 @@
     </Filter>
     <Filter Include="Fichiers d%27en-tête\Game\Entities\Enemy Types">
       <UniqueIdentifier>{9e2399c3-aace-4358-8b73-358d24137268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\Shaders">
+      <UniqueIdentifier>{82ff56ec-7840-49a2-abfe-8dcfdd584b5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,9 +130,6 @@
       <Filter>Fichiers sources\Game\Entities</Filter>
     </ClCompile>
     <ClCompile Include="walls.c">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="models.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
     <ClCompile Include="init.c">
@@ -292,9 +289,6 @@
     </ClInclude>
     <ClInclude Include="enemy.h">
       <Filter>Fichiers d%27en-tête\Game\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="models.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
     <ClInclude Include="va_text.h">
       <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>

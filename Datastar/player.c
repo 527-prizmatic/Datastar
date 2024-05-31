@@ -17,6 +17,9 @@ void plr_Init() {
 	plr_Player.invincible = sfFalse;
 
 	plr_TimerDeath = 0.f;
+
+	plr_ModelShipTemp = sfVertexArray_create();
+	sfVertexArray_setPrimitiveType(plr_ModelShipTemp, sfLineStrip);
 }
 
 void plr_Update() {
@@ -51,16 +54,25 @@ void plr_Update() {
 }
 
 void plr_Render() {
-	plr_ModelShipTemp = sfVertexArray_copy(model_PlayerShip);
+	sfVertexArray_clear(plr_ModelShipTemp);
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(Vector2f(0.f, 0.f), sfBlack));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_RotateD(Vector2f(0.f, -20.f), 110.f), sfWhite));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(Vector2f(0.f, -40.f), sfWhite));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_RotateD(Vector2f(0.f, -20.f), -110.f), sfWhite));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(Vector2f(0.f, 0.f), sfBlack));
+
 	va_SetPosition(plr_ModelShipTemp, plr_Player.pos);
 	va_Rotate(plr_ModelShipTemp, plr_Player.rot);
 	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
 	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
+
 	if (RANDF(0.f, 1.f) < .25f) sfx_PlayerPropeller();
+
 	if (plr_Player.invincible) {
 		va_DrawCircle(VA_LINE, NULL, plr_Player.pos, 35.f, sfWhite);
 		va_DrawCircle(VA_LINE, NULL, plr_Player.pos, 38.f, sfWhite);
 	}
+
 	if (ARGS_RENDER_HITBOXES) va_DrawFrame(NULL, plr_Player.aabb, sfGreen);
 }
 
@@ -69,13 +81,16 @@ void plr_Unload() {
 }
 
 void plr_Control() {
+	gp_Dir dirL = gp_StickDir(0, GP_STICK_LEFT);
+	gp_Dir dirD = gp_StickDir(0, GP_STICK_DPAD);
+
 	/// Moving when pressing arrow keys
-	if (kb_TestHold(ctrl_GetKey(KEY_UP))) plr_Player.acc.y = -1.f;
-	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN))) plr_Player.acc.y = 1.f;
+	if (kb_TestHold(ctrl_GetKey(KEY_UP)) || dirL == GP_DIR_UP || dirD == GP_DIR_UP) plr_Player.acc.y = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_DOWN)) || dirL == GP_DIR_DOWN || dirD == GP_DIR_DOWN) plr_Player.acc.y = 1.f;
 	else plr_Player.acc.y = 0.f;
 
-	if (kb_TestHold(ctrl_GetKey(KEY_LEFT))) plr_Player.acc.x = -1.f;
-	else if (kb_TestHold(ctrl_GetKey(KEY_RIGHT))) plr_Player.acc.x = 1.f;
+	if (kb_TestHold(ctrl_GetKey(KEY_LEFT)) || dirL == GP_DIR_LEFT || dirD == GP_DIR_LEFT) plr_Player.acc.x = -1.f;
+	else if (kb_TestHold(ctrl_GetKey(KEY_RIGHT)) || dirL == GP_DIR_RIGHT || dirD == GP_DIR_RIGHT) plr_Player.acc.x = 1.f;
 	else plr_Player.acc.x = 0.f;
 
 	/// DEBUG KEYBIND

@@ -33,10 +33,11 @@ typedef unsigned long long int ULL;
 #define PATH_SAVES			""
 #define PATH_SAVEFILE		PATH_SAVES"savefile.bin"
 
-sfBool ARGS_RENDER_HITBOXES; /// Enables rendering hitboxes of various objects such as enemies, projectiles, and the player.
-sfBool ARGS_DOUBLE_RENDER; /// Renders everything twice with a one-pixel offset to improve visibility on lower-quality displays.
-sfBool ARGS_PIZZA_MODE; /// Did somebody say pizza?
-sfBool ARGS_ENABLE_LOGGING; /// Enables debug logs, found in the logs folder.
+sfBool ARGS_DEBUG_KEYS; /// Enables debug keys. CLA: "-debug"
+sfBool ARGS_RENDER_HITBOXES; /// Enables rendering hitboxes of various objects such as enemies, projectiles, and the player. CLA: "-hitboxes"
+sfBool ARGS_DOUBLE_RENDER; /// Renders everything twice with a one-pixel offset to improve visibility on lower-quality displays. CLA: "-double-render"
+sfBool ARGS_PIZZA_MODE; /// Did somebody say pizza? CLA: "-pizza"
+sfBool ARGS_ENABLE_LOGGING; /// Enables debug logs, found in the logs folder. CLA: "-log"
 
 sfColor clrDGray;
 
@@ -124,6 +125,9 @@ double rand_unit(int _d);
 
 
 /// === MISC === ///
+
+/// Command line argument handler.
+void claHandler(int argc, char** argv);
 
 sfFloatRect floatRect_Contract(sfFloatRect _r, float _val);
 sfFloatRect floatRect_Expand(sfFloatRect _r, float _val);
