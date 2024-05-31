@@ -21,6 +21,9 @@ void gs_Init() {
 		gp_Enable();
 		restartClock();
 		sav_Load();
+
+		shd_Preload(NULL, "blur_proto.frag", "blur");
+
 		log_LogStr(LOG_INFO, "Preinit complete", sfTrue, sfTrue);
 	}
 

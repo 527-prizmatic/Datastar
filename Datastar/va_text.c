@@ -32,7 +32,7 @@ void vt_DrawText(sfVector2f _pos, char* _msg, int _size, WTxtAlign _align, sfCol
 
 void vt_DrawChar(sfVector2f _pos, char _char, int _size, sfColor _clr) {
 	sfColor clrBase = _clr;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 3; i++) {
 		switch (_char) {
 			case ' ': break;
 			case 'A':	vt_DrawCharA(_pos, _size, _clr); break;
@@ -82,7 +82,7 @@ void vt_DrawChar(sfVector2f _pos, char _char, int _size, sfColor _clr) {
 			case '/':	vt_DrawCharSlash(_pos, _size, _clr); break;
 		}
 		_pos.y++;
-		_clr.a = clrBase.a * itp_Float(0.f, 1.f, (5.f - i) / 5.f, itp_Square);
+		_clr.a = clrBase.a * itp_Float(0.f, 1.f, (3.f - i) / 3.f, itp_Square);
 	}
 }
 

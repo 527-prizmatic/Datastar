@@ -112,14 +112,14 @@ void plr_Control() {
 	}
 
 	/// Firing while space is kept pressed
-	if (kb_TestHold(ctrl_GetKey(KEY_FIRE)) && plr_Player.fire_timer <= 0.f && game_GetTime() > .5f) {
+	if ((kb_TestHold(ctrl_GetKey(KEY_FIRE)) || gp_TestHold(0, GP_BUTTON_A)) && plr_Player.fire_timer <= 0.f && game_GetTime() > .5f) {
 		plr_Player.fire_timer = 1.f / plr_Player.rof;
 		for (int i = 0; i < plr_Player.bullet_count; i++) plb_New(plr_Player.fire_mode, v_Add(plr_Player.pos, v_RotateD(Vector2f(20.f, 0.f), plr_Player.rot - 90.f)), 4.f * i - 2.f * (plr_Player.bullet_count - 1.f));
 		sfx_PlayerFire();
 	}
 
 	/// Changing fire modes upon hitting tab
-	if (kb_TestPress(ctrl_GetKey(KEY_CHANGE))) {
+	if (kb_TestPress(ctrl_GetKey(KEY_CHANGE)) || gp_TestPress(0, GP_BUTTON_LB)) {
 		if (plr_Player.fire_mode == PLB_NORMAL) {
 			plr_Player.fire_mode = PLB_HOMING;
 			plr_Player.rof = 3.f;

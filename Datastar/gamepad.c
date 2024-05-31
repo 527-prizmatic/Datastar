@@ -76,6 +76,15 @@ gp_Dir gp_StickDirOnce(int _gpid, gp_StickID _i) {
 	return gp_StickDirsOnce[_gpid][_i];
 }
 
+sfBool gp_TestPressAny() {
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (gp_ButtonStates[i][j] == 1) return sfTrue;
+		}
+	}
+	return sfFalse;
+}
+
 void gp_Update() {
 	if (!w_HasFocus() || !gp_IsEnabled()) {
 		for (int i = 0; i < 8; i++) {

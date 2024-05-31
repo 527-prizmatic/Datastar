@@ -1,6 +1,6 @@
 #include "init.h"
 
-float init_TimerGlobal = -15.f;
+float init_TimerGlobal = 0.f;
 
 sfVector2f init_LogoCap_RandomPos[13]; /// Randomized starting positions for the logo's VA - the cap
 sfVector2f init_LogoCap_RandomSpd[13]; /// Randomized starting speeds for the logo's VA - the cap
@@ -73,7 +73,7 @@ void init_Render() {
 		vt_DrawText(Vector2f(960.f, 542.5f), "WOULD BE ENTIRELY COINCIDENTAL.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.5f)) * 64.f, 0.f, 255.f)));
 		vt_DrawText(Vector2f(960.f, 612.5f), "ALL RIGHTS RESERVED.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 6.f)) * 64.f, 0.f, 255.f)));
 
-		if (kb_TestPress(sfKeySpace)) init_TimerGlobal = 10.f;
+		if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) init_TimerGlobal = 10.f;
 	}
 	else if (init_TimerGlobal <= 20.f) {
 		sfColor clr = ColorA(255, 255, 255, clamp((5.f - fabs(init_TimerGlobal - 15.f)) * 64.f, 0.f, 255.f));
@@ -82,7 +82,7 @@ void init_Render() {
 		va_DrawPolygon(VA_LINE, NULL, 17, init_LogoG,   sfTrue, clr);
 		va_DrawPolygon(VA_LINE, NULL, 14, init_LogoA,   sfTrue, clr);
 
-		if (kb_TestPress(sfKeySpace) && init_TimerGlobal < 18.f) init_TimerGlobal = 18.f;
+		if ((kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) && init_TimerGlobal < 18.f) init_TimerGlobal = 18.f;
 	}
 	else if (init_TimerGlobal <= 30.f) {
 		for (int i = 0; i < 3; i++) {
@@ -91,7 +91,7 @@ void init_Render() {
 			vt_DrawText(Vector2f(960.f, 545.f + i), "OR TRIGGER SEIZURES FOR SENSITIVE PEOPLE.", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
 			vt_DrawText(Vector2f(960.f, 580.f + i), "REMEMBER TO TAKE FREQUENT BREAKS!", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
 		}
-		if (kb_TestPress(sfKeySpace)) init_TimerGlobal = 30.f;
+		if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) init_TimerGlobal = 30.f;
 	}
 	else gs_ChangeState(GS_INTRO);
 }

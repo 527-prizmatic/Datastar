@@ -13,6 +13,8 @@
 /// Object wrapper for sfRenderWindow
 typedef struct {
 	sfRenderWindow* rw; /// Render window object
+	sfRenderTexture* rt; /// Render texture object
+	sfSprite* rspr;
 	sfEvent e; /// Event handler
 	char* title;
 	sfBool isFullscreen;

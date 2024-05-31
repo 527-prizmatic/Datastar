@@ -9,6 +9,10 @@ void w_Init(char* _title, sfVideoMode _mode, unsigned int _framerate) {
 		else strcpy(window.title, "Window");
 	}
 
+	window.rspr = sfSprite_create();
+	sfSprite_setPosition(window.rspr, Vector2f(0.f, _mode.height));
+
+	window.rt = sfRenderTexture_create(_mode.width, _mode.height, sfFalse);
 	window.mode = _mode;
 	window.framerate = _framerate;
 	window.isFullscreen = sfFalse;
@@ -24,9 +28,15 @@ sfBool w_HasFocus() { return sfRenderWindow_hasFocus(window.rw); }
 
 void w_RenderStart() {
 	sfRenderWindow_clear(window.rw, sfBlack);
+	sfRenderTexture_clear(window.rt, sfTransparent);
 }
 
 void w_RenderEnd() {
+	sfSprite_setTexture(window.rspr, sfRenderTexture_getTexture(window.rt), sfTrue);
+	sfSprite_setScale(window.rspr, RQ_SCALE_FLIP_V);
+	sfShader_setTextureUniform(shd_FetchShader("blur"), "u_TexBase", sfRenderTexture_getTexture(window.rt));
+	sfShader_setVec2Uniform(shd_FetchShader("blur"), "u_Res", Vector2f(window.mode.width, window.mode.height));
+	sfRenderWindow_drawSprite(window.rw, window.rspr, NULL);
 	sfRenderWindow_display(window.rw);
 }
 

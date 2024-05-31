@@ -75,4 +75,7 @@ gp_Dir gp_StickDir(int _gpid, gp_StickID _i);
 /// Useful for handling menu navigation.
 gp_Dir gp_StickDirOnce(int _gpid, gp_StickID _i);
 
+/// Checks if a button was just pressed.
+sfBool gp_TestPressAny();
+
 void gp_Update();

@@ -6,7 +6,7 @@
 int main(int argc, char** argv) {
 	claHandler(argc, argv);
 
-	ShowWindow(GetConsoleWindow(), 0);
+	ShowWindow(GetConsoleWindow(), 1);
 	initTools();
 	w_Init("Datastar", sfVideoMode_getDesktopMode(), 60);
 	log_Init(LOG_INFO | LOG_WARN | LOG_ERROR | LOG_FATAL);

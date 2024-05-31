@@ -106,11 +106,11 @@ void claHandler(int argc, char** argv) {
 	ARGS_ENABLE_LOGGING = sfFalse;
 
 	for (int i = 1; i < argc; i++) {
-		if (strcmp(argv[i], "-debug")) ARGS_DEBUG_KEYS = sfTrue;
-		if (strcmp(argv[i], "-hitboxes")) ARGS_RENDER_HITBOXES = sfTrue;
-		if (strcmp(argv[i], "-double-render")) ARGS_DOUBLE_RENDER = sfTrue;
-		if (strcmp(argv[i], "-pizza")) ARGS_PIZZA_MODE = sfTrue;
-		if (strcmp(argv[i], "-log")) ARGS_ENABLE_LOGGING = sfTrue;
+		if (!strcmp(argv[i], "-debug")) ARGS_DEBUG_KEYS = sfTrue;
+		if (!strcmp(argv[i], "-hitboxes")) ARGS_RENDER_HITBOXES = sfTrue;
+		if (!strcmp(argv[i], "-double-render")) ARGS_DOUBLE_RENDER = sfTrue;
+		if (!strcmp(argv[i], "-pizza")) ARGS_PIZZA_MODE = sfTrue;
+		if (!strcmp(argv[i], "-log")) ARGS_ENABLE_LOGGING = sfTrue;
 	}
 }
 

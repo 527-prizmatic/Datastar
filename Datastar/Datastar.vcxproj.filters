@@ -394,5 +394,8 @@
     <None Include="..\assets\shaders\grid.frag">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
+    <None Include="..\assets\shaders\blur_proto.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

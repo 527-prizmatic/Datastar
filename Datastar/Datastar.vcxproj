@@ -247,6 +247,7 @@
     <ClInclude Include="window_manager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\assets\shaders\blur_proto.frag" />
     <None Include="..\assets\shaders\grid.frag" />
     <None Include="..\assets\shaders\text.frag" />
   </ItemGroup>

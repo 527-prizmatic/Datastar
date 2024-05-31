@@ -20,11 +20,11 @@ void intro_Update() {
 	if (snd_GetMusicState() != sfPlaying) mus_Play("origin");
 	intro_TimerGlobal += getDeltaTime();
 
-	if (kb_TestPress(sfKeySpace) && intro_TimerGlobal < 24.f) {
+	if ((kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) && intro_TimerGlobal < 24.f) {
 		intro_TimerGlobal = 24.f;
 		mus_SetPos("origin", 24.f);
 	}
-	if (kb_TestPressAnyKey() && intro_TimerGlobal >= 25.5f) {
+	if ((kb_TestPressAnyKey() || gp_TestPressAny()) && intro_TimerGlobal >= 25.5f) {
 		menu_SetSubstate(MENU_MAIN);
 		gs_ChangeState(GS_MENU);
 	}
