@@ -1,28 +1,24 @@
 #include "bg.h"
 
-#define MENU_SHIPS_NUM 10
-#define MENU_STARS_NUM 50
-#define MENU_STARS_BG_NUM 500
+#define BG_MENU_SHIPS 10
+#define BG_MENU_STARS 250
 float menu_TimerStarPulses = .6f;
 
-sfVector2f menu_Ships[MENU_SHIPS_NUM];
-float menu_ShipsSpeeds[MENU_SHIPS_NUM];
-sfVector2f menu_Stars[MENU_STARS_NUM];
-float menu_StarsRadius[MENU_STARS_NUM];
-float menu_StarsAngles[MENU_STARS_NUM];
-sfVector2f menu_StarsBackground[MENU_STARS_BG_NUM];
-float menu_StarsBgRadius = 1.f;
+sfVector2f menu_Ships[BG_MENU_SHIPS];
+float menu_ShipsSpeeds[BG_MENU_SHIPS];
+
+bg_Star bg_StarList[BG_MENU_STARS] = { 0 };
 
 void m_bg_Init() {
-	for (int i = 0; i < MENU_STARS_NUM; i++) {
-		menu_Stars[i] = Vector2f(RANDF(0.f, 1920.f), RANDF(0.f, 1080.f));
-		menu_StarsRadius[i] = 4.f;
-		menu_StarsAngles[i] = RANDF(0.f, 360.f);
+	for (int i = 0; i < BG_MENU_STARS; i++) {
+		bg_StarList[i].size_base = RANDF(1.f, 6.f);
+		bg_StarList[i].size = bg_StarList[i].size_base;
+		bg_StarList[i].angle = RANDF(0.f, 360.f);
+		bg_StarList[i].scroll_spd = RANDF(bg_StarList[i].size_base * 6.f, bg_StarList[i].size_base * 8.f) + 4.f;
+		bg_StarList[i].pos = Vector2f(RANDF(0.f, 1920.f), RANDF(0.f, 1080.f));
 	}
 
-	for (int i = 0; i < MENU_STARS_BG_NUM; i++) menu_StarsBackground[i] = Vector2f(RANDF(0.f, 1920.f), RANDF(0.f, 1080.f));
-
-	for (int i = 0; i < MENU_SHIPS_NUM; i++) {
+	for (int i = 0; i < BG_MENU_SHIPS; i++) {
 		menu_Ships[i] = Vector2f(RANDF(-100000.f, 0.f), RANDF(0.f, 1080.f));
 		menu_ShipsSpeeds[i] = RANDF(3500.f, 7500.f);
 	}
@@ -33,24 +29,32 @@ void m_bg_Update() {
 
 	if (menu_TimerStarPulses >= .75f) {
 		menu_TimerStarPulses -= .75f;
-		menu_StarsBgRadius = 2.5f;
-		for (int i = 0; i < MENU_STARS_NUM; i++) if (RANDF(0.f, 1.f) < 0.1f) menu_StarsRadius[i] = RANDF(10.f, 16.f);
-	}
-	for (int i = 0; i < MENU_STARS_NUM; i++) {
-		if (menu_StarsRadius[i] >= 4.f) menu_StarsRadius[i] -= getDeltaTime() * 10.f;
-		menu_Stars[i].x -= 50.f * getDeltaTime();
-		if (menu_Stars[i].x <= 0.f) menu_Stars[i] = Vector2f(1920.f, RANDF(0.f, 1080.f));
-	}
-
-	for (int i = 0; i < MENU_STARS_BG_NUM; i++) {
-		menu_StarsBackground[i].x -= 20.f * getDeltaTime();
-		if (menu_StarsBackground[i].x <= 0.f) menu_StarsBackground[i] = Vector2f(1920.f, RANDF(0.f, 1080.f));
-	}
-	if (menu_StarsBgRadius >= 1.f) {
-		menu_StarsBgRadius -= getDeltaTime() * 2.f;
+		for (int i = 0; i < BG_MENU_STARS; i++) {
+			bg_StarList[i].size *= RANDF(1.25f, 1.5f);
+			if (RANDF(0.f, 1.f) < 0.1f && bg_StarList[i].size < bg_StarList[i].size_base * 1.5f) {
+				bg_StarList[i].size *= RANDF(2.f, 3.f);
+				bg_StarList[i].rot_spd = RANDF(60.f, 720.f);
+			}
+		}
 	}
 
-	for (int i = 0; i < MENU_SHIPS_NUM; i++) {
+	for (int i = 0; i < BG_MENU_STARS; i++) {
+		if (bg_StarList[i].size > bg_StarList[i].size_base) bg_StarList[i].size -= getDeltaTime() * bg_StarList[i].size_base * 2.f;
+		if (bg_StarList[i].rot_spd > 0.f) bg_StarList[i].rot_spd *= pow(.25f, getDeltaTime());
+
+		bg_StarList[i].pos.x -= bg_StarList[i].scroll_spd * getDeltaTime();
+		bg_StarList[i].angle -= bg_StarList[i].rot_spd * getDeltaTime();
+
+		if (bg_StarList[i].pos.x < -10.f) {
+			bg_StarList[i].size_base = RANDF(1.f, 6.f);
+			bg_StarList[i].size = bg_StarList[i].size_base;
+			bg_StarList[i].angle = RANDF(0.f, 360.f);
+			bg_StarList[i].scroll_spd = RANDF(bg_StarList[i].size_base * 6.f, bg_StarList[i].size_base * 8.f) + 4.f;
+			bg_StarList[i].pos = Vector2f(2000.f, RANDF(0.f, 1080.f));
+		}
+	}
+
+	for (int i = 0; i < BG_MENU_SHIPS; i++) {
 		menu_Ships[i].x += menu_ShipsSpeeds[i] * getDeltaTime();
 		if (menu_Ships[i].x >= 2500.f) {
 			menu_Ships[i] = Vector2f(RANDF(-100000.f, 0.f), RANDF(0.f, 1080.f));
@@ -60,9 +64,8 @@ void m_bg_Update() {
 }
 
 void m_bg_Render() {
-	for (int i = 0; i < MENU_SHIPS_NUM; i++) va_DrawLine(NULL, menu_Ships[i], v_Add(menu_Ships[i], Vector2f(menu_ShipsSpeeds[i] * .1f, 0.f)), Color3(128));
-	for (int i = 0; i < MENU_STARS_NUM; i++) va_DrawPolygonStar(VA_LINE, NULL, 4, menu_Stars[i], menu_StarsRadius[i], menu_StarsAngles[i], sfWhite);
-	for (int i = 0; i < MENU_STARS_BG_NUM; i++) va_DrawPolygonStar(VA_LINE, NULL, 4, menu_StarsBackground[i], menu_StarsBgRadius, 0.f, sfWhite);
+	for (int i = 0; i < BG_MENU_SHIPS; i++) va_DrawLine(NULL, menu_Ships[i], v_Add(menu_Ships[i], Vector2f(menu_ShipsSpeeds[i] * .1f, 0.f)), Color3(128));
+	for (int i = 0; i < BG_MENU_STARS; i++) va_DrawPolygonStar(VA_LINE, NULL, 4, bg_StarList[i].pos, bg_StarList[i].size, bg_StarList[i].angle, sfWhite);
 
 }
 
