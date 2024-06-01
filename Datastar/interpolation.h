@@ -43,6 +43,14 @@ float itp_Square(float _x);
 /// \return 1 - ((1 - x)^2)
 float itp_InvSquare(float _x);
 
+/// Inverted cubic interpolation. Return values are clamped between 0 and 1.
+/// \return 1 - ((1 - x)^3)
+float itp_InvCube(float _x);
+
+/// Inverted quartic interpolation. Return values are clamped between 0 and 1.
+/// \return 1 - ((1 - x)^4)
+float itp_InvQuartic(float _x);
+
 /// Cubic interpolation. Return values are clamped between 0 and 1.
 /// \return x^3
 float itp_Cube(float _x);

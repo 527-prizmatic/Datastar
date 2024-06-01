@@ -19,6 +19,7 @@ typedef struct {
 	CtrlMap controls;
 	char best_level;
 	int best_scores[7];
+	unsigned int framerate;
 
 	/// Game data
 } SaveData;

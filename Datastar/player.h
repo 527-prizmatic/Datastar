@@ -29,6 +29,7 @@ typedef struct {
 	float inv_frames;
 	sfFloatRect aabb;
 	sfBool invincible;
+	float timer_propeller;
 } PlrPlayer;
 PlrPlayer plr_Player;
 

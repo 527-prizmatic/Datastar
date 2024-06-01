@@ -25,7 +25,8 @@ typedef enum {
 	PTC_NONE, /// Not initialized yet
 	PTC_CIRCLE, /// Simple circle shape
 	PTC_SPRITE, /// Uses a sprite
-	PTC_SHARD /// VA-based polygons with randomizable edge count
+	PTC_SHARD, /// VA-based polygons with randomizable edge count
+	PTC_BLAST /// VA-based polygonal shockwaves for simulating explosions
 } PtcType;
 
 typedef enum {
@@ -75,6 +76,11 @@ typedef struct PtcSystem {
 			sfColor vclr1;
 			sfColor vclr2;
 		};
+		struct { /// for Shard-type particles
+			float rds_blast;
+			int vertices;
+			sfColor blast_clr;
+		};
 	};
 
 	union {
@@ -120,6 +126,11 @@ typedef struct PtcParticle {
 			int v_count;
 			float v_rot;
 			float v_rot_spd;
+		};
+		struct { /// for Shard-type particles
+			float rds_blast;
+			int vertices;
+			sfColor blast_clr;
 		};
 	};
 } PtcParticle;

@@ -95,6 +95,11 @@ void ptc_SetType(PtcSystem* _ptcs, PtcType _type, ...) {
 		_ptcs->vclr1 = va_arg(args, sfColor);
 		_ptcs->vclr2 = va_arg(args, sfColor);
 	}
+	else if (_type == PTC_BLAST) {
+		_ptcs->rds_blast = va_arg(args, double);
+		_ptcs->vertices = va_arg(args, int);
+		_ptcs->blast_clr = va_arg(args, sfColor);
+	}
 //	printf("%s\n", _ptcs->id);
 }
 
@@ -143,9 +148,11 @@ void ptc_CreateParticle(PtcType _type, sfVector2f _pos, sfVector2f _spd, float _
 	ptc->rState = _rs;
 
 	/// Slight randomization of particle lifetime (+/- <20%)
-	float lt_rd = _lt * LT_RD_F;
-	ptc->lifetime -= lt_rd;
-	ptc->lifetime += RANDF(0.f, (lt_rd * 2.f));
+	if (ptc->type != PTC_BLAST) {
+		float lt_rd = _lt * LT_RD_F;
+		ptc->lifetime -= lt_rd;
+		ptc->lifetime += RANDF(0.f, (lt_rd * 2.f));
+	}
 	ptc->lifetime_max = ptc->lifetime;
 
 	va_list args;
@@ -169,6 +176,11 @@ void ptc_CreateParticle(PtcType _type, sfVector2f _pos, sfVector2f _spd, float _
 		ptc->v_clr = va_arg(args, sfColor);
 		ptc->v_rot = RANDF(0.f, 360.f);
 		ptc->v_rot_spd = RANDF(-720.f, 720.f);
+	}
+	else if (_type == PTC_BLAST) {
+		ptc->rds_blast = va_arg(args, double);
+		ptc->vertices = va_arg(args, int);
+		ptc->blast_clr = va_arg(args, sfColor);
 	}
 
 	PtcParticle* n = ptc_PSentinel->next;
@@ -226,6 +238,9 @@ void ptc_Update() {
 
 				ptc_CreateParticle(PTC_SHARD, posRand, dirRand, itrS->lifetime, itrS->gravity, NULL, rdsRand, vRand, clrRand);
 			}
+			else if (itrS->type == PTC_BLAST) {
+				ptc_CreateParticle(PTC_SHARD, posRand, dirRand, itrS->lifetime, itrS->gravity, NULL, itrS->rds_blast, itrS->vertices, itrS->blast_clr);
+			}
 
 			itrS->spawn_timer -= 1.f;
 		}
@@ -266,6 +281,17 @@ void ptc_Render() {
 		//	sfVertexArray_clear(ptc_va);
 		//	for (int i = 0; i <= itrP->v_count; i++) sfVertexArray_append(ptc_va, Vertex(v_Add(itrP->pos, v_RotateD(Vector2f(itrP->rds, 0.f), itrP->rot + i * (360.f / (float)itrP->v_count))), itrP->clr));
 		//	rq_Draw(RQ_VA, itrP->rState, ptc_va);
+		}
+		else if (itrP->type == PTC_BLAST) {
+			for (int i = 0; i < 3; i++) {
+				float ltRatio = itrP->lifetime / itrP->lifetime_max;
+				float rds = itp_Float(itrP->rds_blast, 0.f, clamp(ltRatio * 2.f - itrP->lifetime_max * .25f * i, 0.f, 1.f), itp_Cube);
+				sfColor clr = itrP->blast_clr;
+				/// FIX THIS DUMBASS
+		//		clr.a *= clamp((ltRatio) * 5., 0.f, 1.f);
+				clr.a *= .5f;
+				va_DrawRectangle(VA_LINE, NULL, FloatRect_FromCenter(itrP->pos, rds * 2.f, rds * 2.f), clr);
+			}
 		}
 		itrP = itrP->next;
 	}

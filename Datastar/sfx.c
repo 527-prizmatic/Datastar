@@ -179,6 +179,8 @@ void sfx_EnemyDeath(sfVector2f _pos, sfColor _clr) {
 	PtcSystem* ptc = ptc_CreateSystem(-1.f, 1.f, 75, 2.f, 8.f, 0.f, 360.f, PTC_GRAV_NONE, NULL);
 	ptc_SetType(ptc, PTC_SHARD, 1.f, 6.f, 3, 3, sfWhite, _clr);
 	ptc_SetShape(ptc, PTCS_CIRCLE, _pos, 20.f);
+
+	ptc_CreateParticle(PTC_BLAST, _pos, NULLVECTF, 1.f, 0.f, NULL, 100.f, 4.f, _clr);
 }
 
 void sfx_EnemyBossDeath(sfVector2f _pos, sfColor _clr) {

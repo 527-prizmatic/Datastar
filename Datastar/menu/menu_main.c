@@ -30,7 +30,10 @@ void m_main_Update() {
 			case 1: menu_SetSubstate(MENU_OPTIONS); break;
 			case 2: menu_SetSubstate(MENU_SELECT); break;
 			case 3: menu_SetSubstate(MENU_CONTROLS); break;
-			case 4: gs_ChangeState(GS_EXIT); break;
+			case 4:
+				sav_Save(); 
+				gs_ChangeState(GS_EXIT);
+				break;
 		}
 	}
 }

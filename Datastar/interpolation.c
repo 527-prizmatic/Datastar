@@ -37,6 +37,8 @@ float itp_Nearest(float _x) { return (_x >= .5f) ? 1.f : 0.f; }
 float itp_Linear(float _x) { return clamp(_x, 0.f, 1.f); }
 float itp_Square(float _x) { return clamp(pow2(_x), 0.f, 1.f); }
 float itp_InvSquare(float _x) { return clamp(1.f - pow2(1.f - _x), 0.f, 1.f); }
+float itp_InvCube(float _x) { return clamp(1.f - pow3(1.f - _x), 0.f, 1.f); }
+float itp_InvQuartic(float _x) { return clamp(1.f - pow4(1.f - _x), 0.f, 1.f); }
 float itp_Cube(float _x) { return clamp(pow3(_x), 0.f, 1.f); }
 float itp_Quartic(float _x) { return clamp(pow4(_x), 0.f, 1.f); }
 float itp_Smooth(float _x) { return clamp(pow2(_x) * (3 - 2 * _x), 0.f, 1.f); }

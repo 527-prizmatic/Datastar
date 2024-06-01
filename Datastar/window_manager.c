@@ -90,7 +90,9 @@ void w_Update() {
 		w_ToggleFS();
 		sav_Save();
 	}
-//	if (kb_TestPress(sfKeyEscape)) w_TogglePause();
+	sfRenderWindow_setFramerateLimit(window.rw, window.framerate);
+
+	if (kb_TestPress(sfKeyP)) window.framerate++;
 }
 
 sfVector2f w_GetMousePos() {

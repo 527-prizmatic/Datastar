@@ -15,9 +15,9 @@ void sav_Save() {
 
 void sav_Load() {
 	FILE* f = fopen(PATH_SAVEFILE, "rb");
+	sav_LoadDefault();
 	if (!f) {
 		log_LogStr(LOG_WARN, "No savefile found, loading default data.", sfTrue, sfTrue);
-		sav_LoadDefault();
 		sav_Save();
 		return;
 	}
@@ -35,6 +35,7 @@ void sav_LoadDefault() {
 	sav_Data.controls = ctrl_GetDefaults();
 	sav_Data.best_level = 1;
 	for (int i = 0; i < 7; i++) sav_Data.best_scores[i] = 20000;
+	sav_Data.framerate = 60u;
 
 	sav_AssignData();
 }
@@ -47,6 +48,7 @@ void sav_AssembleData() {
 	sav_Data.controls = ctrl;
 	sav_Data.best_level = game_LastLevelUnlocked;
 	for (int i = 0; i < 7; i++) sav_Data.best_scores[i] = score_Best[i];
+	sav_Data.framerate = window.framerate;
 }
 
 void sav_AssignData() {
@@ -57,4 +59,5 @@ void sav_AssignData() {
 	ctrl = sav_Data.controls;
 	game_LastLevelUnlocked = sav_Data.best_level;
 	for (int i = 0; i < 7; i++) score_Best[i] = sav_Data.best_scores[i];
+	window.framerate = sav_Data.framerate;
 }

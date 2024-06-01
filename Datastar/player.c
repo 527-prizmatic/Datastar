@@ -15,6 +15,7 @@ void plr_Init() {
 	plr_Player.rof = 5.f;
 	plr_Player.rot = 90.f;
 	plr_Player.invincible = sfFalse;
+	plr_Player.timer_propeller = 0.f;
 
 	plr_TimerDeath = 0.f;
 
@@ -25,6 +26,7 @@ void plr_Init() {
 void plr_Update() {
 	if (plr_Player.fire_timer > 0.f) plr_Player.fire_timer -= getDeltaTime();
 	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= getDeltaTime();
+	plr_Player.timer_propeller += getDeltaTime();
 	plr_Control();
 	
 	if (plr_Player.hp <= 0) {
@@ -55,6 +57,7 @@ void plr_Update() {
 
 void plr_Render() {
 	sfVertexArray_clear(plr_ModelShipTemp);
+	sfVertexArray_setPrimitiveType(plr_ModelShipTemp, sfLinesStrip);
 	sfVertexArray_append(plr_ModelShipTemp, Vertex(Vector2f(0.f, 0.f), sfBlack));
 	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_RotateD(Vector2f(0.f, -20.f), 110.f), sfWhite));
 	sfVertexArray_append(plr_ModelShipTemp, Vertex(Vector2f(0.f, -40.f), sfWhite));
@@ -63,6 +66,24 @@ void plr_Render() {
 
 	va_SetPosition(plr_ModelShipTemp, plr_Player.pos);
 	va_Rotate(plr_ModelShipTemp, plr_Player.rot);
+	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
+	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
+	sfVertexArray_setPrimitiveType(plr_ModelShipTemp, sfTriangleFan);
+	va_SetColorOverride(plr_ModelShipTemp, ColorA(255, 255, 255, 32));
+	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(ColorA(255, 255, 255, 32), ColorA(255, 0, 0, 32), .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
+	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
+
+	int propellerFrame = (int)(plr_Player.timer_propeller * 5.f) % 3;
+	sfVector2f propellerOrigin = v_Add(plr_Player.pos, Vector2f(-10.f, 0.f));
+	sfVertexArray_clear(plr_ModelShipTemp);
+	sfVertexArray_setPrimitiveType(plr_ModelShipTemp, sfLinesStrip);
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_Add(propellerOrigin, Vector2f(-10.f, 0.f)), sfBlack));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_Add(propellerOrigin, v_Add(Vector2f(-10.f, 0.f), v_RotateD(Vector2f(-7.f, 0.f), 70.f))), sfWhite));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_Add(propellerOrigin, Vector2f(-10.f * propellerFrame - 20.f, 0.f)), sfWhite));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_Add(propellerOrigin, v_Add(Vector2f(-10.f, 0.f), v_RotateD(Vector2f(-7.f, 0.f), -70.f))), sfWhite));
+	sfVertexArray_append(plr_ModelShipTemp, Vertex(v_Add(propellerOrigin, Vector2f(-10.f, 0.f)), sfBlack));
+
+	va_Rotate(plr_ModelShipTemp, plr_Player.rot - 90.f);
 	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
 	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
 
