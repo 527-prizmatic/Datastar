@@ -252,7 +252,7 @@ void ptc_Update() {
 
 	PtcParticle* itrP = ptc_PSentinel->next;
 	while (itrP != NULL) {
-		itrP->pos = v_Add(itrP->pos, itrP->spd);
+		itrP->pos = v_Add(itrP->pos, v_Mul(itrP->spd, getDeltaTime()));
 		if (itrP->type == PTC_CIRCLE) itrP->clr.a = min(255, itrP->lifetime * (512.f / itrP->lifetime_max));
 		else if (itrP->type == PTC_SPRITE) {
 			itrP->clr_spr = ColorA(255, 255, 255, (int)(min(255, itrP->lifetime * (1024.f / itrP->lifetime_max))));
@@ -262,6 +262,7 @@ void ptc_Update() {
 			itrP->rot += itrP->rot_spd * getDeltaTime();
 			itrP->clr.a = min(255, itrP->lifetime * (512.f / itrP->lifetime_max));
 		}
+
 		itrP->spd.y += itrP->gravity * getDeltaTime();
 		itrP->spd = v_Mul(itrP->spd, pow(.1f, getDeltaTime()));
 
@@ -276,12 +277,7 @@ void ptc_Render() {
 	while (itrP != NULL) {
 		if (itrP->type == PTC_CIRCLE) rq_Draw(RQ_CIRCLE, itrP->rState, itrP->pos, itrP->rds, itrP->origin, itrP->clr, RQ_SCALE_DEFAULT);
 		else if (itrP->type == PTC_SPRITE) rq_Draw(RQ_SPRITE, itrP->rState, itrP->pos, itrP->id, RQ_TEX_NORECT, itrP->origin, itrP->rot, Vector2f(itrP->scale, itrP->scale), itrP->clr_spr);
-		else if (itrP->type == PTC_SHARD) {
-			va_DrawPolygonReg(VA_LINE, NULL, itrP->v_count, itrP->pos, itrP->rds, itrP->rot, itrP->clr);
-		//	sfVertexArray_clear(ptc_va);
-		//	for (int i = 0; i <= itrP->v_count; i++) sfVertexArray_append(ptc_va, Vertex(v_Add(itrP->pos, v_RotateD(Vector2f(itrP->rds, 0.f), itrP->rot + i * (360.f / (float)itrP->v_count))), itrP->clr));
-		//	rq_Draw(RQ_VA, itrP->rState, ptc_va);
-		}
+		else if (itrP->type == PTC_SHARD) va_DrawPolygonReg(VA_LINE, NULL, itrP->v_count, itrP->pos, itrP->rds, itrP->rot, itrP->clr);
 		else if (itrP->type == PTC_BLAST) {
 			for (int i = 0; i < 3; i++) {
 				float ltRatio = itrP->lifetime / itrP->lifetime_max;

@@ -24,9 +24,11 @@ void plr_Init() {
 }
 
 void plr_Update() {
-	if (plr_Player.fire_timer > 0.f) plr_Player.fire_timer -= getDeltaTime();
-	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= getDeltaTime();
-	plr_Player.timer_propeller += getDeltaTime();
+	float dt = getDeltaTime();
+
+	if (plr_Player.fire_timer > 0.f) plr_Player.fire_timer -= dt;
+	if (plr_Player.inv_frames > 0.f) plr_Player.inv_frames -= dt;
+	plr_Player.timer_propeller += dt;
 	plr_Control();
 	
 	if (plr_Player.hp <= 0) {
@@ -34,7 +36,7 @@ void plr_Update() {
 			mus_FadeOut();
 			game_SetScrollSpeed(0.f, 2.f);
 		}
-		plr_TimerDeath += getDeltaTime();
+		plr_TimerDeath += dt;
 		if (plr_TimerDeath > 2.f) {
 			gs_ChangeState(GS_MENU);
 			return;
@@ -87,7 +89,12 @@ void plr_Render() {
 	if (plr_Player.inv_frames > 0.f) va_SetColorOverride(plr_ModelShipTemp, itp_Color(sfWhite, sfRed, .5f - .5f * cos(plr_Player.inv_frames * 25.f), itp_Linear));
 	sfRenderWindow_drawVertexArray(window.rw, plr_ModelShipTemp, NULL);
 
-	if (RANDF(0.f, 1.f) < .25f) sfx_PlayerPropeller();
+	static float timerSfx;
+	timerSfx += getDeltaTime();
+	if (timerSfx > .05f) {
+		timerSfx = 0.f;
+		sfx_PlayerPropeller();
+	}
 
 	if (plr_Player.invincible) {
 		va_DrawCircle(VA_LINE, NULL, plr_Player.pos, 35.f, sfWhite);
@@ -123,7 +130,7 @@ void plr_Control() {
 
 	plr_Player.acc = v_Mul(plr_Player.acc, 3000.f);
 	plr_Player.spd = v_Add(plr_Player.spd, v_Mul(plr_Player.acc, getDeltaTime()));
-	plr_Player.spd.x += game_GetScrollSpeed() * .075f;
+	plr_Player.spd.x += game_GetScrollSpeed() * getDeltaTime();
 	plr_Player.spd = v_Mul(plr_Player.spd, pow(.01f, getDeltaTime()));
 	plr_Player.spd.x -= 2.f * max(0.f, plr_Player.pos.x - (game_GetScrollX() + 1820.f));
 	plr_Player.spd.x -= 2.f * min(0.f, plr_Player.pos.x - (game_GetScrollX() + 100.f));

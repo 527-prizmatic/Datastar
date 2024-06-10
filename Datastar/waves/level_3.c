@@ -22,7 +22,13 @@ void lv3_Init() {
 void lv3_Update() {
 	if (snd_GetMusicState() == SND_STOPPED) mus_FadeIn("glow");
 	lv3_TimerGlobal += getDeltaTime();
-	sfx_AmbientLv3();
+
+	static float timerSfx = 0.f;
+	timerSfx += getDeltaTime();
+	if (timerSfx > .0333f) {
+		timerSfx = 0.f;
+		sfx_AmbientLv3();
+	}
 
 	if (game_GetBeatFlag() && lv3_SpawnGlimmers) for (int i = 0; i < lv3_SpawnGlimmers; i++) lv3_spawnGlimmer();
 
