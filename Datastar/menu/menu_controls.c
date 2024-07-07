@@ -36,7 +36,7 @@ void m_ctrl_Update() {
 	}
 	else {
 		if (menu_CtrlSpacePressed) {
-			if (kb_TestRelease(sfKeySpace) || gp_TestIdle(0, GP_BUTTON_A)) menu_CtrlSpacePressed = 0;
+			if (kb_TestIdle(sfKeySpace) && gp_TestIdle(0, GP_BUTTON_A)) menu_CtrlSpacePressed = 0;
 		}
 		else if (window.e.type == sfEvtKeyPressed) {
 			ctrl_MapKeyToControl(window.e.key.code, menu_CtrlEdit);
