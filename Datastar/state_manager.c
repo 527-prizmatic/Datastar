@@ -17,6 +17,7 @@ void gs_Init() {
 		ptc_Init();
 		hud_Init();
 		va_Init();
+		vtn_Init();
 		kb_Enable();
 		gp_Enable();
 		restartClock();

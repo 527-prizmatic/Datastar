@@ -23,8 +23,20 @@ sfVector2f init_LogoA[14];			   /// Current positions for the logo's VA - the A
 
 void init_InitLogoMorph();
 
+VtnVaText* txtBogus;
+
+VtnVaText* txtDiscl1, *txtDiscl2, *txtDiscl3, *txtDiscl4, *txtDiscl5;
+
 void init_Init() {
 	init_InitLogoMorph();
+
+	txtBogus = vtn_Text("ur faith\ndu pavouk\nv moje domaci", 25, TXT_LEFT);
+
+	txtDiscl1 = vtn_Text("THIS GAME IS A WORK OF FICTION.", 28, TXT_CENTER);
+	txtDiscl2 = vtn_Text("ANY RESEMBLANCE TO ACTUAL EVENTS OR LOCALES", 28, TXT_CENTER);
+	txtDiscl3 = vtn_Text("OR PERSONS, LIVING OR DECEASED,", 28, TXT_CENTER);
+	txtDiscl4 = vtn_Text("WOULD BE ENTIRELY COINCIDENTAL.", 28, TXT_CENTER);
+	txtDiscl5 = vtn_Text("ALL RIGHTS RESERVED.", 28, TXT_CENTER);
 }
 
 void init_Update() {
@@ -67,11 +79,11 @@ void init_Render() {
 	va_DrawScreenBorders();
 
 	if (init_TimerGlobal <= 10.f) {
-		vt_DrawText(Vector2f(960.f, 437.5f), "THIS GAME IS A WORK OF FICTION.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.f)) * 64.f, 0.f, 255.f)));
-		vt_DrawText(Vector2f(960.f, 472.5f), "ANY RESEMBLANCE TO ACTUAL EVENTS OR LOCALES", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.5f)) * 64.f, 0.f, 255.f)));
-		vt_DrawText(Vector2f(960.f, 507.5f), "OR PERSONS, LIVING OR DECEASED,", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.f)) * 64.f, 0.f, 255.f)));
-		vt_DrawText(Vector2f(960.f, 542.5f), "WOULD BE ENTIRELY COINCIDENTAL.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.5f)) * 64.f, 0.f, 255.f)));
-		vt_DrawText(Vector2f(960.f, 612.5f), "ALL RIGHTS RESERVED.", 28, TXT_CENTER, ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 6.f)) * 64.f, 0.f, 255.f)));
+		vtn_Draw(txtDiscl1, Vector2f(960.f, 437.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.f )) * 64.f, 0.f, 255.f)));
+		vtn_Draw(txtDiscl2, Vector2f(960.f, 472.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.5f)) * 64.f, 0.f, 255.f)));
+		vtn_Draw(txtDiscl3, Vector2f(960.f, 507.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.f )) * 64.f, 0.f, 255.f)));
+		vtn_Draw(txtDiscl4, Vector2f(960.f, 542.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.5f)) * 64.f, 0.f, 255.f)));
+		vtn_Draw(txtDiscl5, Vector2f(960.f, 612.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 6.f )) * 64.f, 0.f, 255.f)));
 
 		if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) init_TimerGlobal = 10.f;
 	}
@@ -94,9 +106,17 @@ void init_Render() {
 		if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) init_TimerGlobal = 30.f;
 	}
 	else gs_ChangeState(GS_INTRO);
+
+	vtn_Draw(txtBogus, Vector2f(400.f, 400.f), sfRed);
 }
 
-void init_Unload() { }
+void init_Unload() {
+	vtn_DestroyText(txtDiscl1);
+	vtn_DestroyText(txtDiscl2);
+	vtn_DestroyText(txtDiscl3);
+	vtn_DestroyText(txtDiscl4);
+	vtn_DestroyText(txtDiscl5);
+}
 
 void init_InitLogoMorph() {
 	init_LogoCap_Star[0]  = Vector2f( 900.f, 480.f);

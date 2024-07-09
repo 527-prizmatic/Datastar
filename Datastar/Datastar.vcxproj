@@ -183,6 +183,7 @@
     <ClCompile Include="texture_manager.c" />
     <ClCompile Include="tools.c" />
     <ClCompile Include="va_text.c" />
+    <ClCompile Include="va_text_neo.c" />
     <ClCompile Include="va_tools.c" />
     <ClCompile Include="vectors.c" />
     <ClCompile Include="walls.c" />
@@ -237,6 +238,7 @@
     <ClInclude Include="texture_manager.h" />
     <ClInclude Include="tools.h" />
     <ClInclude Include="va_text.h" />
+    <ClInclude Include="va_text_neo.h" />
     <ClInclude Include="va_tools.h" />
     <ClInclude Include="vectors.h" />
     <ClInclude Include="walls.h" />

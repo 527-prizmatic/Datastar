@@ -81,6 +81,17 @@ void va_DrawCircle(VaTypes _type, char* _rstate_id, sfVector2f _o, float _rds, s
 /// \param _clr - Color of the polygon to display
 void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfBool _closed, sfColor _clr);
 
+
+/// Draws a broken line between the given list of points on a render texture.
+/// \param _rt - The render texture to draw onto
+/// \param _type - Primitive type
+/// \param _rstate_id - A string literal containing the ID of the render state to be applied. leave NULL for no shader.
+/// \param _n - How many points in the given list should be displayed
+/// \param _l - An array of sfVector2f data
+/// \param _closed - Whether the shape should be closed
+/// \param _clr - Color of the polygon to display
+void va_DrawPolygonRt(sfRenderTexture* _rt, VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfBool _closed, sfColor _clr);
+
 /// Draws a double frame constituted of two rectangles.
 /// \param _rstate_id - A string literal containing the ID of the render state to be applied. leave NULL for no shader.
 /// \param _r - Bounds of the innermost rectangle. The second one is rendered with a 3-pixel offset outwards in all directions.

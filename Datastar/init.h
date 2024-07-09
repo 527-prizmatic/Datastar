@@ -9,6 +9,8 @@
 #include "sound_manager.h"
 #include "shader_manager.h"
 
+#include "va_text_neo.h"
+
 void init_Init();
 void init_Update();
 void init_Render();

@@ -16,6 +16,14 @@ void va_Draw(sfRenderStates* _rstate) {
 	}
 }
 
+void va_DrawRt(sfRenderTexture* _rt, sfRenderStates* _rstate) {
+	sfRenderTexture_drawVertexArray(_rt, va_va, _rstate);
+	if (ARGS_DOUBLE_RENDER) {
+		va_Translate(va_va, Vector2f(0.f, -1.f));
+		sfRenderTexture_drawVertexArray(_rt, va_va, _rstate);
+	}
+}
+
 void va_SetType(VaTypes _type) {
 	switch (_type) {
 		case VA_LINE: sfVertexArray_setPrimitiveType(va_va, sfLineStrip); break;
@@ -123,6 +131,21 @@ void va_DrawPolygon(VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfB
 	if (_closed) va_AddPoint(_l[0], _clr);
 
 	va_Draw(rs);
+}
+
+void va_DrawPolygonRt(sfRenderTexture* _rt, VaTypes _type, char* _rstate_id, int _n, sfVector2f* _l, sfBool _closed, sfColor _clr) {
+	sfRenderStates* rs = shd_FetchState(_rstate_id);
+	if (rs && !strcmp(_rstate_id, "text")) {
+		sfShader_setColorUniform(rs->shader, "clr", _clr);
+		sfShader_setFloatUniform(rs->shader, "time", gs_TimerGlobal);
+	}
+	va_Clear();
+	va_SetType(_type);
+
+	for (int i = 0; i < _n; i++) va_AddPoint(_l[i], _clr);
+	if (_closed) va_AddPoint(_l[0], _clr);
+
+	va_DrawRt(_rt, rs);
 }
 
 void va_DrawFrame(char* _rstate_id, sfFloatRect _r, sfColor _clr) {

@@ -228,6 +228,9 @@
     <ClCompile Include="enemy\boss_incandesce.c">
       <Filter>Fichiers sources\Game\Entities\Enemy Types</Filter>
     </ClCompile>
+    <ClCompile Include="va_text_neo.c">
+      <Filter>Fichiers sources\Engine\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gamepad.h">
@@ -385,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="enemy\boss_incandesce.h">
       <Filter>Fichiers d%27en-tête\Game\Entities\Enemy Types</Filter>
+    </ClInclude>
+    <ClInclude Include="va_text_neo.h">
+      <Filter>Fichiers d%27en-tête\Engine\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
