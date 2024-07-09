@@ -12,6 +12,7 @@
 #include "shader_manager.h"
 #include "va_tools.h"
 #include "va_text.h"
+#include "va_text_neo.h"
 
 #include "player.h"
 #include "walls.h"

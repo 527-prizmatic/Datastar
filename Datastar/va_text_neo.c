@@ -63,10 +63,10 @@ VtnVaText* vtn_Text(char* _msg, int _size, enum WTxtAlign _align) {
 	}
 
 	float mwidth = longest * _size * 1.25f - _size * .25f + 2.f;
-	float mheight = c * _size * 1.25f - _size * .25f + 1.f;
+	float mheight = c * _size * 1.25f - _size * .25f + 2.f;
 	v->rt = sfRenderTexture_create(mwidth, mheight, sfFalse);
 	sfRenderTexture_clear(v->rt, sfTransparent);
-	for (int i = 0; i < c; i++) vtn_DrawText(v->rt, Vector2f(1.f, i * _size * 1.25f), lines[i], longest, _size, _align, sfWhite);
+	for (int i = 0; i < c; i++) vtn_DrawText(v->rt, Vector2f(1.f, i * _size * 1.25f + 1.f), lines[i], longest, _size, _align, sfWhite);
 
 	for (int i = 0; i < c; i++) free(lines[i]);
 	free(lines);

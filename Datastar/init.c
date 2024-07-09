@@ -23,20 +23,21 @@ sfVector2f init_LogoA[14];			   /// Current positions for the logo's VA - the A
 
 void init_InitLogoMorph();
 
-VtnVaText* txtBogus;
-
-VtnVaText* txtDiscl1, *txtDiscl2, *txtDiscl3, *txtDiscl4, *txtDiscl5;
+VtnVaText* txtDiscl[5], *txtFlash[4];
 
 void init_Init() {
 	init_InitLogoMorph();
 
-	txtBogus = vtn_Text("ur faith\ndu pavouk\nv moje domaci", 25, TXT_LEFT);
+	txtDiscl[0] = vtn_Text("THIS GAME IS A WORK OF FICTION.", 28, TXT_CENTER);
+	txtDiscl[1] = vtn_Text("ANY RESEMBLANCE TO ACTUAL EVENTS OR LOCALES", 28, TXT_CENTER);
+	txtDiscl[2] = vtn_Text("OR PERSONS, LIVING OR DECEASED,", 28, TXT_CENTER);
+	txtDiscl[3] = vtn_Text("WOULD BE ENTIRELY COINCIDENTAL.", 28, TXT_CENTER);
+	txtDiscl[4] = vtn_Text("ALL RIGHTS RESERVED.", 28, TXT_CENTER);
 
-	txtDiscl1 = vtn_Text("THIS GAME IS A WORK OF FICTION.", 28, TXT_CENTER);
-	txtDiscl2 = vtn_Text("ANY RESEMBLANCE TO ACTUAL EVENTS OR LOCALES", 28, TXT_CENTER);
-	txtDiscl3 = vtn_Text("OR PERSONS, LIVING OR DECEASED,", 28, TXT_CENTER);
-	txtDiscl4 = vtn_Text("WOULD BE ENTIRELY COINCIDENTAL.", 28, TXT_CENTER);
-	txtDiscl5 = vtn_Text("ALL RIGHTS RESERVED.", 28, TXT_CENTER);
+	txtFlash[0] = vtn_Text("THIS VIDEO GAME CONTAINS BRIGHT COLORS", 28, TXT_CENTER);
+	txtFlash[1] = vtn_Text("AND FLASHING LIGHTS WHICH MAY CAUSE DISCOMFORT", 28, TXT_CENTER);
+	txtFlash[2] = vtn_Text("OR TRIGGER SEIZURES FOR SENSITIVE PEOPLE.", 28, TXT_CENTER);
+	txtFlash[3] = vtn_Text("REMEMBER TO TAKE FREQUENT BREAKS!", 28, TXT_CENTER);
 }
 
 void init_Update() {
@@ -79,11 +80,9 @@ void init_Render() {
 	va_DrawScreenBorders();
 
 	if (init_TimerGlobal <= 10.f) {
-		vtn_Draw(txtDiscl1, Vector2f(960.f, 437.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.f )) * 64.f, 0.f, 255.f)));
-		vtn_Draw(txtDiscl2, Vector2f(960.f, 472.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 4.5f)) * 64.f, 0.f, 255.f)));
-		vtn_Draw(txtDiscl3, Vector2f(960.f, 507.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.f )) * 64.f, 0.f, 255.f)));
-		vtn_Draw(txtDiscl4, Vector2f(960.f, 542.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 5.5f)) * 64.f, 0.f, 255.f)));
-		vtn_Draw(txtDiscl5, Vector2f(960.f, 612.5f), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - 6.f )) * 64.f, 0.f, 255.f)));
+		for (int i = 0; i < 5; i++) {
+			vtn_Draw(txtDiscl[i], Vector2f(960.f, 437.5f + 35.f * i), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - (4.f + .5f * i))) * 64.f, 0.f, 255.f)));
+		}
 
 		if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) init_TimerGlobal = 10.f;
 	}
@@ -97,25 +96,17 @@ void init_Render() {
 		if ((kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) && init_TimerGlobal < 18.f) init_TimerGlobal = 18.f;
 	}
 	else if (init_TimerGlobal <= 30.f) {
-		for (int i = 0; i < 3; i++) {
-			vt_DrawText(Vector2f(960.f, 475.f + i), "THIS VIDEO GAME CONTAINS BRIGHT COLORS", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
-			vt_DrawText(Vector2f(960.f, 510.f + i), "AND FLASHING LIGHTS WHICH MAY CAUSE DISCOMFORT", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
-			vt_DrawText(Vector2f(960.f, 545.f + i), "OR TRIGGER SEIZURES FOR SENSITIVE PEOPLE.", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
-			vt_DrawText(Vector2f(960.f, 580.f + i), "REMEMBER TO TAKE FREQUENT BREAKS!", 28, TXT_CENTER, ColorA(255, 255, 255, (3.f - i) / 3.f * clamp((5.f - fabs(init_TimerGlobal - 25.f)) * 64.f, 0.f, 255.f)));
+		for (int i = 0; i < 4; i++) {
+			vtn_Draw(txtFlash[i], Vector2f(960.f, 475.f + 35.f * i), ColorA(255, 255, 255, clamp((4.f - fabs(init_TimerGlobal - (24.f + .5f * i))) * 64.f, 0.f, 255.f)));
 		}
 		if (kb_TestPress(sfKeySpace) || gp_TestPress(0, GP_BUTTON_A)) init_TimerGlobal = 30.f;
 	}
 	else gs_ChangeState(GS_INTRO);
-
-	vtn_Draw(txtBogus, Vector2f(400.f, 400.f), sfRed);
 }
 
 void init_Unload() {
-	vtn_DestroyText(txtDiscl1);
-	vtn_DestroyText(txtDiscl2);
-	vtn_DestroyText(txtDiscl3);
-	vtn_DestroyText(txtDiscl4);
-	vtn_DestroyText(txtDiscl5);
+	for (int i = 0; i < 5; i++) vtn_DestroyText(txtDiscl[i]);
+	for (int i = 0; i < 4; i++) vtn_DestroyText(txtFlash[i]);
 }
 
 void init_InitLogoMorph() {

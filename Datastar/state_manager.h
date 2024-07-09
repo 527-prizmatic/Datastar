@@ -14,7 +14,7 @@
 #include "keyboard.h"
 #include "gamepad.h"
 #include "va_tools.h"
-//#include "va_text_neo.h"
+#include "va_text_neo.h"
 #include "savefile.h"
 
 #include "demo.h"
