@@ -1,5 +1,5 @@
 # Datastar :sparkles:
-A small horizontal scrolling shooter in by the purest '80s style, with Asteroids-like vector graphics and music by the formidable Psilovangton. <br/>
+A small horizontal scrolling shooter in by the purest '80s style, with Asteroids-like vector graphics and music by the formidable Psilovangton.
 Developed in two weeks as a midterm practical exam as part of the first formation year in French video game school Game Academy.
 
 The game is still unfinished, and the version that was finally presented to the jury contains three playable levels.
